@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trips</title>
+</head>
+<body>
+    <h1>List of Trips</h1>
+    <a href="/trips/new">Create New Trip</a>
+    <ul>
+        {% for trip in trips %}
+        <li>
+            <strong>{{ trip.name }}</strong> - {{ trip.startDate }} to {{ trip.endDate }}
+            <a href="/trips/edit/{{ trip.id }}">Edit</a> |
+            <a href="/trips/delete/{{ trip.id }}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

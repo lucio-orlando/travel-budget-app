@@ -1,4 +1,4 @@
-package ch.lucio_orlando.travel_budget_app.controller;
+package ch.lucio_orlando.travel_budget_app.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

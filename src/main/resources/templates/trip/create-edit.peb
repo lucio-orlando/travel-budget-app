@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ trip.id ? 'Edit Trip' : 'Create Trip' }}</title>
+</head>
+<body>
+<h1>{{ trip.id ? 'Edit Trip' : 'Create a New Trip' }}</h1>
+<form action="/trips" method="post">
+    <input type="hidden" name="id" value="{{ trip.id }}">
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="{{ trip.name }}" required><br>
+
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" value="{{ trip.startDate | date("yyyy-MM-dd") }}" required><br>
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" value="{{ trip.endDate != null ? trip.endDate | date("yyyy-MM-dd") : '' }}"><br>
+
+    <button type="submit">{{ trip.id ? 'Save Changes' : 'Create Trip' }}</button>
+</form>
+<a href="/trips">Cancel</a>
+</body>
+</html>
