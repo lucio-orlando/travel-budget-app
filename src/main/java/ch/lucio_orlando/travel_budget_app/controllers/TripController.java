@@ -38,7 +38,7 @@ public class TripController {
     public String save(@ModelAttribute Trip trip, @RequestParam String startDate, @RequestParam(required = false) String endDate) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            trip.setStartDate(dateFormat.parse(startDate));
+            trip.setDate(dateFormat.parse(startDate));
 
             if (endDate != null && !endDate.isEmpty()) {
                 trip.setEndDate(dateFormat.parse(endDate));
