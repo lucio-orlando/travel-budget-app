@@ -7,10 +7,8 @@ import java.util.Date;
 @Entity
 public class Expense extends TripComponent {
 
-    @Column(nullable = false)
     private int amount;
 
-    @Column(nullable = false)
     private String category;
 
     private String description;
