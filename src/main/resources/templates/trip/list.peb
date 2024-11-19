@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Trips</title>
-</head>
-<body>
+{% extends "layout" %}
+
+{% block title %}Trips{% endblock %}
+
+{% block content %}
     <h1>List of Trips</h1>
     <a href="/trip/new">Create New Trip</a>
     <ul>
-        {% for trip in trips %}
-        <li>
-            <strong>{{ trip.name }}</strong> - {{ trip.date }} to {{ trip.endDate }}
-            <a href="/trip/edit/{{ trip.id }}">Edit</a> |
-            <a href="/trip/delete/{{ trip.id }}">Delete</a>
-        </li>
-        {% endfor %}
+            {% for trip in trips %}
+            <li>
+                <strong>{{ trip.name }}</strong> - {{ trip.date }} to {{ trip.endDate }}
+                <a href="/trip/edit/{{ trip.id }}">Edit</a> |
+                <a href="/trip/delete/{{ trip.id }}">Delete</a>
+            </li>
+            {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

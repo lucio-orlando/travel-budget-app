@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ href("/assets/css/style.css") }}">
+    <link rel="stylesheet" href="{{ href("/assets/css/fontawesome.css") }}">
+    <title>{% block title %}{% endblock %} - Travel Budget App</title>
+
+    <script src="{{ href("/assets/js/fontawesome.js") }}"></script>
+</head>
+<body>
+{% block content %}{% endblock %}
+</body>
+</html>

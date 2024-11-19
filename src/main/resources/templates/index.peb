@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <title>Travel Budget App</title>
-    <link rel="stylesheet" href="{{ href("/assets/css/style.css") }}">
-</head>
-<body>
-<h1>Welcome to the Travel Budget App!</h1>
-</body>
-</html>
+{% extends "layout" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>Index</h1>
+    <p>Welcome to the index page</p>
+{% endblock %}

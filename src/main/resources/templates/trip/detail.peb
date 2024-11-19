@@ -1,33 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Trips</title>
-</head>
-<body>
-<h1>Detail of Trip</h1>
-<strong>{{ trip.name }}</strong> - {{ trip.date }} to {{ trip.endDate }}
-<a href="/trip/edit/{{ trip.id }}">Edit</a> | <a href="/trip/delete/{{ trip.id }}">Delete</a>
+{% extends "layout" %}
+
+{% block title %}Detail {{ trip.name }}{% endblock %}
+
+{% block content %}
+    <h1>Detail of Trip</h1>
+    <strong>{{ trip.name }}</strong> - {{ trip.date }} to {{ trip.endDate }}
+    <a href="/trip/edit/{{ trip.id }}">Edit</a> | <a href="/trip/delete/{{ trip.id }}">Delete</a>
     {% if trip.isExpenseMode() %}
-    <h2>Expenses</h2>
-    <a href="/trip/{{ trip.id }}/expense">Create New Expense</a>
-    <ul>
-        {% for expense in trip.components %}
-        <li>
-            <strong>{{ expense.name }}</strong> - {{ expense.date }} - {{ expense.amount }}
-            <a href="/trip/{{ trip.id }}/expense/edit/{{ expense.id }}">Edit</a> | <a href="/trip/{{ trip.id }}/expense/delete/{{ expense.id }}">Delete</a>
-        </li>
-        {% endfor %}
-    </ul>
+        <h2>Expenses</h2>
+        <a href="/trip/{{ trip.id }}/expense">Create New Expense</a>
+        <ul>
+            {% for expense in trip.components %}
+            <li>
+                <strong>{{ expense.name }}</strong> - {{ expense.date }} - {{ expense.amount }}
+                <a href="/trip/{{ trip.id }}/expense/edit/{{ expense.id }}">Edit</a> | <a href="/trip/{{ trip.id }}/expense/delete/{{ expense.id }}">Delete</a>
+            </li>
+            {% endfor %}
+        </ul>
     {% elseif trip.isSubTripMode() %}
-    <h2>Sub-Trips</h2>
-    <a href="/trip/new?parentTripId={{ trip.id }}">Create New Sub-Trip</a>
-    <ul>
-        {% for subTrip in trip.components %}
-        <li>
-            <strong>{{ subTrip.name }}</strong> - {{ subTrip.date }} to {{ subTrip.endDate }}
-            <a href="/trip/edit/{{ subTrip.id }}">Edit</a> | <a href="/trip/delete/{{ subTrip.id }}">Delete</a>
-        </li>
-        {% endfor %}
+        <h2>Sub-Trips</h2>
+        <a href="/trip/new?parentTripId={{ trip.id }}">Create New Sub-Trip</a>
+        <ul>
+            {% for subTrip in trip.components %}
+            <li>
+                <strong>{{ subTrip.name }}</strong> - {{ subTrip.date }} to {{ subTrip.endDate }}
+                <a href="/trip/edit/{{ subTrip.id }}">Edit</a> | <a href="/trip/delete/{{ subTrip.id }}">Delete</a>
+            </li>
+            {% endfor %}
+        </ul>
     {% endif %}
-</body>
-</html>
+{% endblock %}
