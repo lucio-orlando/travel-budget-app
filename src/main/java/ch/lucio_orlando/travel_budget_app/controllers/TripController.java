@@ -24,6 +24,16 @@ public class TripController {
         return "trip/list";
     }
 
+    @GetMapping("/{id}")
+    public String detail(@PathVariable Long id, Model model) {
+        Trip trip = tripService.getTripById(id).orElse(null);
+
+        if (trip == null) return "redirect:/trip";
+
+        model.addAttribute("trip", trip);
+        return "trip/detail";
+    }
+
     @GetMapping({"/new", "/edit/{id}"})
     public String form(@PathVariable(required = false) Long id, Model model) {
         Trip trip = (id != null) ? tripService.getTripById(id).orElse(null) : new Trip();
