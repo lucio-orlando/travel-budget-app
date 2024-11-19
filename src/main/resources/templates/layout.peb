@@ -9,6 +9,25 @@
     <script src="{{ href("/assets/js/fontawesome.js") }}"></script>
 </head>
 <body>
+<header>
+    <a href="/">
+        <img src="{{ href('/assets/img/logo.png') }}" alt="Logo">
+    </a>
+
+    <nav>
+        <a class="icon-button light-blue" href="/trip/new">
+            <i class="fa-solid fa-suitcase"></i>
+        </a>
+
+        <a class="icon-button green" href="/trip/new">
+            <i class="fa-solid fa-coins"></i>
+        </a>
+
+        <a class="icon-button" href="/settings">
+            <i class="fa-solid fa-gear"></i>
+        </a>
+    </nav>
+</header>
 {% block content %}{% endblock %}
 </body>
 </html>

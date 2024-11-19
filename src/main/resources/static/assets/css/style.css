@@ -1,0 +1,69 @@
+body {
+    font-size: 18px;
+    color: #27303c;
+    padding: 2rem;
+}
+
+header {
+    background: rgba(255, 255, 255, 1);
+    width: calc(100% - 2rem);
+    border-radius: 1rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+header img {
+    height: 4.25rem;
+}
+
+header nav {
+    font-size: 2rem;
+}
+
+header nav a {
+    margin: .25rem .5rem 0;
+}
+
+.icon-button {
+    background: #27303c;
+    color: white;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    position: relative;
+    transition: all ease .5s;
+    text-decoration: none;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: inline-block;
+}
+
+.icon-button svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.icon-button:hover {
+    background: #1a2025;
+    text-decoration: none;
+}
+
+.icon-button.light-blue {
+    background: #7EADCB;
+}
+
+.icon-button.light-blue:hover {
+    background: #5e8ba3;
+}
+
+.icon-button.green {
+    background: #90EE90;
+}
+
+.icon-button.green:hover {
+    background: #6abf6b;
+}
