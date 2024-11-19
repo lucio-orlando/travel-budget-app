@@ -1,4 +1,10 @@
+
+
 body {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
     font-size: 18px;
     color: #27303c;
     padding: 2rem;
