@@ -19,8 +19,8 @@ public class Trip extends TripComponent {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
-    public Trip(String name, Date startDate, Date endDate) {
-        super(name, startDate);
+    public Trip(String name, Date date, Date endDate) {
+        super(name, date);
         this.endDate = endDate;
     }
 

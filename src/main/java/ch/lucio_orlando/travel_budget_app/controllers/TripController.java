@@ -35,10 +35,10 @@ public class TripController {
     }
 
     @PostMapping
-    public String save(@ModelAttribute Trip trip, @RequestParam String startDate, @RequestParam(required = false) String endDate) {
+    public String save(@ModelAttribute Trip trip, @RequestParam String date, @RequestParam(required = false) String endDate) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            trip.setDate(dateFormat.parse(startDate));
+            trip.setDate(dateFormat.parse(date));
 
             if (endDate != null && !endDate.isEmpty()) {
                 trip.setEndDate(dateFormat.parse(endDate));
