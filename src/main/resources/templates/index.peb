@@ -1,8 +1,0 @@
-{% extends "layout" %}
-
-{% block title %}Home{% endblock %}
-
-{% block content %}
-    <h1>Index</h1>
-    <p>Welcome to the index page</p>
-{% endblock %}

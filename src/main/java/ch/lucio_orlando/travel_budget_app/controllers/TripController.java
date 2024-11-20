@@ -11,20 +11,19 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Controller
-@RequestMapping("/trip")
 public class TripController {
 
     @Autowired
     private TripService tripService;
 
-    @GetMapping
+    @GetMapping({"", "/", "/trip"})
     public String overview(Model model) {
         List<Trip> trips = tripService.getTrips();
         model.addAttribute("trips", trips);
         return "trip/list";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/trip/{id}")
     public String detail(@PathVariable Long id, Model model) {
         Trip trip = tripService.getTripById(id).orElse(null);
 
@@ -34,7 +33,7 @@ public class TripController {
         return "trip/detail";
     }
 
-    @GetMapping({"/new", "/edit/{id}"})
+    @GetMapping({"/trip/new", "/trip/edit/{id}"})
     public String form(@PathVariable(required = false) Long id, Model model) {
         Trip trip = (id != null) ? tripService.getTripById(id).orElse(null) : new Trip();
 
@@ -44,7 +43,7 @@ public class TripController {
         return "trip/create-edit";
     }
 
-    @PostMapping
+    @PostMapping("/trip")
     public String save(@ModelAttribute Trip trip, @RequestParam String date, @RequestParam(required = false) String endDate) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -61,7 +60,7 @@ public class TripController {
         }
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/trip/delete/{id}")
     public String delete(@PathVariable Long id) {
         tripService.deleteTrip(id);
         return "redirect:/trip";
