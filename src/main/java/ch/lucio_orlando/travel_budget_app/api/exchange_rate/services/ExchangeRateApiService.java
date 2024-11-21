@@ -1,8 +1,9 @@
-package ch.lucio_orlando.travel_budget_app.services;
+package ch.lucio_orlando.travel_budget_app.api.exchange_rate.services;
 
 import ch.lucio_orlando.travel_budget_app.models.Currency;
-import ch.lucio_orlando.travel_budget_app.models.api_response.ExchangeCodesResponse;
-import ch.lucio_orlando.travel_budget_app.models.api_response.ExchangeRateResponse;
+import ch.lucio_orlando.travel_budget_app.api.exchange_rate.models.ExchangeCodesResponse;
+import ch.lucio_orlando.travel_budget_app.api.exchange_rate.models.ExchangeRateResponse;
+import ch.lucio_orlando.travel_budget_app.services.CurrencyService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

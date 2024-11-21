@@ -1,4 +1,4 @@
-package ch.lucio_orlando.travel_budget_app.models.api_response;
+package ch.lucio_orlando.travel_budget_app.api.exchange_rate.models;
 
 public record ExchangeRateResponse(
         String result,

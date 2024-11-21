@@ -1,6 +1,6 @@
-package ch.lucio_orlando.travel_budget_app.models.api_response;
+package ch.lucio_orlando.travel_budget_app.api.exchange_rate.models;
 
-import ch.lucio_orlando.travel_budget_app.deserializer.SupportedCodeDeserializer;
+import ch.lucio_orlando.travel_budget_app.api.exchange_rate.deserializer.SupportedCodeDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.List;
