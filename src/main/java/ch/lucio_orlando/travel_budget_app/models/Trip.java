@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,10 @@ public class Trip extends TripComponent {
     private List<TripComponent> components = new ArrayList<>();
 
     private Class<? extends TripComponent> componentType = null;
+
+    private String image;
+
+    private Currency currency;
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -59,6 +64,22 @@ public class Trip extends TripComponent {
     public void removeComponent(TripComponent component) {
         components.remove(component);
         component.setParentTrip(null);
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
     //</editor-fold>
 
