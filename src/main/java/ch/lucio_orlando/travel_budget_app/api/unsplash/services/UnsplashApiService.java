@@ -18,13 +18,28 @@ public class UnsplashApiService {
     }
 
     public String getPhotoUrl(String query) {
-        UnsplashResponse response = webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/photos/random")
-                        .queryParam("query", query)
-                        .build())
-                .retrieve()
-                .bodyToMono(UnsplashResponse.class).block();
-        return response != null ? response.urls().regular() : null;
+          String image =  getRandomPhoto(query);
+        return image != null ? image : getRandomPhoto("travel");
+    }
+
+    private String getRandomPhoto(String query) {
+        try {
+            UnsplashResponse response = webClient.get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/photos/random")
+                            .queryParam("query", query)
+                            .build())
+                    .retrieve()
+                    .bodyToMono(UnsplashResponse.class).block();
+
+            if (response == null || response.errors() != null) {
+                return null;
+            }
+
+            return response.urls().regular();
+
+        } catch (Exception e){
+            return null;
+        }
     }
 }
