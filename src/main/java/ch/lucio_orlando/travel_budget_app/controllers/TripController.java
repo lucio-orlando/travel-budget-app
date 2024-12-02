@@ -1,5 +1,6 @@
 package ch.lucio_orlando.travel_budget_app.controllers;
 
+import ch.lucio_orlando.travel_budget_app.api.unsplash.services.UnsplashApiService;
 import ch.lucio_orlando.travel_budget_app.models.Trip;
 import ch.lucio_orlando.travel_budget_app.services.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class TripController {
 
     @Autowired
     private TripService tripService;
+
+    @Autowired
+    private UnsplashApiService unsplashApiService;
 
     @GetMapping({"", "/", "/trip"})
     public String overview(Model model) {
@@ -52,6 +56,8 @@ public class TripController {
             if (endDate != null && !endDate.isEmpty()) {
                 trip.setEndDate(dateFormat.parse(endDate));
             }
+
+            trip.setImage(unsplashApiService.getPhotoUrl(trip.getName()));
 
             tripService.saveTrip(trip);
             return "redirect:/trip";
