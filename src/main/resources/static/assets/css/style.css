@@ -1,4 +1,7 @@
-
+@import "includes/reset.css";
+@import "includes/header.css";
+@import "includes/font.css";
+@import "includes/box.css";
 
 body {
     font-family: "Raleway", sans-serif;
@@ -7,31 +10,10 @@ body {
     font-style: normal;
     font-size: 18px;
     color: #27303c;
-    padding: 2rem;
+    padding: 11rem 2rem 2rem;
+    background-color: #f2f2f2;
 }
 
-header {
-    background: rgba(255, 255, 255, 1);
-    width: calc(100% - 2rem);
-    border-radius: 1rem;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-}
-
-header img {
-    height: 4rem;
-}
-
-header nav {
-    font-size: 2rem;
-}
-
-header nav a {
-    margin: .25rem .5rem 0;
-}
 
 .icon-button {
     background: #27303c;
@@ -72,4 +54,10 @@ header nav a {
 
 .icon-button.green:hover {
     background: #6abf6b;
+}
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
 }

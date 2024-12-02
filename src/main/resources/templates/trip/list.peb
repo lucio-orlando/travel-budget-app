@@ -3,15 +3,22 @@
 {% block title %}Trips{% endblock %}
 
 {% block content %}
-    <h1>List of Trips</h1>
-    <a href="/trip/new">Create New Trip</a>
-    <ul>
+
+    {% if trips|length == 0 %}
+        <h2 style="text-align: center">Noch keine Trips erstellt.</h2>
+    {% else %}
+        <div class="box-container">
             {% for trip in trips %}
-            <li>
-                <strong>{{ trip.name }}</strong> - {{ trip.date }} to {{ trip.endDate }}
-                <a href="/trip/edit/{{ trip.id }}">Edit</a> |
-                <a href="/trip/delete/{{ trip.id }}">Delete</a>
-            </li>
+                <div class="box">
+                    <div class="box-image" style="background-image: url('{{ trip.image }}')"></div>
+                    <div class="box-info">
+                        <h3>{{ trip.name }}</h3>
+                        <p>{{ trip.date }} to {{ trip.endDate }}</p>
+                        <a href="/trip/edit/{{ trip.id }}">Edit</a> |
+                        <a href="/trip/delete/{{ trip.id }}">Delete</a>
+                    </div>
+                </div>
             {% endfor %}
-    </ul>
+        </div>
+    {% endif %}
 {% endblock %}

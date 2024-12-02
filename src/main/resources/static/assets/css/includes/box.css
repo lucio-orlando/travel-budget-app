@@ -1,0 +1,28 @@
+.box-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.box {
+    width: calc(50% - 10px);
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: .75rem;
+    display: flex;
+    min-height: 19rem;
+    overflow: hidden;
+}
+
+.box-image {
+    width: 35%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+.box-info {
+    width: 65%;
+    padding: 1rem;
+    background-color: #fff;
+}
