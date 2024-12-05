@@ -37,6 +37,10 @@ public abstract class TripComponent {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setParentTrip(Trip parentTrip) {
         this.parentTrip = parentTrip;
     }
