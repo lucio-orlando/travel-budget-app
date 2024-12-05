@@ -4,7 +4,7 @@
     gap: 20px;
 }
 
-.box {
+.box-container .box {
     width: calc(50% - 10px);
     box-sizing: border-box;
     border: 1px solid #ddd;
@@ -12,17 +12,32 @@
     display: flex;
     min-height: 19rem;
     overflow: hidden;
+    position: relative;
 }
 
-.box-image {
+.box-container .box .box-image {
     width: 35%;
     height: 100%;
     background-size: cover;
     background-position: center;
 }
 
-.box-info {
+.box-container .box .box-info {
     width: 65%;
     padding: 1rem;
     background-color: #fff;
+    position: relative;
+}
+
+.box-container .box .box-info .box-info-buttons {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.box-container .box .box-info .delete {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: #FF6347;
 }

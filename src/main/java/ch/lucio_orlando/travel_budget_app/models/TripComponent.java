@@ -3,6 +3,8 @@ package ch.lucio_orlando.travel_budget_app.models;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Entity
@@ -11,19 +13,19 @@ import java.util.Date;
 public abstract class TripComponent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
     @ManyToOne
     @JoinColumn
-    private Trip parentTrip;
+    protected Trip parentTrip;
 
     @Column(nullable = false)
-    private String name;
+    protected String name;
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false)
-    private Date date;
+    protected Date date;
 
     public TripComponent(String name, Date date) {
         this.name = name;
@@ -59,6 +61,12 @@ public abstract class TripComponent {
 
     public Date getDate() {
         return date;
+    }
+
+    public String getDateFormatted() {
+        LocalDate localDate = ((java.sql.Date) date).toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.y");
+        return localDate.format(formatter);
     }
 
     public void setDate(Date date) {

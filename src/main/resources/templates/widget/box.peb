@@ -1,0 +1,33 @@
+{%  macro box(trip) %}
+<div class="box">
+    <div class="box-image" style="background-image: url('{{ trip.image }}')"></div>
+    <div class="box-info">
+        <h2>{{ trip.name }}</h2>
+
+        {% if trip.endDate == null %}
+            <p>{{ trip.dateFormatted }}</p>
+            {% else %}
+            <p>
+                {{ trip.dateFormatted }} - {{ trip.endDateFormatted }}
+                {% if (trip.isActive) %}
+                    <br>
+                    {{ trip.remainingDays }} days left
+                {% endif %}
+            </p>
+        {% endif %}
+
+        <a class="delete" href="/trip/delete/{{ trip.id }}">
+            <i class="fa-solid fa-trash"></i>
+        </a>
+
+        <div class="box-info-buttons">
+            <a class="icon-button light-blue" href="/trip/{{ trip.id }}">
+                <i class="fa-solid fa-eye"></i>
+            </a>
+            <a class="icon-button" href="/trip/edit/{{ trip.id }}">
+                <i class="fa-solid fa-pencil"></i>
+            </a>
+        </div>
+    </div>
+</div>
+{% endmacro %}

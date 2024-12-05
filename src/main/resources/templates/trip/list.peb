@@ -1,3 +1,5 @@
+{% import "widget/box" %}
+
 {% extends "layout" %}
 
 {% block title %}Trips{% endblock %}
@@ -9,15 +11,7 @@
     {% else %}
         <div class="box-container">
             {% for trip in trips %}
-                <div class="box">
-                    <div class="box-image" style="background-image: url('{{ trip.image }}')"></div>
-                    <div class="box-info">
-                        <h3>{{ trip.name }}</h3>
-                        <p>{{ trip.date }} to {{ trip.endDate }}</p>
-                        <a href="/trip/edit/{{ trip.id }}">Edit</a> |
-                        <a href="/trip/delete/{{ trip.id }}">Delete</a>
-                    </div>
-                </div>
+                {{ box(trip) }}
             {% endfor %}
         </div>
     {% endif %}

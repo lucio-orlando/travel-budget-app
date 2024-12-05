@@ -3,6 +3,8 @@ package ch.lucio_orlando.travel_budget_app.models;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Date;
@@ -34,6 +36,12 @@ public class Trip extends TripComponent {
     //<editor-fold desc="Getters and Setters">
     public Date getEndDate() {
         return endDate;
+    }
+
+    public String getEndDateFormatted() {
+        LocalDate localDate = ((java.sql.Date) endDate).toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.y");
+        return localDate.format(formatter);
     }
 
     public void setEndDate(Date endDate) {
@@ -94,5 +102,16 @@ public class Trip extends TripComponent {
 
     public boolean isSubTripMode() {
         return componentType == Trip.class;
+    }
+
+    public int getRemainingDays() {
+        return (int) ((endDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+    }
+
+    public boolean isActive() {
+        if (date.getTime() > new Date().getTime()) {
+            return false;
+        }
+        return endDate.getTime() >= new Date().getTime();
     }
 }

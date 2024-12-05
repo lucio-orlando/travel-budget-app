@@ -9,6 +9,7 @@ header {
     justify-content: space-between;
     position: fixed;
     top: 2rem;
+    z-index: 100;
 }
 
 header img {
