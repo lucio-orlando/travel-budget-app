@@ -1,0 +1,36 @@
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 1rem;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.panel .panel-heading {
+    padding: .5rem 1.5rem;
+    border-bottom: 1px solid #ddd;
+    background-color: #999;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+}
+
+.panel .panel-heading * {
+    display: inline-block;
+}
+
+.panel .panel-heading p {
+    margin-bottom: 0;
+    font-weight: 700;
+}
+
+.panel .panel-body {
+    padding: 1.5rem;
+}
+
+.panel .panel-body *:last-child {
+    margin-bottom: 0;
+}
