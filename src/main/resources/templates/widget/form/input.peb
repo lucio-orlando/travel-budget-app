@@ -1,0 +1,6 @@
+{%  macro input(name, label, required, value, type="text") %}
+    <div class="field">
+        <input type="{{ type }}" name="{{ name }}" id="{{ name }}" value="{{ value }}" {% if required %}required{% endif %}>
+        <label for="{{ name }}">{{ label }}</label>
+    </div>
+{% endmacro %}

@@ -1,26 +1,32 @@
+{% import "widget/form/input" %}
+
 {% extends "layout" %}
 
 {% block title %}{{ trip.id ? 'Edit Trip' : 'New Trip' }}{% endblock %}
 
 {% block content %}
-    <h1>{{ trip.id ? 'Edit Trip' : 'Create a New Trip' }}</h1>
-    <form action="/trip" method="post">
-        <input type="hidden" name="id" value="{{ trip.id }}">
+    <div class="panel">
+        <div class="panel-heading">
+            <p>{{ trip.id ? 'Edit Trip' : 'Create a New Trip' }}</p>
+        </div>
+        <div class="panel-body">
+            <form action="/trip" method="post">
+                <input type="hidden" name="id" value="{{ trip.id }}">
 
-        {% if trip.parentTrip != null %}
-            <input type="hidden" name="parentTrip" value="{{ trip.parentTrip.id }}">
-        {% endif %}
+                {% if trip.parentTrip != null %}
+                    <input type="hidden" name="parentTrip" value="{{ trip.parentTrip.id }}">
+                {% endif %}
 
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="{{ trip.name }}" required><br>
+                {{ input('name', 'Name', true, trip.name) }}
 
-        <label for="date">Start Date:</label>
-        <input type="date" id="date" name="date" value="{{ trip.date | date("yyyy-MM-dd") }}" required><br>
+                {{ input('date', 'Startdatum', true, trip.date | date("yyyy-MM-dd"), 'date') }}
 
-        <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" name="endDate" value="{{ trip.endDate != null ? trip.endDate | date("yyyy-MM-dd") : '' }}"><br>
+                {{ input('endDate', 'Enddatum', false, trip.endDate != null ? trip.endDate | date("yyyy-MM-dd") : '', 'date') }}
 
-        <button type="submit">{{ trip.id ? 'Save Changes' : 'Create Trip' }}</button>
-    </form>
-    <a href="/trip">Cancel</a>
+                <button class="btn" type="submit">{{ trip.id ? 'Save Changes' : 'Create Trip' }}</button>
+            </form>
+            <a class="btn btn-secondary" href="/trip">Cancel</a>
+        </div>
+    </div>
+
 {% endblock %}

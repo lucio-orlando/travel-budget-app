@@ -3,6 +3,7 @@
 @import "includes/panel.css";
 @import "includes/font.css";
 @import "includes/box.css";
+@import "includes/form.css";
 
 body {
     font-family: "Raleway", sans-serif;
