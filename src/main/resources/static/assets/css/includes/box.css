@@ -7,7 +7,7 @@
 .box-container .box {
     width: calc(50% - 10px);
     box-sizing: border-box;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     border-radius: .75rem;
     display: flex;
     min-height: 19rem;
@@ -25,7 +25,7 @@
 .box-container .box .box-info {
     width: 65%;
     padding: 1rem;
-    background-color: #fff;
+    background-color: #fafafa;
     position: relative;
 }
 

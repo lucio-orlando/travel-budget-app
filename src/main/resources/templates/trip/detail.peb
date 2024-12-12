@@ -7,13 +7,23 @@
 {% block content %}
     <div class="panel">
         <div class="panel-heading">
-            <p>{{ trip.name }}</p>
             <p>
-                    {{ trip.dateFormatted }}
-                    {%  if trip.endDate != null %}
-                        - {{ trip.endDateFormatted }}
-                    {% endif %}
+                {{ trip.name }} ({{ trip.dateFormatted }}
+                {%  if trip.endDate != null %}- {{ trip.endDateFormatted }}{% endif %})
             </p>
+            <div>
+                {% if (not trip.isExpenseMode()) %}
+                    <a class="icon-button light-blue small" href="/trip/new/{{ trip.id }}">
+                        <i class="fa-solid fa-suitcase"></i>
+                    </a>
+                {% endif %}
+
+                {% if (not trip.isSubTripMode()) %}
+                    <a class="icon-button green small" href="/trip/new/{{ trip.id }}">
+                        <i class="fa-solid fa-coins"></i>
+                    </a>
+                {% endif %}
+            </div>
         </div>
         <div class="panel-body">
             {% if trip.isExpenseMode() %}
@@ -28,11 +38,11 @@
                     {% endfor %}
                 </ul>
             {% elseif trip.isSubTripMode() %}
-                {% for subTrip in trip.components %}
-                    <div class="box-container">
+                <div class="box-container">
+                    {% for subTrip in trip.components %}
                         {{ box(subTrip) }}
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             {% else %}
                 <p style="text-align: center">Noch keine Sub-Trips oder Ausgaben erfasst.</p>
             {% endif %}

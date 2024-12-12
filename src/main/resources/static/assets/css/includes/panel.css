@@ -8,14 +8,13 @@
 }
 
 .panel .panel-heading {
-    padding: .5rem 1.5rem;
+    padding: .5rem 1rem 0;
     border-bottom: 1px solid #ddd;
-    background-color: #999;
+    background-color: #f2f2f2;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     display: flex;
     justify-content: space-between;
-    color: #fff;
 }
 
 .panel .panel-heading * {

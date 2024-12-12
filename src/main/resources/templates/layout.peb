@@ -31,11 +31,11 @@
 
     <nav>
         <a class="icon-button light-blue" href="/trip/new">
-            <i class="fa-solid fa-suitcase"></i>
+            <i class="fa-solid fa-plus"></i>
         </a>
 
-        <a class="icon-button green" href="/trip/new">
-            <i class="fa-solid fa-coins"></i>
+        <a class="icon-button green" href="/info">
+            <i class="fa-solid fa-circle-info"></i>
         </a>
 
         <a class="icon-button" href="/settings">
