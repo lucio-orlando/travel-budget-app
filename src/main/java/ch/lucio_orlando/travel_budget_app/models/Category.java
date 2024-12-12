@@ -12,11 +12,14 @@ public class Category {
 
     private String name;
 
+    private String color;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Expense> expenses;
 
-    public Category(String name) {
+    public Category(String name, String color) {
         this.name = name;
+        this.color = color;
     }
 
     public Category() {}
@@ -44,6 +47,14 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
     //</editor-fold>
 }
