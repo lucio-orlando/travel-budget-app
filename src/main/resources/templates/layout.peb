@@ -38,7 +38,7 @@
             <i class="fa-solid fa-circle-info"></i>
         </a>
 
-        <a class="icon-button" href="/settings">
+        <a class="icon-button" href="/category">
             <i class="fa-solid fa-gear"></i>
         </a>
     </nav>
