@@ -1,4 +1,5 @@
 {% import "widget/box" %}
+{% import "widget/back-button" %}
 
 {% extends "layout" %}
 
@@ -49,10 +50,6 @@
         </div>
     </div>
 
-    {% if (trip.parentTrip != null) %}
-        <a class="btn btn-secondary" href="/trip/{{ trip.parentTrip.id }}"><i class="fa-solid fa-delete-left"></i> Zurück</a>
-    {% else %}
-        <a class="btn btn-secondary" href="/trip"><i class="fa-solid fa-delete-left"></i> Zurück</a>
-    {% endif %}
+    {{ backButton((trip.parentTrip != null) ? '/trip/' + trip.parentTrip.id : '/trip') }}
 
 {% endblock %}

@@ -26,6 +26,7 @@ body {
     display: inline-block;
     text-decoration: none;
     transition: all ease .5s;
+    cursor: pointer;
 }
 
 .btn:hover {

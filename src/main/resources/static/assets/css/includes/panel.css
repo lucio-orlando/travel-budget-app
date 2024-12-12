@@ -27,7 +27,3 @@
 .panel .panel-body {
     padding: 1.5rem;
 }
-
-.panel .panel-body *:last-child {
-    margin-bottom: 0;
-}

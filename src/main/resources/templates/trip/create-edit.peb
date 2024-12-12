@@ -1,4 +1,5 @@
 {% import "widget/form/input" %}
+{% import "widget/form/buttons" %}
 
 {% extends "layout" %}
 
@@ -17,15 +18,22 @@
                     <input type="hidden" name="parentTrip" value="{{ trip.parentTrip.id }}">
                 {% endif %}
 
-                {{ input('name', 'Name', true, trip.name) }}
+                <div class="grid-row">
+                    <div class="grid-col-50">
+                        {{ input('name', 'Name', true, trip.name) }}
+                    </div>
+                    <div class="grid-col-50">
+                    </div>
+                    <div class="grid-col-50">
+                        {{ input('date', 'Startdatum', true, trip.date | date("yyyy-MM-dd"), 'date') }}
+                    </div>
+                    <div class="grid-col-50">
+                        {{ input('endDate', 'Enddatum', false, trip.endDate != null ? trip.endDate | date("yyyy-MM-dd") : '', 'date') }}
+                    </div>
 
-                {{ input('date', 'Startdatum', true, trip.date | date("yyyy-MM-dd"), 'date') }}
-
-                {{ input('endDate', 'Enddatum', false, trip.endDate != null ? trip.endDate | date("yyyy-MM-dd") : '', 'date') }}
-
-                <button class="btn" type="submit">{{ trip.id ? 'Save Changes' : 'Create Trip' }}</button>
+                </div>
+                {{ formButtons((trip.parentTrip != null) ? '/trip/' + trip.parentTrip.id : '/trip', trip.id ? 'Speichern' : 'Erstellen') }}
             </form>
-            <a class="btn btn-secondary" href="/trip">Cancel</a>
         </div>
     </div>
 
