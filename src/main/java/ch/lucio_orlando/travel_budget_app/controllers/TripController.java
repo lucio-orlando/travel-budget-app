@@ -37,12 +37,22 @@ public class TripController {
         return "trip/detail";
     }
 
-    @GetMapping({"/trip/new", "/trip/edit/{id}"})
-    public String form(@PathVariable(required = false) Long id, Model model) {
-        Trip trip = (id != null) ? tripService.getTripById(id).orElse(null) : new Trip();
-
+    @GetMapping({"/trip/edit/{id}"})
+    public String editForm(@PathVariable() Long id, Model model) {
+        if (id == null) return "redirect:/trip";
+        Trip trip = tripService.getTripById(id).orElse(null);
         if (trip == null) return "redirect:/trip";
 
+        model.addAttribute("trip", trip);
+        return "trip/create-edit";
+    }
+
+    @GetMapping({"/trip/new/{id}", "/trip/new"})
+    public String newForm(@PathVariable(required = false) Long id, Model model) {
+        Trip trip = new Trip();
+        if (id != null) {
+            tripService.getTripById(id).ifPresent(trip::setParentTrip);
+        }
         model.addAttribute("trip", trip);
         return "trip/create-edit";
     }
@@ -58,6 +68,10 @@ public class TripController {
             }
 
             trip.setImage(unsplashApiService.getPhotoUrl(trip.getName()));
+
+            if (trip.getParentTrip() != null) {
+                trip.getParentTrip().addComponent(trip);
+            }
 
             tripService.saveTrip(trip);
             return "redirect:/trip";
