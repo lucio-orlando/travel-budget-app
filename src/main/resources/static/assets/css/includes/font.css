@@ -21,3 +21,17 @@ p {
     font-weight: 400;
     margin-bottom: 1rem;
 }
+
+a {
+    text-decoration: none;
+    color: var(--primrary-color);
+    transition: color ease .5s;
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+a.delete {
+    color: var(--red-color);
+}
