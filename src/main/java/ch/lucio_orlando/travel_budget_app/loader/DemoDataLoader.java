@@ -1,6 +1,8 @@
 package ch.lucio_orlando.travel_budget_app.loader;
 
+import ch.lucio_orlando.travel_budget_app.models.Category;
 import ch.lucio_orlando.travel_budget_app.models.Trip;
+import ch.lucio_orlando.travel_budget_app.repositories.CategoryRepository;
 import ch.lucio_orlando.travel_budget_app.repositories.TripRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class DemoDataLoader {
     @Autowired
     private TripRepository tripRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Value("${app.load-demo-data:false}")
     private boolean loadDemoData;
 
@@ -23,6 +28,7 @@ public class DemoDataLoader {
     public void loadDemoData() {
         if (loadDemoData) {
             loadDemoTrips();
+            loadDemoCategories();
         }
     }
 
@@ -70,4 +76,14 @@ public class DemoDataLoader {
         long randomMillis = ThreadLocalRandom.current().nextLong(offsetMillis - 2 * 24 * 60 * 60 * 1000, offsetMillis + 2 * 24 * 60 * 60 * 1000);
         return new Date(currentTime + randomMillis);
     }
+
+    private void loadDemoCategories() {
+        if (categoryRepository.count() == 0) {
+            categoryRepository.save(new Category("Accommodation", "#FF0000"));
+            categoryRepository.save(new Category("Food", "#00FF00"));
+            categoryRepository.save(new Category("Transport", "#0000FF"));
+            categoryRepository.save(new Category("Activities", "#FFFF00"));
+        }
+    }
+
 }
