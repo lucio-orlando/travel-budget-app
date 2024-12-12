@@ -1,0 +1,17 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    text-align: left;
+}
+
+.table.table-striped tbody tr:nth-child(odd) {
+    background-color: var(--grey-ligth-color);
+}
+
+.table a{
+    margin-left: .5rem;
+    display: inline-block;
+}

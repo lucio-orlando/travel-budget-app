@@ -6,6 +6,7 @@
 @import "includes/font.css";
 @import "includes/box.css";
 @import "includes/form.css";
+@import "includes/table.css";
 
 body {
     font-family: "Raleway", sans-serif;

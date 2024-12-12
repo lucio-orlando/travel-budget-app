@@ -22,6 +22,10 @@ form .field textarea {
     border-radius: 1rem;
 }
 
+form .field input[type="color"] {
+    height: 58px;
+}
+
 form .field input:not([type=submit]):focus,
 form .field select:focus,
 form .field textarea:focus {
