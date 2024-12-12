@@ -12,7 +12,7 @@
                 <p>{{ trip.id ? 'Edit Trip' : 'Create a New Trip' }}</p>
             </div>
             <div class="panel-body">
-d
+
                 <input type="hidden" name="id" value="{{ trip.id }}">
 
                 {% if trip.parentTrip != null %}
