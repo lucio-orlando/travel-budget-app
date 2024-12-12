@@ -1,0 +1,77 @@
+.btn {
+    border: 1px solid var(--primrary-color);
+    color: var(--white-color);
+    background-color: var(--primrary-color);
+    border-radius: 1rem;
+    padding: .5rem 1.5rem;
+    display: inline-block;
+    text-decoration: none;
+    transition: all ease .5s;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: var(--white-color);
+    color: var(--primrary-color);
+    text-decoration: none;
+}
+
+.btn.btn-secondary {
+    border: 1px solid var(--primrary-color);
+    color: var(--primrary-color);
+    background-color: var(--white-color);
+}
+
+.btn.btn-secondary:hover {
+    background: var(--primrary-color);
+    color: var(--white-color);
+    text-decoration: none;
+}
+
+.icon-button {
+    background: var(--primrary-color);
+    color: var(--white-color);
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    position: relative;
+    transition: all ease .5s;
+    text-decoration: none;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: inline-block;
+}
+
+.icon-button.small {
+    width: 3rem;
+    height: 2rem;
+    font-size: 1rem;
+    border-radius: .5rem;
+}
+
+.icon-button svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.icon-button:hover {
+    background: var(--primary-color-hover);
+    color: var(--white-color);
+}
+
+.icon-button.light-blue {
+    background: var(--secondary-color);
+}
+
+.icon-button.light-blue:hover {
+    background: var(--secondary-color-hover);
+}
+
+.icon-button.green {
+    background: var(--green-color);
+}
+
+.icon-button.green:hover {
+    background: var(--green-color-hover);
+}
