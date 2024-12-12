@@ -6,12 +6,13 @@
 {% block title %}{{ trip.id ? 'Edit Trip' : 'New Trip' }}{% endblock %}
 
 {% block content %}
-    <div class="panel">
-        <div class="panel-heading">
-            <p>{{ trip.id ? 'Edit Trip' : 'Create a New Trip' }}</p>
-        </div>
-        <div class="panel-body">
-            <form action="/trip" method="post">
+    <form action="/trip" method="post">
+        <div class="panel">
+            <div class="panel-heading">
+                <p>{{ trip.id ? 'Edit Trip' : 'Create a New Trip' }}</p>
+            </div>
+            <div class="panel-body">
+d
                 <input type="hidden" name="id" value="{{ trip.id }}">
 
                 {% if trip.parentTrip != null %}
@@ -30,11 +31,9 @@
                     <div class="grid-col-50">
                         {{ input('endDate', 'Enddatum', false, trip.endDate != null ? trip.endDate | date("yyyy-MM-dd") : '', 'date') }}
                     </div>
-
                 </div>
-                {{ formButtons((trip.parentTrip != null) ? '/trip/' + trip.parentTrip.id : '/trip', trip.id ? 'Speichern' : 'Erstellen') }}
-            </form>
+            </div>
         </div>
-    </div>
-
+        {{ formButtons((trip.parentTrip != null) ? '/trip/' + trip.parentTrip.id : '/trip', trip.id ? 'Speichern' : 'Erstellen') }}
+    </form>
 {% endblock %}
