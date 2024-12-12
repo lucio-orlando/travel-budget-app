@@ -22,7 +22,7 @@ public class TripController {
 
     @GetMapping({"", "/", "/trip"})
     public String overview(Model model) {
-        List<Trip> trips = tripService.getTrips();
+        List<Trip> trips = tripService.getTrips().stream().filter(trip -> trip.getParentTrip() == null).toList();
         model.addAttribute("trips", trips);
         return "trip/list";
     }
