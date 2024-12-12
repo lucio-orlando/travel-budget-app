@@ -1,8 +1,10 @@
 package ch.lucio_orlando.travel_budget_app.loader;
 
 import ch.lucio_orlando.travel_budget_app.models.Category;
+import ch.lucio_orlando.travel_budget_app.models.Currency;
 import ch.lucio_orlando.travel_budget_app.models.Trip;
 import ch.lucio_orlando.travel_budget_app.repositories.CategoryRepository;
+import ch.lucio_orlando.travel_budget_app.repositories.CurrencyRepository;
 import ch.lucio_orlando.travel_budget_app.repositories.TripRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class DemoDataLoader {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private CurrencyRepository currencyRepository;
+
     @Value("${app.load-demo-data:false}")
     private boolean loadDemoData;
 
@@ -29,6 +34,7 @@ public class DemoDataLoader {
         if (loadDemoData) {
             loadDemoTrips();
             loadDemoCategories();
+            loadDemoCurrency();
         }
     }
 
@@ -83,6 +89,16 @@ public class DemoDataLoader {
             categoryRepository.save(new Category("Food", "#00FF00"));
             categoryRepository.save(new Category("Transport", "#0000FF"));
             categoryRepository.save(new Category("Activities", "#FFFF00"));
+        }
+    }
+
+    private void loadDemoCurrency() {
+        if (currencyRepository.count() == 0) {
+            currencyRepository.save(new Currency("USD", "US Dollar"));
+            currencyRepository.save(new Currency("EUR", "Euro"));
+            currencyRepository.save(new Currency("VND", "Vietnamese Dong"));
+            currencyRepository.save(new Currency("CRC", "Costa Rican Colón"));
+            currencyRepository.save(new Currency("THB", "Thai Baht"));
         }
     }
 
