@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 public class DemoDataLoader {
@@ -27,39 +28,46 @@ public class DemoDataLoader {
 
     private void loadDemoTrips() {
         if (tripRepository.count() == 0) {
-            Trip asiaTrip = getAsiaDemoTrip();
-            Trip vietnamTrip = getVietnamDemoTrip();
+            Trip asiaTrip = createTrip(
+                "Asia-Backpacking",
+                "https://images.unsplash.com/photo-1469487885741-33b975dd5bbc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzgyNTV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzM3NTE2ODd8&ixlib=rb-4.0.3&q=80&w=1080",
+                0,
+                14
+            );
+            Trip vietnamTrip = createTrip(
+                "Vietnam",
+                "https://images.unsplash.com/photo-1578039821447-e3884b8472a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzgyNTV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzQwMTY3ODJ8&ixlib=rb-4.0.3&q=80&w=1080",
+                0,
+                7
+            );
             asiaTrip.addComponent(vietnamTrip);
+
+            Trip centralAmericaTrip = createTrip(
+                "Central America",
+                "https://images.unsplash.com/photo-1704694214588-24f4bae4757b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzgyNTV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzM3NTIzNzR8&ixlib=rb-4.0.3&q=80&w=1080",
+                -14,
+                -7
+            );
+
             tripRepository.save(asiaTrip);
             tripRepository.save(vietnamTrip);
-            tripRepository.save(getCentralAmericaDemoTrip());
+            tripRepository.save(centralAmericaTrip);
         }
     }
 
-    private Trip getAsiaDemoTrip() {
+    private Trip createTrip(String name, String image, int startDayOffset, int durationDays) {
         Trip trip = new Trip();
-        trip.setName("Asian Adventure");
-        trip.setDate(new Date());
-        trip.setEndDate(new Date(System.currentTimeMillis() + 14L * 24 * 60 * 60 * 1000));
-        trip.setImage("https://images.unsplash.com/photo-1469487885741-33b975dd5bbc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzgyNTV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzM3NTE2ODd8&ixlib=rb-4.0.3&q=80&w=1080");
+        trip.setName(name);
+        trip.setDate(randomDateFromNow(startDayOffset));
+        trip.setEndDate(randomDateFromNow(startDayOffset + durationDays));
+        trip.setImage(image);
         return trip;
     }
 
-    private Trip getVietnamDemoTrip() {
-        Trip trip = new Trip();
-        trip.setName("Vietnam");
-        trip.setDate(new Date());
-        trip.setEndDate(new Date(System.currentTimeMillis() + 14L * 24 * 60 * 60 * 1000));
-        trip.setImage("https://images.unsplash.com/photo-1578039821447-e3884b8472a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzgyNTV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzQwMTY3ODJ8&ixlib=rb-4.0.3&q=80&w=1080");
-        return trip;
-    }
-
-    private Trip getCentralAmericaDemoTrip() {
-        Trip trip = new Trip();
-        trip.setName("Central America");
-        trip.setDate(new Date(System.currentTimeMillis() - 14L * 24 * 60 * 60 * 1000));
-        trip.setEndDate(new Date(System.currentTimeMillis() - 14L * 24 * 60 * 60 * 100));
-        trip.setImage("https://images.unsplash.com/photo-1704694214588-24f4bae4757b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzgyNTV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzM3NTIzNzR8&ixlib=rb-4.0.3&q=80&w=1080");
-        return trip;
+    private Date randomDateFromNow(int offsetDays) {
+        long currentTime = System.currentTimeMillis();
+        long offsetMillis = offsetDays * 24L * 60 * 60 * 1000;
+        long randomMillis = ThreadLocalRandom.current().nextLong(offsetMillis - 2 * 24 * 60 * 60 * 1000, offsetMillis + 2 * 24 * 60 * 60 * 1000);
+        return new Date(currentTime + randomMillis);
     }
 }
