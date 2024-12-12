@@ -114,4 +114,8 @@ public class Trip extends TripComponent {
         }
         return endDate.getTime() >= new Date().getTime();
     }
+
+    public void resetComponentType() {
+        componentType = null;
+    }
 }

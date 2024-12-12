@@ -16,9 +16,16 @@
             </p>
         {% endif %}
 
-        <a class="delete" href="/trip/delete/{{ trip.id }}">
-            <i class="fa-solid fa-trash"></i>
-        </a>
+        {% if (trip.parentTrip != null) %}
+            <a class="delete" href="/trip/delete/{{ trip.id }}/{{ trip.parentTrip.id }}">
+                <i class="fa-solid fa-trash"></i>
+            </a>
+        {% else %}
+            <a class="delete" href="/trip/delete/{{ trip.id }}">
+                <i class="fa-solid fa-trash"></i>
+            </a>
+        {% endif %}
+
 
         <div class="box-info-buttons">
             <a class="icon-button light-blue" href="/trip/{{ trip.id }}">

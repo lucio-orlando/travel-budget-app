@@ -29,4 +29,14 @@ public class TripService {
     public void deleteTrip(Long id) {
         tripRepository.deleteById(id);
     }
+
+    public void checkComponentType(Trip trip) {
+        if (trip == null) return;
+
+        if (trip.getComponents().isEmpty()) {
+            trip.resetComponentType();
+        }
+
+        this.saveTrip(trip);
+    }
 }

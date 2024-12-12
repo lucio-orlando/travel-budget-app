@@ -80,9 +80,13 @@ public class TripController {
         }
     }
 
-    @GetMapping("/trip/delete/{id}")
-    public String delete(@PathVariable Long id) {
+    @GetMapping({"/trip/delete/{id}", "/trip/delete/{id}/{parentTripId}"})
+    public String delete(@PathVariable Long id, @PathVariable(required = false) Long parentTripId) {
         tripService.deleteTrip(id);
+        if (parentTripId != null) {
+            tripService.checkComponentType(tripService.getTripById(parentTripId).orElse(null));
+            return "redirect:/trip/" + parentTripId;
+        }
         return "redirect:/trip";
     }
 }
