@@ -10,8 +10,8 @@ form .field input:not([type=submit]),
 form .field select,
 form .field textarea {
     padding: 1rem;
-    border: 1px solid #ddd;
-    color: #27303c;
+    border: 1px solid var(--grey-color);
+    color: var(--primrary-color);
     background-color: transparent;
     transition: all ease-in-out .2s;
     top: 0;
@@ -25,24 +25,24 @@ form .field textarea {
 form .field input:not([type=submit]):focus,
 form .field select:focus,
 form .field textarea:focus {
-    border-color: #27303c;
+    border-color: var(--primrary-color);
 }
 
 form .field input:not([type=submit]):focus~label,
 form .field select:focus~label,
 form .field textarea:focus~label {
-    color: #27303c;
+    color: var(--primrary-color);
 }
 
 html body form .field label {
     top: -.75rem;
     left: 1rem;
-    color: #9a9a9a;
+    color: var(--grey-dark-color);
     position: absolute;
     pointer-events: none;
     transition: .2s ease-in-out;
     padding: 0 .5rem;
-    background-color: #fff;
+    background-color: var(--white-color);
     width: fit-content !important;
     letter-spacing: 1px;
     z-index: 1;

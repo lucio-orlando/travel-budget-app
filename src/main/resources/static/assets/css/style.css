@@ -1,4 +1,5 @@
 @import "includes/reset.css";
+@import "includes/colors.css";
 @import "includes/header.css";
 @import "includes/panel.css";
 @import "includes/font.css";
@@ -11,14 +12,14 @@ body {
     font-weight: 400;
     font-style: normal;
     font-size: 18px;
-    color: #27303c;
+    color: var(--primrary-color);
     padding: 11rem 2rem 2rem;
 }
 
 .btn {
-    border: 1px solid #27303c;
-    color: #fff;
-    background-color: #27303c;
+    border: 1px solid var(--primrary-color);
+    color: var(--white-color);
+    background-color: var(--primrary-color);
     border-radius: 1rem;
     padding: .5rem 1.5rem;
     display: inline-block;
@@ -27,26 +28,26 @@ body {
 }
 
 .btn:hover {
-    background: #fff;
-    color: #27303c;
+    background: var(--white-color);
+    color: var(--primrary-color);
     text-decoration: none;
 }
 
 .btn.btn-secondary {
-    border: 1px solid #27303c;
-    color: #27303c;
-    background-color: #fff;
+    border: 1px solid var(--primrary-color);
+    color: var(--primrary-color);
+    background-color: var(--white-color);
 }
 
 .btn.btn-secondary:hover {
-    background: #27303c;
-    color: #fff;
+    background: var(--primrary-color);
+    color: var(--white-color);
     text-decoration: none;
 }
 
 .icon-button {
-    background: #27303c;
-    color: #fff;
+    background: var(--primrary-color);
+    color: var(--white-color);
     border-radius: 1rem;
     font-size: 1.5rem;
     position: relative;
@@ -72,24 +73,24 @@ body {
 }
 
 .icon-button:hover {
-    background: #1a2025;
+    background: var(--primary-color-hover);
     text-decoration: none;
 }
 
 .icon-button.light-blue {
-    background: #7EADCB;
+    background: var(--secondary-color);
 }
 
 .icon-button.light-blue:hover {
-    background: #5e8ba3;
+    background: var(--secondary-color-hover);
 }
 
 .icon-button.green {
-    background: #90EE90;
+    background: var(--green-color);
 }
 
 .icon-button.green:hover {
-    background: #6abf6b;
+    background: var(--green-color-hover);
 }
 
 .container {
