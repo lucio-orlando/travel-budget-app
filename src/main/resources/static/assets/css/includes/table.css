@@ -18,3 +18,7 @@
     margin-left: .5rem;
     display: inline-block;
 }
+
+.table tr td, .table tr th {
+    padding: .2rem .5rem;
+}
