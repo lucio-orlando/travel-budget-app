@@ -6,7 +6,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +19,8 @@ public class Trip extends TripComponent {
 
     private String image;
 
+    @ManyToOne(targetEntity = Currency.class)
+    @JoinColumn
     private Currency currency;
 
     @Temporal(TemporalType.DATE)
@@ -72,6 +73,10 @@ public class Trip extends TripComponent {
     public void removeComponent(TripComponent component) {
         components.remove(component);
         component.setParentTrip(null);
+    }
+
+    public void setComponents(List<TripComponent> components) {
+        this.components = components;
     }
 
     public String getImage() {

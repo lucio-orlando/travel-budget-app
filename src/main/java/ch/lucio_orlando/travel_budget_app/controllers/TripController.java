@@ -1,7 +1,9 @@
 package ch.lucio_orlando.travel_budget_app.controllers;
 
 import ch.lucio_orlando.travel_budget_app.api.unsplash.services.UnsplashApiService;
+import ch.lucio_orlando.travel_budget_app.models.Currency;
 import ch.lucio_orlando.travel_budget_app.models.Trip;
+import ch.lucio_orlando.travel_budget_app.services.CurrencyService;
 import ch.lucio_orlando.travel_budget_app.services.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,9 @@ public class TripController {
 
     @Autowired
     private TripService tripService;
+
+    @Autowired
+    private CurrencyService currencyService;
 
     @Autowired
     private UnsplashApiService unsplashApiService;
@@ -43,7 +48,9 @@ public class TripController {
         Trip trip = tripService.getTripById(id).orElse(null);
         if (trip == null) return "redirect:/trip";
 
+        List<Currency> currencies = currencyService.getCurrencies();
         model.addAttribute("trip", trip);
+        model.addAttribute("currencies", currencies);
         return "trip/create-edit";
     }
 
@@ -53,18 +60,30 @@ public class TripController {
         if (id != null) {
             tripService.getTripById(id).ifPresent(trip::setParentTrip);
         }
+
+        List<Currency> currencies = currencyService.getCurrencies();
         model.addAttribute("trip", trip);
+        model.addAttribute("currencies", currencies);
         return "trip/create-edit";
     }
 
     @PostMapping("/trip")
-    public String save(@ModelAttribute Trip trip, @RequestParam String date, @RequestParam(required = false) String endDate) {
+    public String save(
+        @ModelAttribute Trip trip,
+        @RequestParam String date,
+        @RequestParam(required = false) String endDate,
+        @RequestParam(required = false) Long currencyId
+    ) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             trip.setDate(dateFormat.parse(date));
 
             if (endDate != null && !endDate.isEmpty()) {
                 trip.setEndDate(dateFormat.parse(endDate));
+            }
+
+            if (currencyId != null) {
+                trip.setCurrency(currencyService.getCurrencyById(currencyId));
             }
 
             trip.setImage(unsplashApiService.getPhotoUrl(trip.getName()));
@@ -76,6 +95,7 @@ public class TripController {
             tripService.saveTrip(trip);
             return "redirect:/trip";
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return "error";
         }
     }

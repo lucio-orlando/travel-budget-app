@@ -1,4 +1,5 @@
 {% import "widget/form/input" %}
+{% import "widget/form/select" %}
 {% import "widget/form/buttons" %}
 
 {% extends "layout" %}
@@ -24,12 +25,13 @@
                         {{ input('name', 'Name', true, trip.name) }}
                     </div>
                     <div class="grid-col-50">
+                        {{ select('currency', 'Default currency', false, currencies, 'id', 'code', (trip.currency != null) ? trip.currency.id : null) }}
                     </div>
                     <div class="grid-col-50">
-                        {{ input('date', 'Startdatum', true, trip.date | date("yyyy-MM-dd"), 'date') }}
+                        {{ input('date', 'Start date', true, trip.date | date("yyyy-MM-dd"), 'date') }}
                     </div>
                     <div class="grid-col-50">
-                        {{ input('endDate', 'Enddatum', false, trip.endDate != null ? trip.endDate | date("yyyy-MM-dd") : '', 'date') }}
+                        {{ input('endDate', 'End date', false, trip.endDate != null ? trip.endDate | date("yyyy-MM-dd") : '', 'date') }}
                     </div>
                 </div>
             </div>
