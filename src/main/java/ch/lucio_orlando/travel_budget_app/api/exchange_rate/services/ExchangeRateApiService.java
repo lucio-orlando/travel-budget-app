@@ -39,9 +39,9 @@ public class ExchangeRateApiService {
 
         if (response != null && response.isSuccessful()) {
             if (response.conversion_result() != 0) {
-                return response.conversion_result();
+                return roundToNext05(response.conversion_result());
             } else if (response.exchangeRate() != 0) {
-                return response.exchangeRate() * amount;
+                return roundToNext05(response.exchangeRate() * amount);
             }
         }
 
@@ -65,5 +65,9 @@ public class ExchangeRateApiService {
         } else {
             throw new RuntimeException("Failed to load supported currencies");
         }
+    }
+
+    private double roundToNext05(double value) {
+        return Math.ceil(value / 0.05) * 0.05;
     }
 }
