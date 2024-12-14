@@ -69,7 +69,7 @@ public abstract class TripComponent {
 
     public String getDateFormatted() {
         LocalDate localDate = ((java.sql.Date) date).toLocalDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.y");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return localDate.format(formatter);
     }
 

@@ -37,7 +37,7 @@ public class Trip extends TripComponent {
 
     public String getEndDateFormatted() {
         LocalDate localDate = ((java.sql.Date) endDate).toLocalDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.y");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return localDate.format(formatter);
     }
 
