@@ -19,10 +19,6 @@ public class Trip extends TripComponent {
 
     private String image;
 
-    @ManyToOne(targetEntity = Currency.class)
-    @JoinColumn
-    private Currency currency;
-
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
@@ -85,14 +81,6 @@ public class Trip extends TripComponent {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public Currency getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
     }
     //</editor-fold>
 

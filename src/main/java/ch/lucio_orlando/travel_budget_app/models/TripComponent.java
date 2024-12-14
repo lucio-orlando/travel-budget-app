@@ -27,6 +27,10 @@ public abstract class TripComponent {
     @Column(nullable = false)
     protected Date date;
 
+    @ManyToOne(targetEntity = Currency.class)
+    @JoinColumn
+    private Currency currency;
+
     public TripComponent(String name, Date date) {
         this.name = name;
         this.date = date;
@@ -71,6 +75,14 @@ public abstract class TripComponent {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
     //</editor-fold>
 
