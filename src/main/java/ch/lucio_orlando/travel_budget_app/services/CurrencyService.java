@@ -24,4 +24,8 @@ public class CurrencyService {
     public void saveCurrency(Currency currency) {
         currencyRepository.save(currency);
     }
+
+    public Currency getCurrencyByCode(String code) {
+        return this.getCurrencies().stream().filter(currency -> currency.getCode().equals(code)).findFirst().orElse(null);
+    }
 }
