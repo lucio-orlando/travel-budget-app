@@ -7,7 +7,9 @@ import java.util.Date;
 @Entity
 public class Expense extends TripComponent {
 
-    private int amount;
+    private double amount;
+
+    private double amountCHF;
 
     @ManyToOne(targetEntity = Category.class)
     @JoinColumn
@@ -26,12 +28,20 @@ public class Expense extends TripComponent {
     public Expense() {}
 
     //<editor-fold desc="Getters and Setters">
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public double getAmountCHF() {
+        return amountCHF;
+    }
+
+    public void setAmountCHF(double amountCHF) {
+        this.amountCHF = amountCHF;
     }
 
     public Category getCategory() {

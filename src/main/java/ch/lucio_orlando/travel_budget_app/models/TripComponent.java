@@ -90,5 +90,6 @@ public abstract class TripComponent {
         return this.parentTrip == null;
     }
 
-    public abstract int getAmount();
+    public abstract double getAmount();
+    public abstract double getAmountCHF();
 }

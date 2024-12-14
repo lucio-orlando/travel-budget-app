@@ -85,8 +85,12 @@ public class Trip extends TripComponent {
     //</editor-fold>
 
     @Override
-    public int getAmount() {
-        return components.stream().mapToInt(TripComponent::getAmount).sum();
+    public double getAmount() {
+        return components.stream().mapToDouble(TripComponent::getAmount).sum();
+    }
+
+    public double getAmountCHF() {
+        return components.stream().mapToDouble(TripComponent::getAmountCHF).sum();
     }
 
     public boolean isExpenseMode() {
