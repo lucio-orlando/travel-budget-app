@@ -93,9 +93,8 @@ public class TripController {
             }
 
             tripService.saveTrip(trip);
-            return "redirect:/trip";
+            return "redirect:/trip/" + trip.getId();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return "error";
         }
     }
