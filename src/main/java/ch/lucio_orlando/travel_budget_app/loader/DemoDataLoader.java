@@ -99,6 +99,7 @@ public class DemoDataLoader {
             currencyRepository.save(new Currency("VND", "Vietnamese Dong"));
             currencyRepository.save(new Currency("CRC", "Costa Rican Colón"));
             currencyRepository.save(new Currency("THB", "Thai Baht"));
+            currencyRepository.save(new Currency("CHF", "Swiss Franc"));
         }
     }
 
