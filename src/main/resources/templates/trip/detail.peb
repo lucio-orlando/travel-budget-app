@@ -20,7 +20,7 @@
                 {% endif %}
 
                 {% if (not trip.isSubTripMode()) %}
-                    <a class="icon-button green small" href="/trip/new/{{ trip.id }}">
+                    <a class="icon-button green small" href="/trip/{{ trip.id }}/expense">
                         <i class="fa-solid fa-coins"></i>
                     </a>
                 {% endif %}
@@ -28,16 +28,42 @@
         </div>
         <div class="panel-body">
             {% if trip.isExpenseMode() %}
-                <h2>Expenses</h2>
-                <a href="/trip/{{ trip.id }}/expense">Create New Expense</a>
-                <ul>
-                    {% for expense in trip.components %}
-                    <li>
-                        <strong>{{ expense.name }}</strong> - {{ expense.date }} - {{ expense.amount }}
-                        <a href="/trip/{{ trip.id }}/expense/edit/{{ expense.id }}">Edit</a> | <a href="/trip/{{ trip.id }}/expense/delete/{{ expense.id }}">Delete</a>
-                    </li>
-                    {% endfor %}
-                </ul>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th style="width: 150px">Date</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th style="text-align: right; width: 130px">Amount</th>
+                        <th style="text-align: right; width: 130px">CHF</th>
+                        <th style="text-align: right; width: 80px">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for expense in trip.components %}
+                            <tr>
+                                <td>{{ expense.dateFormatted }}</td>
+                                <td>{{ expense.name }}</td>
+                                <td>{{ expense.category.name }}</td>
+                                <td style="text-align: right">{{ expense.amount }} {{ expense.currency.code }}</td>
+                                <td style="text-align: right">TODO</td>
+                                <td style="text-align: right">
+                                    <a href="/trip/{{ expense.parentTrip.id }}/expense/{{ expense.id }}">
+                                        <i class="fa-solid fa-pencil"></i>
+                                    </a>
+                                    <a href="/trip/{{ expense.parentTrip.id }}/expense/{{ expense.id }}/delete" class="delete">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="4"><strong>Total</strong></td>
+                            <td style="text-align: right"><strong>{{ trip.amountCHF }} CHF</strong></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
             {% elseif trip.isSubTripMode() %}
                 <div class="box-container">
                     {% for subTrip in trip.components %}

@@ -1,0 +1,43 @@
+{% import "widget/form/input" %}
+{% import "widget/form/select" %}
+{% import "widget/form/buttons" %}
+
+{% extends "layout" %}
+
+{% block title %}{{ expense.id ? 'Edit Expense' : 'New Expense' }}{% endblock %}
+
+{% block content %}
+    <form action="/trip/{{ expense.parentTrip.id }}/expense" method="post">
+        <div class="panel">
+            <div class="panel-heading">
+                <p>{{ expense.id ? 'Edit Expense' : 'Create a New Expense' }}</p>
+            </div>
+            <div class="panel-body">
+
+                <input type="hidden" name="id" value="{{ expense.id }}">
+
+                <input type="hidden" name="parentTrip" value="{{ expense.parentTrip.id }}">
+
+                <div class="grid-row">
+                    <div class="grid-col-33">
+                        {{ input('name', 'Name', true, expense.name) }}
+                    </div>
+                    <div class="grid-col-33">
+                        {{ input('date', 'Date', true, expense.date | date("yyyy-MM-dd"), 'date') }}
+                    </div>
+                    <div class="grid-col-33">
+                        {{ input('amount', 'Amount', true, expense.amount) }}
+                    </div>
+                    <div class="grid-col-50">
+                        {{ select('category', 'Category', true, categories, 'id', 'name', (expense.category != null) ? expense.category.id : null) }}
+                    </div>
+                    <div class="grid-col-50">
+                        {{ select('currency', 'Currency', true, currencies, 'id', 'code', (expense.currency != null) ? expense.currency.id : null) }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {{ formButtons('/trip/' + expense.parentTrip.id, expense.id ? 'Save' : 'Create') }}
+    </form>
+{% endblock %}
