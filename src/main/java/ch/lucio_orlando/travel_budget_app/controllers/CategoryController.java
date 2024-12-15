@@ -24,9 +24,10 @@ public class CategoryController {
 
     @GetMapping({"/category/edit/{id}"})
     public String editForm(@PathVariable() Long id, Model model) {
-        if (id == null) return "redirect:/category";
+        if (id == null) return redirect("/404");
+
         Category category = categoryService.getCategoryById(id).orElse(null);
-        if (category == null) return "redirect:/category";
+        if (category == null) return redirect("/404");
 
         model.addAttribute("category", category);
         return "category/create-edit";
@@ -43,15 +44,19 @@ public class CategoryController {
     public String save(@ModelAttribute Category category) {
         try {
             categoryService.saveCategory(category);
-            return "redirect:/category";
+            return redirect("/category");
         } catch (Exception e) {
-            return "error";
+            return redirect("/400");
         }
     }
 
     @GetMapping({"/category/delete/{id}"})
     public String delete(@PathVariable Long id) {
         categoryService.deleteCategory(id);
-        return "redirect:/category";
+        return redirect("/category");
+    }
+
+    private String redirect(String url) {
+        return "redirect:" + url;
     }
 }

@@ -36,7 +36,7 @@ public class TripController {
     public String detail(@PathVariable Long id, Model model) {
         Trip trip = tripService.getTripById(id).orElse(null);
 
-        if (trip == null) return "redirect:/trip";
+        if (trip == null) return redirect("/404");
 
         model.addAttribute("trip", trip);
         return "trip/detail";
@@ -44,9 +44,9 @@ public class TripController {
 
     @GetMapping({"/trip/edit/{id}"})
     public String editForm(@PathVariable() Long id, Model model) {
-        if (id == null) return "redirect:/trip";
+        if (id == null) return redirect("/404");
         Trip trip = tripService.getTripById(id).orElse(null);
-        if (trip == null) return "redirect:/trip";
+        if (trip == null) return redirect("/404");
 
         List<Currency> currencies = currencyService.getCurrencies();
         model.addAttribute("trip", trip);
@@ -93,9 +93,9 @@ public class TripController {
             }
 
             tripService.saveTrip(trip);
-            return "redirect:/trip/" + trip.getId();
+            return redirect("/trip/" + trip.getId());
         } catch (Exception e) {
-            return "error";
+            return redirect("400");
         }
     }
 
@@ -104,8 +104,12 @@ public class TripController {
         tripService.deleteTrip(id);
         if (parentTripId != null) {
             tripService.checkComponentType(tripService.getTripById(parentTripId).orElse(null));
-            return "redirect:/trip/" + parentTripId;
+            return redirect("/trip/" + parentTripId);
         }
-        return "redirect:/trip";
+        return redirect("/trip");
+    }
+
+    private String redirect(String url) {
+        return "redirect:" + url;
     }
 }

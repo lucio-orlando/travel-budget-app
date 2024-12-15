@@ -38,18 +38,12 @@ public class ExpenseController {
 
     @GetMapping({"/trip/{tripId}/expense", "/trip/{tripId}/expense/{id}"})
     public String form(@PathVariable String tripId, @PathVariable(required = false) Long id, Model model) {
-        Expense expense = null;
         Trip parentTrip = tripService.getTripById(Long.parseLong(tripId)).orElse(null);
+        if (parentTrip == null) return redirect("/404");
 
-        if (id != null) {
-            expense = expenseService.getExpenseById(id).orElse(null);
-        } else {
-            expense = new Expense("", 0, null, new Date(), parentTrip.getCurrency());
-        }
+        Expense expense = (id != null) ? expenseService.getExpenseById(id).orElse(null) : new Expense("", 0, null, new Date(), parentTrip.getCurrency());
 
-        if (expense == null || parentTrip == null) {
-            return "redirect:/trip/" + tripId;
-        }
+        if (expense == null) return redirect("/404");
 
         expense.setParentTrip(parentTrip);
 
@@ -89,9 +83,9 @@ public class ExpenseController {
             );
 
             expenseService.saveExpense(expense);
-            return "redirect:/trip/" + tripId;
+            return redirect("/trip/" + tripId);
         } catch (Exception e) {
-            return "error";
+            return redirect("400");
         }
     }
 
@@ -99,6 +93,10 @@ public class ExpenseController {
     public String delete(@PathVariable Long tripId, @PathVariable Long id) {
         expenseService.deleteExpense(id);
         tripService.checkComponentType(tripService.getTripById(tripId).orElse(null));
-        return "redirect:/trip/" + tripId;
+        return redirect("/trip/" + tripId);
+    }
+
+    private String redirect(String url) {
+        return "redirect:" + url;
     }
 }

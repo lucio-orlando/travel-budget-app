@@ -1,0 +1,20 @@
+{% import "widget/back-button" %}
+
+{% extends "layout" %}
+
+{% block title %}404{% endblock %}
+
+{% block content %}
+    <div class="panel">
+        <div class="panel-heading">
+            <p>404 Error</p>
+        </div>
+        <div class="panel-body">
+            <p>
+                <strong>The page you are looking for does not exist.</strong> <br>
+                Please check the URL or click the button below to return to the homepage.
+            </p>
+        </div>
+    </div>
+    {{ backButton('/') }}
+{% endblock %}
