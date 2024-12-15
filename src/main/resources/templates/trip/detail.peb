@@ -14,13 +14,13 @@
             </p>
             <div>
                 {% if (not trip.isExpenseMode()) %}
-                    <a class="icon-button light-blue small" href="/trip/new/{{ trip.id }}">
+                    <a tooltip="add subtrip" class="icon-button light-blue small" href="/trip/new/{{ trip.id }}">
                         <i class="fa-solid fa-suitcase"></i>
                     </a>
                 {% endif %}
 
                 {% if (not trip.isSubTripMode()) %}
-                    <a class="icon-button green small" href="/trip/{{ trip.id }}/expense">
+                    <a tooltip="add expense" class="icon-button green small" href="/trip/{{ trip.id }}/expense">
                         <i class="fa-solid fa-coins"></i>
                     </a>
                 {% endif %}
@@ -48,10 +48,10 @@
                                 <td style="text-align: right">{{ expense.amount }} {{ expense.currency.code }}</td>
                                 <td style="text-align: right">TODO</td>
                                 <td style="text-align: right">
-                                    <a href="/trip/{{ expense.parentTrip.id }}/expense/{{ expense.id }}">
+                                    <a tooltip="edit" href="/trip/{{ expense.parentTrip.id }}/expense/{{ expense.id }}">
                                         <i class="fa-solid fa-pencil"></i>
                                     </a>
-                                    <a href="/trip/{{ expense.parentTrip.id }}/expense/{{ expense.id }}/delete" class="delete">
+                                    <a tooltip="delete" href="/trip/{{ expense.parentTrip.id }}/expense/{{ expense.id }}/delete" class="delete">
                                         <i class="fa-solid fa-trash"></i>
                                     </a>
                                 </td>

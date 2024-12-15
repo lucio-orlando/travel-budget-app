@@ -9,7 +9,7 @@
         <div class="panel-heading">
             <p>Categories</p>
 
-            <a class="icon-button green small" href="/category/new">
+            <a tooltip="add category" class="icon-button green small" href="/category/new">
                 <i class="fa-solid fa-plus"></i>
             </a>
         </div>
@@ -35,10 +35,10 @@
                                 {{ category.name }}
                             </td>
                             <td style="text-align: right">
-                                <a href="/category/edit/{{ category.id }}">
+                                <a tooltip="edit" href="/category/edit/{{ category.id }}">
                                     <i class="fa-solid fa-pencil"></i>
                                 </a>
-                                <a href="/category/delete/{{ category.id }}" class="delete">
+                                <a tooltip="delete" href="/category/delete/{{ category.id }}" class="delete">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
                             </td>
