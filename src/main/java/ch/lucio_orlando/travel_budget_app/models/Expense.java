@@ -15,8 +15,8 @@ public class Expense extends TripComponent {
     @JoinColumn
     private Category category;
 
-    public Expense(String name, int amount, Category category, Date date) {
-        super(name, date);
+    public Expense(String name, double amount, Category category, Date date, Currency currency) {
+        super(name, date, currency);
 
         this.amount = amount;
         this.category = category;

@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -37,8 +38,14 @@ public class ExpenseController {
 
     @GetMapping({"/trip/{tripId}/expense", "/trip/{tripId}/expense/{id}"})
     public String form(@PathVariable String tripId, @PathVariable(required = false) Long id, Model model) {
-        Expense expense = (id != null) ? expenseService.getExpenseById(id).orElse(null) : new Expense();
+        Expense expense = null;
         Trip parentTrip = tripService.getTripById(Long.parseLong(tripId)).orElse(null);
+
+        if (id != null) {
+            expense = expenseService.getExpenseById(id).orElse(null);
+        } else {
+            expense = new Expense("", 0, null, new Date(), parentTrip.getCurrency());
+        }
 
         if (expense == null || parentTrip == null) {
             return "redirect:/trip/" + tripId;

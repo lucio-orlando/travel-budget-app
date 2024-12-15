@@ -36,6 +36,12 @@ public abstract class TripComponent {
         this.date = date;
     }
 
+    public TripComponent(String name, Date date, Currency currency) {
+        this.name = name;
+        this.date = date;
+        this.currency = currency;
+    }
+
     public TripComponent() {}
 
     //<editor-fold desc="Getters and Setters">
