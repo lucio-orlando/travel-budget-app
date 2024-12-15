@@ -15,14 +15,11 @@ public class Expense extends TripComponent {
     @JoinColumn
     private Category category;
 
-    private String description;
-
-    public Expense(String name, int amount, Category category, Date date, String description) {
+    public Expense(String name, int amount, Category category, Date date) {
         super(name, date);
 
         this.amount = amount;
         this.category = category;
-        this.description = description;
     }
 
     public Expense() {}
@@ -50,14 +47,6 @@ public class Expense extends TripComponent {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
     //</editor-fold>
 }
