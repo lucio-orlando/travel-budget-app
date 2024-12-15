@@ -3,9 +3,9 @@ package ch.lucio_orlando.travel_budget_app.loader;
 import ch.lucio_orlando.travel_budget_app.models.Category;
 import ch.lucio_orlando.travel_budget_app.models.Currency;
 import ch.lucio_orlando.travel_budget_app.models.Trip;
-import ch.lucio_orlando.travel_budget_app.repositories.CategoryRepository;
-import ch.lucio_orlando.travel_budget_app.repositories.CurrencyRepository;
-import ch.lucio_orlando.travel_budget_app.repositories.TripRepository;
+import ch.lucio_orlando.travel_budget_app.services.CategoryService;
+import ch.lucio_orlando.travel_budget_app.services.CurrencyService;
+import ch.lucio_orlando.travel_budget_app.services.TripService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,13 +18,13 @@ import java.util.concurrent.ThreadLocalRandom;
 public class DemoDataLoader {
 
     @Autowired
-    private TripRepository tripRepository;
+    private TripService tripService;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
     @Autowired
-    private CurrencyRepository currencyRepository;
+    private CurrencyService currencyService;
 
     @Value("${app.load-demo-data:false}")
     private boolean loadDemoData;
@@ -45,7 +45,7 @@ public class DemoDataLoader {
     }
 
     private void loadDemoTrips() {
-        if (tripRepository.count() == 0) {
+        if (tripService.getTrips().isEmpty()) {
             Trip asiaTrip = createTrip(
                 "Asia-Backpacking",
                 "https://images.unsplash.com/photo-1469487885741-33b975dd5bbc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzgyNTV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzM3NTE2ODd8&ixlib=rb-4.0.3&q=80&w=1080",
@@ -67,9 +67,9 @@ public class DemoDataLoader {
                 -7
             );
 
-            tripRepository.save(asiaTrip);
-            tripRepository.save(vietnamTrip);
-            tripRepository.save(centralAmericaTrip);
+            tripService.saveTrip(asiaTrip);
+            tripService.saveTrip(vietnamTrip);
+            tripService.saveTrip(centralAmericaTrip);
         }
     }
 
@@ -90,22 +90,22 @@ public class DemoDataLoader {
     }
 
     private void loadDemoCategories() {
-        if (categoryRepository.count() == 0) {
-            categoryRepository.save(new Category("Accommodation", "#FF0000"));
-            categoryRepository.save(new Category("Food", "#00FF00"));
-            categoryRepository.save(new Category("Transport", "#0000FF"));
-            categoryRepository.save(new Category("Activities", "#FFFF00"));
+        if (categoryService.getCategories().isEmpty()) {
+            categoryService.saveCategory(new Category("Accommodation", "#FF0000"));
+            categoryService.saveCategory(new Category("Food", "#00FF00"));
+            categoryService.saveCategory(new Category("Transport", "#0000FF"));
+            categoryService.saveCategory(new Category("Activities", "#FFFF00"));
         }
     }
 
     private void loadDemoCurrency() {
-        if (currencyRepository.count() == 0) {
-            currencyRepository.save(new Currency("USD", "US Dollar"));
-            currencyRepository.save(new Currency("EUR", "Euro"));
-            currencyRepository.save(new Currency("VND", "Vietnamese Dong"));
-            currencyRepository.save(new Currency("CRC", "Costa Rican Colón"));
-            currencyRepository.save(new Currency("THB", "Thai Baht"));
-            currencyRepository.save(new Currency("CHF", "Swiss Franc"));
+        if (currencyService.getCurrencies().isEmpty()) {
+            currencyService.saveCurrency(new Currency("USD", "US Dollar"));
+            currencyService.saveCurrency(new Currency("EUR", "Euro"));
+            currencyService.saveCurrency(new Currency("VND", "Vietnamese Dong"));
+            currencyService.saveCurrency(new Currency("CRC", "Costa Rican Colón"));
+            currencyService.saveCurrency(new Currency("THB", "Thai Baht"));
+            currencyService.saveCurrency(new Currency("CHF", "Swiss Franc"));
         }
     }
 
