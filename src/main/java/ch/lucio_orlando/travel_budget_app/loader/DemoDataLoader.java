@@ -29,12 +29,18 @@ public class DemoDataLoader {
     @Value("${app.load-demo-data:false}")
     private boolean loadDemoData;
 
+    @Value("${app.allow-api-calls}")
+    private boolean allowApiCalls;
+
     @PostConstruct
     public void loadDemoData() {
         if (loadDemoData) {
             loadDemoTrips();
             loadDemoCategories();
-            loadDemoCurrency();
+
+            if (!allowApiCalls) {
+                loadDemoCurrency();
+            }
         }
     }
 
