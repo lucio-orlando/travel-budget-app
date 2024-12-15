@@ -11,8 +11,11 @@ import java.util.Optional;
 @Service
 public class TripService {
 
-    @Autowired
-    private TripRepository tripRepository;
+    private final TripRepository tripRepository;
+
+    public TripService(TripRepository tripRepository) {
+        this.tripRepository = tripRepository;
+    }
 
     public void saveTrip(Trip trip) {
         tripRepository.save(trip);

@@ -16,14 +16,15 @@ import java.util.List;
 @Controller
 public class TripController {
 
-    @Autowired
-    private TripService tripService;
+    private final TripService tripService;
+    private final CurrencyService currencyService;
+    private final UnsplashApiService unsplashApiService;
 
-    @Autowired
-    private CurrencyService currencyService;
-
-    @Autowired
-    private UnsplashApiService unsplashApiService;
+    public TripController(TripService tripService, CurrencyService currencyService, UnsplashApiService unsplashApiService) {
+        this.tripService = tripService;
+        this.currencyService = currencyService;
+        this.unsplashApiService = unsplashApiService;
+    }
 
     @GetMapping({"", "/", "/trip"})
     public String overview(Model model) {

@@ -17,20 +17,21 @@ import java.util.concurrent.ThreadLocalRandom;
 @Component
 public class DemoDataLoader {
 
-    @Autowired
-    private TripService tripService;
-
-    @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
-    private CurrencyService currencyService;
+    private final TripService tripService;
+    private final CategoryService categoryService;
+    private final CurrencyService currencyService;
 
     @Value("${app.load-demo-data:false}")
     private boolean loadDemoData;
 
     @Value("${app.allow-api-calls}")
     private boolean allowApiCalls;
+
+    public DemoDataLoader(TripService tripService, CategoryService categoryService, CurrencyService currencyService) {
+        this.tripService = tripService;
+        this.categoryService = categoryService;
+        this.currencyService = currencyService;
+    }
 
     @PostConstruct
     public void loadDemoData() {

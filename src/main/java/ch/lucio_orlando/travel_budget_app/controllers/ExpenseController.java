@@ -21,20 +21,19 @@ import java.util.List;
 @Controller
 public class ExpenseController {
 
-    @Autowired
-    private ExpenseService expenseService;
+    private final ExpenseService expenseService;
+    private final CategoryService categoryService;
+    private final CurrencyService currencyService;
+    private final ExchangeRateApiService exchangeRateApiService;
+    private final TripService tripService;
 
-    @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
-    private CurrencyService currencyService;
-
-    @Autowired
-    private ExchangeRateApiService exchangeRateApiService;
-
-    @Autowired
-    private TripService tripService;
+    public ExpenseController(ExpenseService expenseService, CategoryService categoryService, CurrencyService currencyService, ExchangeRateApiService exchangeRateApiService, TripService tripService) {
+        this.expenseService = expenseService;
+        this.categoryService = categoryService;
+        this.currencyService = currencyService;
+        this.exchangeRateApiService = exchangeRateApiService;
+        this.tripService = tripService;
+    }
 
     @GetMapping({"/trip/{tripId}/expense", "/trip/{tripId}/expense/{id}"})
     public String form(@PathVariable String tripId, @PathVariable(required = false) Long id, Model model) {

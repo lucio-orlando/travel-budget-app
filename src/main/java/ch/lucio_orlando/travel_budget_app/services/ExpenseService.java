@@ -11,8 +11,11 @@ import java.util.Optional;
 @Service
 public class ExpenseService {
 
-    @Autowired
-    private ExpenseRepository expenseRepository;
+    private final ExpenseRepository expenseRepository;
+
+    public ExpenseService(ExpenseRepository expenseRepository) {
+        this.expenseRepository = expenseRepository;
+    }
 
     public void saveExpense(Expense expense) {
         expenseRepository.save(expense);

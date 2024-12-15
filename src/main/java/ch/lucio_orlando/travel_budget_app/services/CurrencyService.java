@@ -10,8 +10,11 @@ import java.util.List;
 @Service
 public class CurrencyService {
 
-    @Autowired
-    private CurrencyRepository currencyRepository;
+    private final CurrencyRepository currencyRepository;
+
+    public CurrencyService(CurrencyRepository currencyRepository) {
+        this.currencyRepository = currencyRepository;
+    }
 
     public List<Currency> getCurrencies() {
         return currencyRepository.findAll();
