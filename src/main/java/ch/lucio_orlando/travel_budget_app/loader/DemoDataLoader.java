@@ -35,12 +35,13 @@ public class DemoDataLoader {
     @PostConstruct
     public void loadDemoData() {
         if (loadDemoData) {
-            loadDemoTrips();
-            loadDemoCategories();
-
             if (!allowApiCalls) {
                 loadDemoCurrency();
             }
+
+            loadDemoTrips();
+            loadDemoCategories();
+
         }
     }
 
@@ -50,13 +51,15 @@ public class DemoDataLoader {
                 "Asia-Backpacking",
                 "https://images.unsplash.com/photo-1469487885741-33b975dd5bbc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzgyNTV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzM3NTE2ODd8&ixlib=rb-4.0.3&q=80&w=1080",
                 0,
-                14
+                14,
+                null
             );
             Trip vietnamTrip = createTrip(
-                "Vietnam",
+                "Thailand",
                 "https://images.unsplash.com/photo-1578039821447-e3884b8472a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzgyNTV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzQwMTY3ODJ8&ixlib=rb-4.0.3&q=80&w=1080",
                 0,
-                7
+                7,
+                "THB"
             );
             asiaTrip.addComponent(vietnamTrip);
 
@@ -64,7 +67,8 @@ public class DemoDataLoader {
                 "Central America",
                 "https://images.unsplash.com/photo-1704694214588-24f4bae4757b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzgyNTV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzM3NTIzNzR8&ixlib=rb-4.0.3&q=80&w=1080",
                 -14,
-                -7
+                -7,
+                "CRC"
             );
 
             tripService.saveTrip(asiaTrip);
@@ -73,12 +77,13 @@ public class DemoDataLoader {
         }
     }
 
-    private Trip createTrip(String name, String image, int startDayOffset, int durationDays) {
+    private Trip createTrip(String name, String image, int startDayOffset, int durationDays, String currencyCode) {
         Trip trip = new Trip();
         trip.setName(name);
         trip.setDate(randomDateFromNow(startDayOffset));
         trip.setEndDate(randomDateFromNow(startDayOffset + durationDays));
         trip.setImage(image);
+        trip.setCurrency(currencyService.getCurrencyByCode(currencyCode));
         return trip;
     }
 
