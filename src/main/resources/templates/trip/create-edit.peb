@@ -36,6 +36,6 @@
                 </div>
             </div>
         </div>
-        {{ formButtons((trip.parentTrip != null) ? '/trip/' + trip.parentTrip.id : '/trip', trip.id ? 'Speichern' : 'Erstellen') }}
+        {{ formButtons((trip.parentTrip != null) ? '/trip/' + trip.parentTrip.id : '/trip', trip.id ? 'Save' : 'Create') }}
     </form>
 {% endblock %}

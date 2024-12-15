@@ -71,7 +71,7 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <p style="text-align: center">Noch keine Sub-Trips oder Ausgaben erfasst.</p>
+                <p style="text-align: center">No sub-trips or expenses</p>
             {% endif %}
         </div>
     </div>

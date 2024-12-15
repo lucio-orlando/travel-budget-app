@@ -7,7 +7,7 @@
 {% block content %}
 
     {% if trips|length == 0 %}
-        <h2 style="text-align: center">Noch keine Trips erstellt.</h2>
+        <h2 style="text-align: center">No trips</h2>
     {% else %}
         <div class="box-container">
             {% for trip in trips %}
