@@ -52,6 +52,7 @@ public class ExpenseController {
         model.addAttribute("categories", categories);
         model.addAttribute("currencies", currencies);
         model.addAttribute("expense", expense);
+        model.addAttribute("errorMessage", null);
         return "expense/create-edit";
     }
 
@@ -60,8 +61,38 @@ public class ExpenseController {
         @PathVariable Long tripId,
         @ModelAttribute Expense expense,
         @RequestParam String date,
-        @RequestParam(required = false) Long currencyId
+        @RequestParam(required = false) Long currencyId,
+        Model model
     ) {
+        if (expense == null) return redirect("400");
+
+        StringBuilder errorMessageBuilder = new StringBuilder();
+
+        if (expense.getCategory() == null) {
+            errorMessageBuilder.append("Category is required. ");
+        }
+        if (expense.getAmount() <= 0) {
+            errorMessageBuilder.append("Amount must be greater than 0. ");
+        }
+        if (expense.getCurrency() == null) {
+            errorMessageBuilder.append("Currency is required. ");
+        }
+        if (expense.getName() == null || expense.getName().isEmpty()) {
+            errorMessageBuilder.append("Name is required. ");
+        }
+        if (date == null || date.isEmpty()) {
+            errorMessageBuilder.append("Date is required. ");
+        }
+        if (!errorMessageBuilder.isEmpty()) {
+            model.addAttribute("errorMessage", errorMessageBuilder.toString().trim());
+            List<Category> categories = categoryService.getCategories();
+            List<Currency> currencies = currencyService.getCurrencies();
+            model.addAttribute("categories", categories);
+            model.addAttribute("currencies", currencies);
+            model.addAttribute("expense", expense);
+            return "expense/create-edit";
+        }
+
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             expense.setDate(dateFormat.parse(date));

@@ -33,6 +33,7 @@ public class CategoryController {
         if (category == null) return redirect("/404");
 
         model.addAttribute("category", category);
+        model.addAttribute("errorMessage", null);
         return "category/create-edit";
     }
 
@@ -40,11 +41,20 @@ public class CategoryController {
     public String newForm(Model model) {
         Category category = new Category();
         model.addAttribute("category", category);
+        model.addAttribute("errorMessage", null);
         return "category/create-edit";
     }
 
     @PostMapping("/category")
-    public String save(@ModelAttribute Category category) {
+    public String save(@ModelAttribute Category category, Model model) {
+        if (category == null) return redirect("/400");
+
+        if (category.getName() == null || category.getName().isEmpty() || category.getColor() == null) {
+            model.addAttribute("category", category);
+            model.addAttribute("errorMessage", "Error: name and color are required.");
+            return "category/create-edit";
+        }
+
         try {
             categoryService.saveCategory(category);
             return redirect("/category");

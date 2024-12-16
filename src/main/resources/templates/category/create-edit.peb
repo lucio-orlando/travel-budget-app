@@ -13,6 +13,12 @@
             </div>
             <div class="panel-body">
 
+                {% if errorMessage != null %}
+                    <div class="error-message">
+                        {{ errorMessage }}
+                    </div>
+                {% endif %}
+
                 <input type="hidden" name="id" value="{{ category.id }}">
 
                 <div class="grid-row">

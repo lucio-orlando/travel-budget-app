@@ -52,6 +52,7 @@ public class TripController {
         List<Currency> currencies = currencyService.getCurrencies();
         model.addAttribute("trip", trip);
         model.addAttribute("currencies", currencies);
+        model.addAttribute("errorMessage", null);
         return "trip/create-edit";
     }
 
@@ -67,6 +68,7 @@ public class TripController {
         List<Currency> currencies = currencyService.getCurrencies();
         model.addAttribute("trip", trip);
         model.addAttribute("currencies", currencies);
+        model.addAttribute("errorMessage", null);
         return "trip/create-edit";
     }
 
@@ -75,8 +77,19 @@ public class TripController {
         @ModelAttribute Trip trip,
         @RequestParam String date,
         @RequestParam(required = false) String endDate,
-        @RequestParam(required = false) Long currencyId
+        @RequestParam(required = false) Long currencyId,
+        Model model
     ) {
+        if (trip == null) return redirect("400");
+
+        if (trip.getName() == null || trip.getName().isEmpty() || date == null || date.isEmpty()) {
+            List<Currency> currencies = currencyService.getCurrencies();
+            model.addAttribute("trip", trip);
+            model.addAttribute("currencies", currencies);
+            model.addAttribute("errorMessage", "Error: name and date are required.");
+            return "trip/create-edit";
+        }
+
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             trip.setDate(dateFormat.parse(date));

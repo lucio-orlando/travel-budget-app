@@ -40,3 +40,11 @@ li {
     margin-bottom: .25rem;
     font-size: 1.25rem;
 }
+
+.error-message {
+    color: var(--red-color);
+    font-weight: 700;
+    padding: .5rem 1.5rem;
+    background-color: var(--red-light-color);
+    margin-bottom: 1rem;
+}
