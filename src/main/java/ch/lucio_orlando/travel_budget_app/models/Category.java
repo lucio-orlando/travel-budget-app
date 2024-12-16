@@ -14,7 +14,7 @@ public class Category {
 
     private String color;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "category", targetEntity = Expense.class)
     private List<Expense> expenses;
 
     public Category(String name, String color) {
