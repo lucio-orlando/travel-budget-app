@@ -51,7 +51,7 @@
                 <li>
                     <strong>Functionalities:</strong>
                     <ul>
-                        <li>Create, edit, and delete trips.</li>
+                        <li>Create and delete trips (edit coming soon).</li>
                         <li>Add subtrips to a main trip or expenses to a trip, but not both simultaneously.</li>
                         <li>
                             Fetch a random image from the Unsplash API based on the trip title upon saving or editing.
@@ -66,7 +66,7 @@
                 <li>
                     <strong>Functionalities:</strong>
                     <ul>
-                        <li>Create, edit, and delete expenses.</li>
+                        <li>Create and delete expenses (edit coming soon).</li>
                         <li>Assign expenses to categories for better tracking.</li>
                         <li>
                             Automatically convert the entered amount from the selected currency to CHF using the
