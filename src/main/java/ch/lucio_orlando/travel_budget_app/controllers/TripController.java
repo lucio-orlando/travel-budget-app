@@ -57,6 +57,8 @@ public class TripController {
 
     @GetMapping({"/trip/new/{id}", "/trip/new"})
     public String newForm(@PathVariable(required = false) Long id, Model model) {
+        // TODO: edit needs to be fixed -> detached entity error
+
         Trip trip = new Trip();
         if (id != null) {
             tripService.getTripById(id).ifPresent(trip::setParentTrip);

@@ -48,9 +48,11 @@
                                 <td style="text-align: right">{{ expense.amount }} {{ expense.currency.code }}</td>
                                 <td style="text-align: right">TODO</td>
                                 <td style="text-align: right">
+                                    <!-- TODO: fix edit error -> detached entity
                                     <a tooltip="edit" href="/trip/{{ expense.parentTrip.id }}/expense/{{ expense.id }}">
                                         <i class="fa-solid fa-pencil"></i>
                                     </a>
+                                    -->
                                     <a tooltip="delete" href="/trip/{{ expense.parentTrip.id }}/expense/{{ expense.id }}/delete" class="delete">
                                         <i class="fa-solid fa-trash"></i>
                                     </a>

@@ -37,6 +37,7 @@ public class ExpenseController {
 
     @GetMapping({"/trip/{tripId}/expense", "/trip/{tripId}/expense/{id}"})
     public String form(@PathVariable String tripId, @PathVariable(required = false) Long id, Model model) {
+        // TODO: edit needs to be fixed -> detached entity error
         Trip parentTrip = tripService.getTripById(Long.parseLong(tripId)).orElse(null);
         if (parentTrip == null) return redirect("/404");
 

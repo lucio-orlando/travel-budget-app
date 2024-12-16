@@ -31,9 +31,11 @@
             <a tooltip="detail" flow="up" class="icon-button light-blue" href="/trip/{{ trip.id }}">
                 <i class="fa-solid fa-eye"></i>
             </a>
+            <!-- TODO: fix edit error -> detached entity
             <a tooltip="edit" flow="up" class="icon-button" href="/trip/edit/{{ trip.id }}">
                 <i class="fa-solid fa-pencil"></i>
             </a>
+            -->
         </div>
     </div>
 </div>
