@@ -46,7 +46,7 @@
                                 <td>{{ expense.name }}</td>
                                 <td>{{ expense.category.name }}</td>
                                 <td style="text-align: right">{{ expense.amount }} {{ expense.currency.code }}</td>
-                                <td style="text-align: right">TODO</td>
+                                <td style="text-align: right">{{ expense.amountCHF }}</td>
                                 <td style="text-align: right">
                                     <!-- TODO: fix edit error -> detached entity
                                     <a tooltip="edit" href="/trip/{{ expense.parentTrip.id }}/expense/{{ expense.id }}">
