@@ -18,15 +18,13 @@
                 <p style="text-align: center; margin-bottom: 0">No categories</p>
             {% else %}
                 <table class="table table--striped">
-                    <thead>
                     <tr>
                         <th>Color</th>
                         <th>Name</th>
                         <th style="text-align: right">Actions</th>
                     </tr>
-                    </thead>
-                    <tbody>
-                            {% for category in categories %}
+
+                    {% for category in categories %}
                         <tr>
                             <td>
                                 <div style="width: 2rem; height: 1rem; background-color: {{ category.color }}"></div>
@@ -43,8 +41,7 @@
                                 </a>
                             </td>
                         </tr>
-                            {% endfor %}
-                    </tbody>
+                    {% endfor %}
                 </table>
             {% endif %}
         </div>

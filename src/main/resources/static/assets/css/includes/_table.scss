@@ -9,7 +9,7 @@
   tr {
 
     &:hover {
-      background-color: $grey-snow;
+      background-color: $grey-snow !important;
     }
 
     td, th {

@@ -456,7 +456,7 @@ body #content .table.table--striped tr:nth-child(odd) {
   background-color: #fafafa;
 }
 body #content .table tr:hover {
-  background-color: #f2f2f2;
+  background-color: #f2f2f2 !important;
 }
 body #content .table tr td, body #content .table tr th {
   padding: 0.2rem 0.5rem;
