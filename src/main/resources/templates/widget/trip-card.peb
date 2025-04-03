@@ -16,15 +16,13 @@
             </p>
         {% endif %}
 
-        {% if (trip.parentTrip != null) %}
-            <a tooltip="delete" flow="left" class="delete trip-card__delete" href="/trip/delete/{{ trip.id }}/{{ trip.parentTrip.id }}">
-                <i class="fa-solid fa-trash"></i>
-            </a>
-        {% else %}
-            <a tooltip="delete" flow="left" class="delete trip-card__delete" href="/trip/delete/{{ trip.id }}">
-                <i class="fa-solid fa-trash"></i>
-            </a>
-        {% endif %}
+        {% set deleteUrl = trip.parentTrip != null
+            ? '/trip/delete/' ~ trip.id ~ '/' ~ trip.parentTrip.id
+            : '/trip/delete/' ~ trip.id
+        %}
+        <a tooltip="delete" flow="left" class="delete trip-card__delete" href="{{ deleteUrl }}">
+            <i class="fa-solid fa-trash"></i>
+        </a>
 
 
         <div class="trip-card__actions">
