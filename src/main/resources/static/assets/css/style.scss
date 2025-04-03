@@ -1,0 +1,55 @@
+@import "includes/reset";
+@import "includes/grid";
+@import "includes/colors";
+
+body {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  color: $blue-charcoal;
+  padding: 11rem 2rem 2rem;
+
+  @import "includes/header";
+  @import "includes/font";
+  @import "includes/button";
+  @import "includes/tooltip";
+
+  .container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  #content {
+    @import "includes/panel";
+    @import "includes/trip-card";
+    @import "includes/form";
+    @import "includes/table";
+
+    ul {
+      list-style-type: disc;
+      margin: 0 0 1rem;
+      padding: 0 1.5rem;
+
+      ul {
+        list-style-type: circle;
+        padding-left: 1.5rem;
+      }
+
+      li {
+        margin-bottom: .25rem;
+        font-size: 1.25rem;
+      }
+    }
+
+    .error-message {
+      color: $red-tomato;
+      font-weight: 700;
+      padding: .5rem 1.5rem;
+      background-color: $red-rose;
+      margin-bottom: 1rem;
+    }
+  }
+}

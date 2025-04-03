@@ -1,0 +1,43 @@
+.trip-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  .trip-card {
+    width: calc(50% - 10px);
+    box-sizing: border-box;
+    border: 2px solid $grey-light;
+    border-radius: .75rem;
+    display: flex;
+    min-height: 19rem;
+    overflow: hidden;
+    position: relative;
+
+    .trip-card__image {
+      width: 35%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .trip-card__info {
+      width: 65%;
+      padding: 1rem;
+      background-color: $grey-cloud;
+      position: relative;
+
+      .trip-card__actions {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+      }
+
+      .trip-card__delete {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        color: $red-tomato;
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h1, h2, h3 {
+  font-weight: 400;
+  margin-bottom: .5rem;
+  border-bottom: 1px solid $blue-charcoal;
+}
+
+p {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: $blue-charcoal;
+  transition: color ease .5s;
+
+  &:hover {
+    color: $blue-powder;
+  }
+
+  &.delete {
+    color: $red-tomato;
+  }
+}

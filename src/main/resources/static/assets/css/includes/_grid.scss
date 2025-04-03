@@ -1,0 +1,53 @@
+.grid-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.grid-col-100 {
+  padding: 0 15px;
+  width: 100%;
+}
+
+.grid-col-50 {
+  padding: 0 15px;
+  width: 50%;
+}
+
+.grid-col-33 {
+  padding: 0 15px;
+  width: 33.3333333333%;
+}
+
+.grid-col-25 {
+  padding: 0 15px;
+  width: 25%;
+}
+
+.grid-col-20 {
+  padding: 0 15px;
+  width: 20%;
+}
+
+@media screen and (max-width: 768px) {
+  .grid-col-100 {
+    width: 100%;
+  }
+
+  .grid-col-50 {
+    width: 100%;
+  }
+
+  .grid-col-33 {
+    width: 100%;
+  }
+
+  .grid-col-25 {
+    width: 100%;
+  }
+
+  .grid-col-20 {
+    width: 100%;
+  }
+}
+
