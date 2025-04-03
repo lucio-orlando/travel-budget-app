@@ -9,7 +9,6 @@ import ch.lucio_orlando.travel_budget_app.services.CategoryService;
 import ch.lucio_orlando.travel_budget_app.services.CurrencyService;
 import ch.lucio_orlando.travel_budget_app.services.ExpenseService;
 import ch.lucio_orlando.travel_budget_app.services.TripService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
+@RequestMapping("/trip")
 public class ExpenseController {
 
     private final ExpenseService expenseService;
@@ -35,7 +35,7 @@ public class ExpenseController {
         this.tripService = tripService;
     }
 
-    @GetMapping({"/trip/{tripId}/expense", "/trip/{tripId}/expense/{id}"})
+    @GetMapping({"/{tripId}/expense", "/{tripId}/expense/{id}"})
     public String form(@PathVariable String tripId, @PathVariable(required = false) Long id, Model model) {
         // TODO: edit needs to be fixed -> detached entity error
         Trip parentTrip = tripService.getTripById(Long.parseLong(tripId)).orElse(null);
@@ -56,7 +56,7 @@ public class ExpenseController {
         return "expense/create-edit";
     }
 
-    @PostMapping("/trip/{tripId}/expense")
+    @PostMapping("/{tripId}/expense")
     public String save(
         @PathVariable Long tripId,
         @ModelAttribute Expense expense,
@@ -120,7 +120,7 @@ public class ExpenseController {
         }
     }
 
-    @GetMapping("/trip/{tripId}/expense/{id}/delete")
+    @GetMapping("/{tripId}/expense/{id}/delete")
     public String delete(@PathVariable Long tripId, @PathVariable Long id) {
         expenseService.deleteExpense(id);
         tripService.checkComponentType(tripService.getTripById(tripId).orElse(null));
