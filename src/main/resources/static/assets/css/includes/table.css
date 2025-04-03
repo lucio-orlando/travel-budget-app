@@ -10,7 +10,7 @@
     text-align: left;
 }
 
-.table.table-striped tbody tr:nth-child(odd) {
+.table.table--striped tbody tr:nth-child(odd) {
     background-color: var(--grey-ligth-color);
 }
 

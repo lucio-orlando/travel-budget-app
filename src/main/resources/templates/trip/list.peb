@@ -1,4 +1,4 @@
-{% import "widget/box" %}
+{% import "widget/trip-card" %}
 
 {% extends "layout" %}
 
@@ -9,9 +9,9 @@
     {% if trips|length == 0 %}
         <h2 style="text-align: center">No trips</h2>
     {% else %}
-        <div class="box-container">
+        <div class="trip-container">
             {% for trip in trips %}
-                {{ box(trip) }}
+                {{ tripCard(trip) }}
             {% endfor %}
         </div>
     {% endif %}

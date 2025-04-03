@@ -30,11 +30,11 @@
     </a>
 
     <nav>
-        <a tooltip="add main trip" class="icon-button light-blue" href="/trip/new">
+        <a tooltip="add main trip" class="icon-button icon-button--blue" href="/trip/new">
             <i class="fa-solid fa-plus"></i>
         </a>
 
-        <a tooltip="info" class="icon-button green" href="/info">
+        <a tooltip="info" class="icon-button icon-button--green" href="/info">
             <i class="fa-solid fa-circle-info"></i>
         </a>
 

@@ -1,7 +1,7 @@
 {% import "widget/back-button" %}
 {%  macro formButtons(backRoute, saveText="Save", backText="Back", backIcon="fa-delete-left") %}
     <div style="display: flex; justify-content: space-between">
-        <a class="btn btn-secondary" href="{{ backRoute }}"><i class="fa-solid {{backIcon}}"></i> {{backText}}</a>
+        <a class="btn btn--secondary" href="{{ backRoute }}"><i class="fa-solid {{backIcon}}"></i> {{backText}}</a>
         <button class="btn" type="submit">{{ saveText }}</button>
     </div>
 {% endmacro %}

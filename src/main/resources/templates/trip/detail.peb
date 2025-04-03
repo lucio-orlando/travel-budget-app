@@ -1,4 +1,4 @@
-{% import "widget/box" %}
+{% import "widget/trip-card" %}
 {% import "widget/back-button" %}
 
 {% extends "layout" %}
@@ -14,13 +14,13 @@
             </p>
             <div>
                 {% if (not trip.isExpenseMode()) %}
-                    <a tooltip="add subtrip" class="icon-button light-blue small" href="/trip/new/{{ trip.id }}">
+                    <a tooltip="add subtrip" class="icon-button icon-button--blue icon-button--small" href="/trip/new/{{ trip.id }}">
                         <i class="fa-solid fa-suitcase"></i>
                     </a>
                 {% endif %}
 
                 {% if (not trip.isSubTripMode()) %}
-                    <a tooltip="add expense" class="icon-button green small" href="/trip/{{ trip.id }}/expense">
+                    <a tooltip="add expense" class="icon-button icon-button--green icon-button--small" href="/trip/{{ trip.id }}/expense">
                         <i class="fa-solid fa-coins"></i>
                     </a>
                 {% endif %}
@@ -28,7 +28,7 @@
         </div>
         <div class="panel-body">
             {% if trip.isExpenseMode() %}
-                <table class="table table-striped">
+                <table class="table table--striped">
                     <thead>
                     <tr>
                         <th style="width: 150px">Date</th>
@@ -67,9 +67,9 @@
                     </tbody>
                 </table>
             {% elseif trip.isSubTripMode() %}
-                <div class="box-container">
+                <div class="trip-container">
                     {% for subTrip in trip.components %}
-                        {{ box(subTrip) }}
+                        {{ tripCard(subTrip) }}
                     {% endfor %}
                 </div>
             {% else %}

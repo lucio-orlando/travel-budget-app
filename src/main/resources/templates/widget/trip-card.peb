@@ -1,7 +1,7 @@
-{%  macro box(trip) %}
-<div class="box">
-    <div class="box-image" style="background-image: url('{{ trip.image }}')"></div>
-    <div class="box-info">
+{%  macro tripCard(trip) %}
+<div class="trip-card">
+    <div class="trip-card__image" style="background-image: url('{{ trip.image }}')"></div>
+    <div class="trip-card__info">
         <h2>{{ trip.name }}</h2>
 
         {% if trip.endDate == null %}
@@ -17,18 +17,18 @@
         {% endif %}
 
         {% if (trip.parentTrip != null) %}
-            <a tooltip="delete" flow="left" class="delete" href="/trip/delete/{{ trip.id }}/{{ trip.parentTrip.id }}">
+            <a tooltip="delete" flow="left" class="delete trip-card__delete" href="/trip/delete/{{ trip.id }}/{{ trip.parentTrip.id }}">
                 <i class="fa-solid fa-trash"></i>
             </a>
         {% else %}
-            <a tooltip="delete" flow="left" class="delete" href="/trip/delete/{{ trip.id }}">
+            <a tooltip="delete" flow="left" class="delete trip-card__delete" href="/trip/delete/{{ trip.id }}">
                 <i class="fa-solid fa-trash"></i>
             </a>
         {% endif %}
 
 
-        <div class="box-info-buttons">
-            <a tooltip="detail" flow="up" class="icon-button light-blue" href="/trip/{{ trip.id }}">
+        <div class="trip-card__actions">
+            <a tooltip="detail" flow="up" class="icon-button icon-button--blue" href="/trip/{{ trip.id }}">
                 <i class="fa-solid fa-eye"></i>
             </a>
             <!-- TODO: fix edit error -> detached entity

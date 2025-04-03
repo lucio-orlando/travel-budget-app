@@ -1,10 +1,10 @@
-.box-container {
+.trip-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
 
-.box-container .box {
+.trip-container .trip-card {
     width: calc(50% - 10px);
     box-sizing: border-box;
     border: 2px solid var(--grey-color);
@@ -15,27 +15,27 @@
     position: relative;
 }
 
-.box-container .box .box-image {
+.trip-container .trip-card .trip-card__image {
     width: 35%;
     height: 100%;
     background-size: cover;
     background-position: center;
 }
 
-.box-container .box .box-info {
+.trip-container .trip-card .trip-card__info {
     width: 65%;
     padding: 1rem;
     background-color: var(--grey-ligth-color);
     position: relative;
 }
 
-.box-container .box .box-info .box-info-buttons {
+.trip-container .trip-card .trip-card__info .trip-card__actions {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
 }
 
-.box-container .box .box-info .delete {
+.trip-container .trip-card .trip-card__info .trip-card__delete {
     position: absolute;
     top: 1rem;
     right: 1rem;
