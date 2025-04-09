@@ -1,0 +1,21 @@
+<div th:fragment="formButtons(backRoute, saveText, backText, backIcon)"
+     style="display: flex; justify-content: space-between">
+
+    <a class="btn btn--secondary" th:href="${backRoute}">
+        <i class="fa-solid" th:classappend=" ${backIcon}"></i>
+        <span th:text="${backText}">Back</span>
+    </a>
+
+    <button class="btn" type="submit" th:text="${saveText}">Save</button>
+</div>
+
+<div th:fragment="formButtonsDefault(backRoute)"
+     style="display: flex; justify-content: space-between">
+
+    <a class="btn btn--secondary" th:href="${backRoute}">
+        <i class="fa-solid fa-delete-left"></i>
+        <span>Back</span>
+    </a>
+
+    <button class="btn" type="submit">Save</button>
+</div>

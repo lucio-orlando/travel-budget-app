@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::content})}">
+
+<th:block th:fragment="title">
+    <th:block th:text="${expense.id != null ? 'Edit Expense' : 'New Expense'}">New Expense</th:block>
+</th:block>
+
+<th:block th:fragment="content">
+    <form th:action="@{'/trip/' + ${expense.parentTrip.id} + '/expense'}" method="post">
+        <div class="panel">
+            <div class="panel-heading">
+                <p th:text="${expense.id != null ? 'Edit Expense' : 'Create a New Expense'}">Create a New Expense</p>
+            </div>
+            <div class="panel-body">
+
+                <div class="error-message" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
+
+                <input type="hidden" name="id" th:value="${expense.id}">
+                <input type="hidden" name="parentTrip" th:value="${expense.parentTrip.id}">
+
+                <div class="grid-row">
+                    <div class="grid-col-33">
+                        <div th:replace="~{widget/form/input :: input('name','Name',true,${expense.name},'text')}"></div>
+                    </div>
+                    <div class="grid-col-33">
+                        <div th:replace="~{widget/form/input :: input('date','Date',true,${#dates.format(expense.date, 'yyyy-MM-dd')},'date')}"></div>
+                    </div>
+                    <div class="grid-col-33">
+                        <div th:replace="~{widget/form/input :: input('amount','Amount',true,${expense.amount},'text')}"></div>
+                    </div>
+                    <div class="grid-col-50">
+                        <div th:replace="~{widget/form/select :: selectName('category','Category',true,${categories},${expense.category != null ? expense.category.id : null})}"></div>
+                    </div>
+                    <div class="grid-col-50">
+                        <div th:replace="~{widget/form/select :: selectCode('currency','Currency',true,${currencies},${expense.currency != null ? expense.currency.id : null})}"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div th:replace="~{widget/form/buttons :: formButtonsDefault(${'/trip/' + expense.parentTrip.id})}"></div>
+    </form>
+</th:block>
+</html>

@@ -1,0 +1,12 @@
+<th:block th:fragment="backButtonDefault(route)">
+    <a class="btn btn--secondary" th:href="${route}">
+        <i class="fa-solid fa-delete-left"></i> Back
+    </a>
+</th:block>
+
+<th:block th:fragment="backButton(route, icon, text)">
+    <a class="btn btn--secondary" th:href="${route}">
+        <i class="fa-solid" th:classappend=" ${icon}"></i>
+        <span th:text="${text}">Back</span>
+    </a>
+</th:block>

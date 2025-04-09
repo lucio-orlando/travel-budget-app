@@ -1,0 +1,12 @@
+<div th:fragment="input(name, label, required, value, type)">
+    <div class="field">
+        <input th:type="${type}"
+               th:name="${name}"
+               th:id="${name}"
+               th:value="${value}"
+               th:attr="required=${required}">
+        <label th:for="${name}">
+            <span th:text="${label}"></span><span th:if="${required}">*</span>
+        </label>
+    </div>
+</div>W

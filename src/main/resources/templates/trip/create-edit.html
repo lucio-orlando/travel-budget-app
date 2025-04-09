@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::content})}">
+
+<th:block th:fragment="title">
+    <th:block th:text="${trip.id != null ? 'Edit Trip' : 'New Trip'}">New Trip</th:block>
+</th:block>
+
+<th:block th:fragment="content">
+    <form th:action="@{'/trip'}" method="post">
+        <div class="panel">
+            <div class="panel-heading">
+                <p th:text="${trip.id != null ? 'Edit Trip' : 'Create a New Trip'}">Create a New Trip</p>
+            </div>
+            <div class="panel-body">
+
+                <div class="error-message" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
+
+                <input type="hidden" name="id" th:value="${trip.id}">
+                <input th:if="${trip.parentTrip != null}" type="hidden" name="parentTrip" th:value="${trip.parentTrip.id}">
+
+                <div class="grid-row">
+                    <div class="grid-col-50">
+                        <div th:replace="~{widget/form/input :: input('name','Name',true,${trip.name},'text')}"></div>
+                    </div>
+                    <div class="grid-col-50">
+                        <div th:replace="~{widget/form/select :: selectCode('currency','Default currency',true,${currencies},${trip.currency != null ? trip.currency.id : null})}"></div>
+                    </div>
+                    <div class="grid-col-50">
+                        <div th:replace="~{widget/form/input :: input('date','Start date',true,${#dates.format(trip.date, 'yyyy-MM-dd')},'date')}"></div>
+                    </div>
+                    <div class="grid-col-50">
+                        <div th:replace="~{widget/form/input :: input('endDate','End date',false,${trip.endDate != null ? #dates.format(trip.endDate, 'yyyy-MM-dd') : ''},'date')}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="~{widget/form/buttons :: formButtonsDefault(${trip.parentTrip != null ? '/trip/' + trip.parentTrip.id : '/trip'})}"></div>
+    </form>
+</th:block>
+</html>

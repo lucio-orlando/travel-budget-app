@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::content})}">
+
+<th:block th:fragment="title">
+    <th:block th:text="${category.id != null ? 'Edit Category' : 'New Category'}">New Category</th:block>
+</th:block>
+
+<th:block th:fragment="content">
+    <form th:action="@{'/category'}" method="post">
+        <div class="panel">
+            <div class="panel-heading">
+                <p th:text="${category.id != null ? 'Edit Category' : 'Create a New Category'}">Create a New Category</p>
+            </div>
+            <div class="panel-body">
+
+                <div class="error-message" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
+
+                <input type="hidden" name="id" th:value="${category.id}">
+
+                <div class="grid-row">
+                    <div class="grid-col-50">
+                        <div th:replace="~{widget/form/input :: input('name','Name',true,${category.name},'text')}"></div>
+                    </div>
+                    <div class="grid-col-50">
+                        <div th:replace="~{widget/form/input :: input('color','Color',true,${category.color},'color')}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="~{widget/form/buttons :: formButtonsDefault(${'/category'})}"></div>
+    </form>
+</th:block>
+</html>

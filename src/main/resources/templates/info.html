@@ -1,10 +1,11 @@
-{% import "widget/back-button" %}
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::content})}">
 
-{% extends "layout" %}
+<th:block th:fragment="title">
+    Info
+</th:block>
 
-{% block title %}Info{% endblock %}
-
-{% block content %}
+<th:block th:fragment="content">
     <div class="panel">
         <div class="panel-heading">
             <p>Travel Budget App</p>
@@ -135,5 +136,6 @@
         </div>
     </div>
 
-    {{ backButton('/') }}
-{% endblock %}
+    <div th:replace="~{widget/back-button :: backButtonDefault('/')}"></div>
+</th:block>
+</html>
