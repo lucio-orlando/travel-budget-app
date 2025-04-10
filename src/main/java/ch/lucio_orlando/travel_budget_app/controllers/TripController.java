@@ -1,11 +1,12 @@
 package ch.lucio_orlando.travel_budget_app.controllers;
 
 import ch.lucio_orlando.travel_budget_app.api.unsplash.services.UnsplashApiService;
+import ch.lucio_orlando.travel_budget_app.exceptions.InvalidDataException;
+import ch.lucio_orlando.travel_budget_app.exceptions.ResourceNotFoundException;
 import ch.lucio_orlando.travel_budget_app.models.Currency;
 import ch.lucio_orlando.travel_budget_app.models.Trip;
 import ch.lucio_orlando.travel_budget_app.services.CurrencyService;
 import ch.lucio_orlando.travel_budget_app.services.TripService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,9 +36,11 @@ public class TripController {
 
     @GetMapping("/trip/{id}")
     public String detail(@PathVariable Long id, Model model) {
+        if (id == null) throw new InvalidDataException("Trip ID is null");
+
         Trip trip = tripService.getTripById(id).orElse(null);
 
-        if (trip == null) return redirect("/404");
+        if (trip == null) throw new ResourceNotFoundException("Trip with ID " + id + " not found");
 
         model.addAttribute("trip", trip);
         return "trip/detail";
@@ -45,9 +48,11 @@ public class TripController {
 
     @GetMapping({"/trip/edit/{id}"})
     public String editForm(@PathVariable() Long id, Model model) {
-        if (id == null) return redirect("/404");
+        if (id == null) throw new InvalidDataException("Trip ID is null");
+
         Trip trip = tripService.getTripById(id).orElse(null);
-        if (trip == null) return redirect("/404");
+
+        if (trip == null) throw new ResourceNotFoundException("Trip with ID " + id + " not found");
 
         List<Currency> currencies = currencyService.getCurrencies();
         model.addAttribute("trip", trip);
@@ -80,7 +85,7 @@ public class TripController {
         @RequestParam(required = false) Long currencyId,
         Model model
     ) {
-        if (trip == null) return redirect("400");
+        if (trip == null) throw new InvalidDataException("Trip is null");
 
         if (trip.getName() == null || trip.getName().isEmpty() || date == null || date.isEmpty()) {
             List<Currency> currencies = currencyService.getCurrencies();
@@ -111,7 +116,7 @@ public class TripController {
             tripService.saveTrip(trip);
             return redirect("/trip/" + trip.getId());
         } catch (Exception e) {
-            return redirect("400");
+            throw new InvalidDataException("Error saving trip: " + e.getMessage(), e);
         }
     }
 

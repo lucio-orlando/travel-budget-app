@@ -11,9 +11,18 @@
             <p>400 Error</p>
         </div>
         <div class="panel-body">
-            <p>
+            <p th:if="${!showException}">
                 <strong>Something went wrong with your request.</strong> <br>
                 Please check the URL or click the button below to return to the homepage.
+            </p>
+            <p th:if="${showException}">
+                <strong th:text="${exception.message}">Exception message</strong>
+            </p>
+            <p th:if="${showException}">
+                Stack trace:<br>
+                <code th:each="line : ${stacktrace}">
+                    <span th:text="${line}">stack trace line</span>
+                </code>
             </p>
         </div>
     </div>

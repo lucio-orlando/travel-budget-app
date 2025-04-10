@@ -1,5 +1,7 @@
 package ch.lucio_orlando.travel_budget_app.controllers;
 
+import ch.lucio_orlando.travel_budget_app.exceptions.InvalidDataException;
+import ch.lucio_orlando.travel_budget_app.exceptions.ResourceNotFoundException;
 import ch.lucio_orlando.travel_budget_app.models.Category;
 import ch.lucio_orlando.travel_budget_app.services.CategoryService;
 import org.springframework.stereotype.Controller;
@@ -27,10 +29,10 @@ public class CategoryController {
 
     @GetMapping("/edit/{id}")
     public String editForm(@PathVariable() Long id, Model model) {
-        if (id == null) return redirect("/404");
+        if (id == null) throw new InvalidDataException("Category ID is null");
 
         Category category = categoryService.getCategoryById(id).orElse(null);
-        if (category == null) return redirect("/404");
+        if (category == null) throw new ResourceNotFoundException("Category with ID " + id + " not found");
 
         model.addAttribute("category", category);
         model.addAttribute("errorMessage", null);
@@ -47,7 +49,7 @@ public class CategoryController {
 
     @PostMapping
     public String save(@ModelAttribute Category category, Model model) {
-        if (category == null) return redirect("/400");
+        if (category == null) throw new InvalidDataException("Category ID is null");
 
         if (category.getName() == null || category.getName().isEmpty() || category.getColor() == null) {
             model.addAttribute("category", category);
@@ -59,7 +61,7 @@ public class CategoryController {
             categoryService.saveCategory(category);
             return redirect("/category");
         } catch (Exception e) {
-            return redirect("/400");
+            throw new InvalidDataException("Error saving category: " + e.getMessage(), e);
         }
     }
 

@@ -1,6 +1,8 @@
 package ch.lucio_orlando.travel_budget_app.controllers;
 
 import ch.lucio_orlando.travel_budget_app.api.exchange_rate.services.ExchangeRateApiService;
+import ch.lucio_orlando.travel_budget_app.exceptions.InvalidDataException;
+import ch.lucio_orlando.travel_budget_app.exceptions.ResourceNotFoundException;
 import ch.lucio_orlando.travel_budget_app.models.Currency;
 import ch.lucio_orlando.travel_budget_app.models.Expense;
 import ch.lucio_orlando.travel_budget_app.models.Trip;
@@ -37,15 +39,17 @@ public class ExpenseController {
     }
 
     @GetMapping({"/{tripId}/expense", "/{tripId}/expense/{id}"})
-    public String form(@PathVariable String tripId, @PathVariable(required = false) Long id, Model model) {
-        Trip parentTrip = tripService.getTripById(Long.parseLong(tripId)).orElse(null);
-        if (parentTrip == null) return redirect("/404");
+    public String form(@PathVariable Long tripId, @PathVariable(required = false) Long id, Model model) {
+        if (tripId == null) throw new InvalidDataException("Trip ID is null");
+
+        Trip parentTrip = tripService.getTripById(tripId).orElse(null);
+        if (parentTrip == null) throw new ResourceNotFoundException("Trip with ID " + tripId + " not found");
 
         Expense expense = (id != null) ?
             expenseService.getExpenseById(id).orElse(null) :
             new Expense("", 0, null, new Date(), parentTrip.getCurrency());
 
-        if (expense == null) return redirect("/404");
+        if (expense == null) throw new ResourceNotFoundException("Expense with ID " + id + " not found");
 
         expense.setParentTrip(parentTrip);
         prepareFormModel(model, expense, null);
@@ -61,7 +65,8 @@ public class ExpenseController {
         @RequestParam(required = false) Long currency,
         Model model
     ) {
-        if (expense == null) return redirect("/400");
+        if (expense == null) throw new InvalidDataException("Expense is null");
+
         Currency selectedCurrency = (currency != null) ? currencyService.getCurrencyById(currency) : null;
         Trip parentTrip = tripService.getTripById(tripId).orElse(null);
 
@@ -79,7 +84,7 @@ public class ExpenseController {
 
             return redirect("/trip/" + tripId);
         } catch (Exception e) {
-            return redirect("/400");
+            throw new InvalidDataException("Error saving expense: " + e.getMessage(), e);
         }
     }
 
