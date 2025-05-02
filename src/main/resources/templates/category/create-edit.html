@@ -7,23 +7,18 @@
 
 <th:block th:fragment="content">
     <form th:action="@{'/category'}" method="post">
-        <div class="panel">
-            <div class="panel-heading">
-                <p th:text="${category.id != null ? 'Edit Category' : 'Create a New Category'}">Create a New Category</p>
-            </div>
-            <div class="panel-body">
+        <h2 th:text="${category.id != null ? 'Edit Category' : 'Create a New Category'}">Create a New Category</h2>
 
-                <div class="error-message" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
+        <div class="error-message" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
 
-                <input type="hidden" name="id" th:value="${category.id}">
+        <input type="hidden" name="id" th:value="${category.id}">
 
-                <div class="grid-row">
-                    <div class="grid-col-50">
-                        <div th:replace="~{widget/form/input :: input('name','Name',true,${category.name},'text')}"></div>
-                    </div>
-                </div>
+        <div class="grid-row">
+            <div class="grid-col-50">
+                <div th:replace="~{widget/form/input :: input('name','Name',true,${category.name},'text')}"></div>
             </div>
         </div>
+
         <div th:replace="~{widget/form/buttons :: formButtonsDefault(${'/category'})}"></div>
     </form>
 

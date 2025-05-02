@@ -6,135 +6,119 @@
 </th:block>
 
 <th:block th:fragment="content">
-    <div class="panel">
-        <div class="panel-heading">
-            <p>Travel Budget App</p>
-        </div>
-        <div class="panel-body">
-            <p>
-                This web app is designed to help users manage their travel expenses efficiently while backpacking or
-                traveling. Users can create trips, manage expenses, categorize spending, and work with multiple
-                currencies. The app focuses on simplicity and usability, ensuring essential functionalities are easy to
-                access.
-            </p>
+    <h1>Travel Budget App</h1>
+    <p>
+        This web app is designed to help users manage their travel expenses efficiently while backpacking or
+        traveling. Users can create trips, manage expenses, categorize spending, and work with multiple
+        currencies. The app focuses on simplicity and usability, ensuring essential functionalities are easy to
+        access.
+    </p>
 
-            <h3>General Features</h3>
+    <h2>General Features</h2>
 
+    <ul>
+        <li><strong>Trip Management:</strong> Organize your travels by creating trips, with the option to
+            structure them as main trips or subtrips.
+        </li>
+        <li><strong>Expense Tracking:</strong> Add and categorize expenses linked to specific trips.</li>
+        <li><strong>Currency Conversion:</strong> Automatically convert expenses in different currencies to CHF
+            using the exchangeRateApi.
+        </li>
+        <li><strong>Category Management:</strong> Create custom categories to classify expenses according to
+            your needs.
+        </li>
+        <li><strong>Visual Enhancements:</strong> Enhance trips visually with random images fetched from the
+            Unsplash API.
+        </li>
+    </ul>
+
+    <h1>Entities and Functionalities</h1>
+
+    <h2>Trip</h2>
+    <ul>
+        <li>
+            <strong>Description:</strong> Represents a journey or part of a journey. Trips can either include
+            subtrips or expenses but not both.
+        </li>
+        <li>
+            <strong>Functionalities:</strong>
             <ul>
-                <li><strong>Trip Management:</strong> Organize your travels by creating trips, with the option to
-                    structure them as main trips or subtrips.
-                </li>
-                <li><strong>Expense Tracking:</strong> Add and categorize expenses linked to specific trips.</li>
-                <li><strong>Currency Conversion:</strong> Automatically convert expenses in different currencies to CHF
-                    using the exchangeRateApi.
-                </li>
-                <li><strong>Category Management:</strong> Create custom categories to classify expenses according to
-                    your needs.
-                </li>
-                <li><strong>Visual Enhancements:</strong> Enhance trips visually with random images fetched from the
-                    Unsplash API.
+                <li>Create and delete trips (edit coming soon).</li>
+                <li>Add subtrips to a main trip or expenses to a trip, but not both simultaneously.</li>
+                <li>
+                    Fetch a random image from the Unsplash API based on the trip title upon saving or editing.
                 </li>
             </ul>
-        </div>
-    </div>
-    <div class="panel">
-        <div class="panel-heading">
-            <p>Entities and Functionalities</p>
-        </div>
-        <div class="panel-body">
+        </li>
+    </ul>
 
-            <h3>Trip</h3>
+    <h2>Expense</h2>
+    <ul>
+        <li><strong>Description:</strong> Represents a single spending entry associated with a trip.</li>
+        <li>
+            <strong>Functionalities:</strong>
             <ul>
+                <li>Create and delete expenses (edit coming soon).</li>
+                <li>Assign expenses to categories for better tracking.</li>
                 <li>
-                    <strong>Description:</strong> Represents a journey or part of a journey. Trips can either include
-                    subtrips or expenses but not both.
-                </li>
-                <li>
-                    <strong>Functionalities:</strong>
-                    <ul>
-                        <li>Create and delete trips (edit coming soon).</li>
-                        <li>Add subtrips to a main trip or expenses to a trip, but not both simultaneously.</li>
-                        <li>
-                            Fetch a random image from the Unsplash API based on the trip title upon saving or editing.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-
-            <h3>Expense</h3>
-            <ul>
-                <li><strong>Description:</strong> Represents a single spending entry associated with a trip.</li>
-                <li>
-                    <strong>Functionalities:</strong>
-                    <ul>
-                        <li>Create and delete expenses (edit coming soon).</li>
-                        <li>Assign expenses to categories for better tracking.</li>
-                        <li>
-                            Automatically convert the entered amount from the selected currency to CHF using the
-                            exchangeRateApi.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-
-            <h3>Category</h3>
-            <ul>
-                <li>
-                    <strong>Description:</strong> Represents a classification for expenses, such as "Food",
-                    "Transportation" or "Accommodation."
-                </li>
-                <li>
-                    <strong>Functionalities:</strong>
-                    <ul>
-                        <li>Add, edit, and delete categories.</li>
-                    </ul>
-                </li>
-            </ul>
-
-            <h3>Currency</h3>
-            <ul>
-                <li>
-                    <strong>Description:</strong> Currencies are loaded from the exchangeRateApi and cannot be modified
-                    manually.
-                </li>
-                <li>
-                    <strong>Functionalities:</strong>
-                    <ul>
-                        <li>No manual functionality. Automatically fetch supported currencies and exchange rates via the exchangeRateApi.</li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="panel">
-        <div class="panel-heading">
-            <p>Individual Additional Services</p>
-        </div>
-        <div class="panel-body">
-
-            <p>The app uses two external APIs to enhance its functionality:</p>
-
-            <h3>Unsplash API</h3>
-            <ul>
-                <li>
-                    When saving or editing a trip, the app fetches a random image related to the trip title from the
-                    Unsplash API to visually represent the trip.
-                </li>
-            </ul>
-
-            <h3>ExchangeRateApi</h3>
-            <ul>
-                <li>
-                    The ExchangeRateApi is used to convert expenses from different currencies to CHF. The app fetches
-                    the latest exchange rates for supported currencies to ensure accurate financial tracking.
-                </li>
-                <li>
-                    On startup, the app loads all supported currencies and their exchange rates from the
+                    Automatically convert the entered amount from the selected currency to CHF using the
                     exchangeRateApi.
                 </li>
             </ul>
-        </div>
-    </div>
+        </li>
+    </ul>
+
+    <h2>Category</h2>
+    <ul>
+        <li>
+            <strong>Description:</strong> Represents a classification for expenses, such as "Food",
+            "Transportation" or "Accommodation."
+        </li>
+        <li>
+            <strong>Functionalities:</strong>
+            <ul>
+                <li>Add, edit, and delete categories.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>Currency</h2>
+    <ul>
+        <li>
+            <strong>Description:</strong> Currencies are loaded from the exchangeRateApi and cannot be modified
+            manually.
+        </li>
+        <li>
+            <strong>Functionalities:</strong>
+            <ul>
+                <li>No manual functionality. Automatically fetch supported currencies and exchange rates via the exchangeRateApi.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h1>Individual Additional Services</h1>
+
+    <p>The app uses two external APIs to enhance its functionality:</p>
+
+    <h2>Unsplash API</h2>
+    <ul>
+        <li>
+            When saving or editing a trip, the app fetches a random image related to the trip title from the
+            Unsplash API to visually represent the trip.
+        </li>
+    </ul>
+
+    <h2>ExchangeRateApi</h2>
+    <ul>
+        <li>
+            The ExchangeRateApi is used to convert expenses from different currencies to CHF. The app fetches
+            the latest exchange rates for supported currencies to ensure accurate financial tracking.
+        </li>
+        <li>
+            On startup, the app loads all supported currencies and their exchange rates from the
+            exchangeRateApi.
+        </li>
+    </ul>
 
     <div th:replace="~{widget/back-button :: backButtonDefault('/')}"></div>
 

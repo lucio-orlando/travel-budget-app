@@ -29,10 +29,22 @@ body {
   }
 
   #content {
-    @import "includes/panel";
     @import "includes/trip-card";
     @import "includes/form";
     @import "includes/table";
+    @import "includes/expense";
+
+    .trip-info {
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+      border-bottom: 1px solid $blue-charcoal;
+      padding-bottom: .5rem;
+
+      svg {
+        width: 1.5rem;
+      }
+    }
 
     ul {
       list-style-type: disc;

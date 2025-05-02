@@ -52,7 +52,7 @@ public class ExpenseController {
         if (expense == null) throw new ResourceNotFoundException("Expense with ID " + id + " not found");
 
         expense.setParentTrip(parentTrip);
-        prepareFormModel(model, expense, null);
+        prepareFormModel(model, expense, parentTrip, null);
 
         return "expense/create-edit";
     }
@@ -72,7 +72,7 @@ public class ExpenseController {
 
         List<String> validationErrors = validateExpense(expense, date, selectedCurrency, parentTrip);
         if (!validationErrors.isEmpty()) {
-            prepareFormModel(model, expense, String.join(" ", validationErrors));
+            prepareFormModel(model, expense, parentTrip, String.join(" ", validationErrors));
             return "expense/create-edit";
         }
 
@@ -159,10 +159,11 @@ public class ExpenseController {
      * @param expense The expense object to set in the model.
      * @param errorMessage The error message to set in the model.
      */
-    private void prepareFormModel(Model model, Expense expense, String errorMessage) {
+    private void prepareFormModel(Model model, Expense expense, Trip parentTrip, String errorMessage) {
         model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("categories", categoryService.getCategories());
         model.addAttribute("currencies", currencyService.getCurrencies());
         model.addAttribute("expense", expense);
+        model.addAttribute("trip", parentTrip);
     }
 }

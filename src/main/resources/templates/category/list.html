@@ -6,39 +6,35 @@
 </th:block>
 
 <th:block th:fragment="content">
-    <div class="panel">
-        <div class="panel-heading">
-            <p>Categories</p>
+    <h1>
+        <span>Categories</span>
+        <a th:href="@{/category/new}" tooltip="add category" class="icon-button icon-button--green icon-button--small">
+            <i class="fa-solid fa-plus"></i>
+        </a>
+    </h1>
 
-            <a th:href="@{/category/new}" tooltip="add category" class="icon-button icon-button--green icon-button--small">
-                <i class="fa-solid fa-plus"></i>
-            </a>
-        </div>
-        <div class="panel-body">
-            <p th:if="${#lists.isEmpty(categories)}" style="text-align: center; margin-bottom: 0">
-                No categories
-            </p>
+    <p th:if="${#lists.isEmpty(categories)}" style="text-align: center; margin-bottom: 0">
+        No categories
+    </p>
 
-            <table th:unless="${#lists.isEmpty(categories)}" class="table table--striped">
-                <tr>
-                    <th>Name</th>
-                    <th style="text-align: right">Actions</th>
-                </tr>
+    <table th:unless="${#lists.isEmpty(categories)}" class="table table--striped">
+        <tr>
+            <th>Name</th>
+            <th style="text-align: right">Actions</th>
+        </tr>
 
-                <tr th:each="category : ${categories}">
-                    <td th:text="${category.name}">Category Name</td>
-                    <td style="text-align: right">
-                        <a tooltip="edit" th:href="@{/category/edit/{id}(id=${category.id})}">
-                            <i class="fa-solid fa-pencil"></i>
-                        </a>
-                        <a tooltip="delete" th:href="@{/category/delete/{id}(id=${category.id})}" class="delete">
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
+        <tr th:each="category : ${categories}">
+            <td th:text="${category.name}">Category Name</td>
+            <td style="text-align: right">
+                <a tooltip="edit" th:href="@{/category/edit/{id}(id=${category.id})}">
+                    <i class="fa-solid fa-pencil"></i>
+                </a>
+                <a tooltip="delete" th:href="@{/category/delete/{id}(id=${category.id})}" class="delete">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+    </table>
 
     <div th:replace="~{widget/back-button :: backButtonDefault('/')}"></div>
 

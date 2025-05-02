@@ -6,7 +6,7 @@ $button-font-size: 2rem;
 $button-side-font-size: 1.5rem;
 $border-width: 13rem;
 $border-height: 2.5rem;
-$offset-double-add: 5rem;
+$offset-double-add: 2.5rem;
 
 .tab-nav {
   position: fixed;
@@ -15,11 +15,12 @@ $offset-double-add: 5rem;
   width: 100%;
   height: $tab-nav-height;
   background-color: $tab-nav-background;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   box-shadow: 0 .25rem 1.5rem rgba(0, 0, 0, 0.75);
   z-index: 10;
   display: none;
+  padding: 0 3rem;
 
   @media screen and (max-width: $navigation-breakpoint) {
     display: flex;

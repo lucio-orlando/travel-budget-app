@@ -4,7 +4,9 @@ import ch.lucio_orlando.travel_budget_app.api.unsplash.services.UnsplashApiServi
 import ch.lucio_orlando.travel_budget_app.exceptions.InvalidDataException;
 import ch.lucio_orlando.travel_budget_app.exceptions.ResourceNotFoundException;
 import ch.lucio_orlando.travel_budget_app.models.Currency;
+import ch.lucio_orlando.travel_budget_app.models.Expense;
 import ch.lucio_orlando.travel_budget_app.models.Trip;
+import ch.lucio_orlando.travel_budget_app.models.TripComponent;
 import ch.lucio_orlando.travel_budget_app.services.CurrencyService;
 import ch.lucio_orlando.travel_budget_app.services.TripService;
 import org.springframework.stereotype.Controller;
@@ -12,7 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 @Controller
 public class TripController {
@@ -29,7 +35,10 @@ public class TripController {
 
     @GetMapping({"", "/", "/trip"})
     public String overview(Model model) {
-        List<Trip> trips = tripService.getTrips().stream().filter(trip -> trip.getParentTrip() == null).toList();
+        List<Trip> trips = tripService.getTrips().stream()
+            .filter(trip -> trip.getParentTrip() == null)
+            .sorted(Comparator.comparing(Trip::getDate).reversed())
+            .toList();
         model.addAttribute("trips", trips);
         return "trip/list";
     }
@@ -41,6 +50,18 @@ public class TripController {
         Trip trip = tripService.getTripById(id).orElse(null);
 
         if (trip == null) throw new ResourceNotFoundException("Trip with ID " + id + " not found");
+
+        Map<String, List<Expense>> expensesByDate = trip.getComponents().stream()
+            .filter(e -> e instanceof Expense)
+            .map(e -> (Expense) e)
+            .collect(Collectors.groupingBy(
+                TripComponent::getDateFormatted, // format "02.05.2025"
+                () -> new TreeMap<>(Comparator.reverseOrder()),              // keeps it ordered
+                Collectors.toList()
+            ));
+
+        model.addAttribute("expensesByDate", expensesByDate);
+
 
         model.addAttribute("trip", trip);
         return "trip/detail";
@@ -66,12 +87,15 @@ public class TripController {
         // TODO: edit needs to be fixed -> detached entity error
 
         Trip trip = new Trip();
+        Trip parentTrip = null;
         if (id != null) {
-            tripService.getTripById(id).ifPresent(trip::setParentTrip);
+            parentTrip = tripService.getTripById(id).orElse(null);
+            trip.setParentTrip(parentTrip);
         }
 
         List<Currency> currencies = currencyService.getCurrencies();
-        model.addAttribute("trip", trip);
+        model.addAttribute("trip", parentTrip);
+        model.addAttribute("draftTrip", trip);
         model.addAttribute("currencies", currencies);
         model.addAttribute("errorMessage", null);
         return "trip/create-edit";

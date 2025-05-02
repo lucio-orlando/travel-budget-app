@@ -75,3 +75,9 @@
     transform: translate(-50%, -50%);
   }
 }
+
+@media screen and (max-width: $navigation-breakpoint) {
+  .btn, .icon-button {
+    display: none;
+  }
+}

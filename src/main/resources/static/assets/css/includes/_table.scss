@@ -1,6 +1,7 @@
 .table {
   width: 100%;
   border-collapse: collapse;
+  margin-bottom: 1rem;
 
   &.table--striped tr:nth-child(odd) {
     background-color: $grey-cloud;

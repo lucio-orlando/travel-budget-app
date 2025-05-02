@@ -134,11 +134,12 @@ body .tab-nav {
   width: 100%;
   height: 4.25rem;
   background-color: #27303c;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   box-shadow: 0 0.25rem 1.5rem rgba(0, 0, 0, 0.75);
   z-index: 10;
   display: none;
+  padding: 0 3rem;
 }
 @media screen and (max-width: 768px) {
   body .tab-nav {
@@ -175,11 +176,11 @@ body .tab-nav .tab-nav__button--left, body .tab-nav .tab-nav__button--right {
   font-size: 1.5rem;
 }
 body .tab-nav .tab-nav__button--left {
-  left: calc(50% - 5rem);
+  left: calc(50% - 2.5rem);
   transform: translateX(-50%);
 }
 body .tab-nav .tab-nav__button--right {
-  left: calc(50% + 5rem);
+  left: calc(50% + 2.5rem);
   transform: translateX(-50%);
 }
 body .tab-nav .tab-nav__border {
@@ -194,11 +195,11 @@ body .tab-nav .tab-nav__border {
   background-color: #27303c;
 }
 body .tab-nav .tab-nav__border--left {
-  left: calc(50% - 5rem);
+  left: calc(50% - 2.5rem);
   transform: translateX(-50%);
 }
 body .tab-nav .tab-nav__border--right {
-  left: calc(50% + 5rem);
+  left: calc(50% + 2.5rem);
   transform: translateX(-50%);
 }
 body .tab-nav .tab-nav__icon {
@@ -206,15 +207,24 @@ body .tab-nav .tab-nav__icon {
   font-size: 1.5rem;
 }
 body h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+@media screen and (max-width: 768px) {
+  body h1 {
+    font-size: 1.5rem;
+  }
 }
 body h2 {
-  font-size: 2rem;
-}
-body h3 {
   font-size: 1.5rem;
 }
-body h1, body h2, body h3 {
+@media screen and (max-width: 768px) {
+  body h2 {
+    font-size: 1.25rem;
+  }
+}
+body h1, body h2 {
   font-weight: 400;
   margin-bottom: 0.5rem;
   border-bottom: 1px solid #27303c;
@@ -223,6 +233,11 @@ body p {
   font-size: 1.25rem;
   font-weight: 400;
   margin-bottom: 1rem;
+}
+@media screen and (max-width: 768px) {
+  body p {
+    font-size: 1rem;
+  }
 }
 body a {
   text-decoration: none;
@@ -300,6 +315,11 @@ body .icon-button svg {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+@media screen and (max-width: 768px) {
+  body .btn, body .icon-button {
+    display: none;
+  }
 }
 body [tooltip] {
   position: relative;
@@ -425,38 +445,19 @@ body .container {
   max-width: 1400px;
   margin: 0 auto;
 }
-body #content .panel {
-  margin-bottom: 20px;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
-  border-radius: 1rem;
-}
-body #content .panel .panel-heading {
-  padding: 0.5rem 1rem;
-  border-bottom: 1px solid #dddddd;
-  background-color: #f2f2f2;
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
-  display: flex;
-  justify-content: space-between;
-}
-body #content .panel .panel-heading * {
-  display: inline-block;
-}
-body #content .panel .panel-heading p {
-  margin-bottom: 0;
-  font-weight: 700;
-}
-body #content .panel .panel-body {
-  padding: 1.5rem;
-}
 body #content .trip-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+@media screen and (max-width: 1024px) {
+  body #content .trip-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }
 body #content .trip-container .trip-card {
-  width: calc(50% - 10px);
   box-sizing: border-box;
   border: 2px solid #dddddd;
   border-radius: 0.75rem;
@@ -465,17 +466,36 @@ body #content .trip-container .trip-card {
   overflow: hidden;
   position: relative;
 }
+@media screen and (max-width: 768px) {
+  body #content .trip-container .trip-card {
+    flex-direction: column;
+  }
+}
 body #content .trip-container .trip-card .trip-card__image {
   width: 35%;
   height: 100%;
   background-size: cover;
   background-position: center;
 }
+@media screen and (max-width: 768px) {
+  body #content .trip-container .trip-card .trip-card__image {
+    width: 100%;
+    height: 10rem;
+  }
+}
 body #content .trip-container .trip-card .trip-card__info {
   width: 65%;
   padding: 1rem;
   background-color: #fafafa;
   position: relative;
+}
+@media screen and (max-width: 768px) {
+  body #content .trip-container .trip-card .trip-card__info {
+    width: 100%;
+  }
+}
+body #content .trip-container .trip-card .trip-card__info h2 {
+  font-weight: 500;
 }
 body #content .trip-container .trip-card .trip-card__info .trip-card__actions {
   position: absolute;
@@ -539,6 +559,7 @@ body #content form .field label {
 body #content .table {
   width: 100%;
   border-collapse: collapse;
+  margin-bottom: 1rem;
 }
 body #content .table.table--striped tr:nth-child(odd) {
   background-color: #fafafa;
@@ -555,6 +576,74 @@ body #content .table tr td a, body #content .table tr th a {
 }
 body #content .table tr th {
   text-align: left;
+}
+body #content .expense-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+body #content .expense-list .expense-card {
+  border: 1px solid #dddddd;
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  padding: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+body #content .expense-list .expense-card__header {
+  font-size: 1rem;
+  font-weight: 500;
+  border-bottom: 1px solid #dddddd;
+  padding-bottom: 0.5rem;
+}
+body #content .expense-list .expense-card__items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+body #content .expense-list .expense {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  border-bottom: 1px solid #dddddd;
+  padding-bottom: 0.5rem;
+}
+body #content .expense-list .expense:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+body #content .expense-list .expense__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body #content .expense-list .expense__top .expense__name {
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+body #content .expense-list .expense__top .expense__actions {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+body #content .expense-list .expense__info {
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+body #content .trip-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  border-bottom: 1px solid #27303c;
+  padding-bottom: 0.5rem;
+}
+body #content .trip-info svg {
+  width: 1.5rem;
 }
 body #content ul {
   list-style-type: disc;
