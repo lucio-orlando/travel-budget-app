@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::content})}">
+
+<th:block th:fragment="title">
+    <th:block th:text="${draftTrip.id != null ? 'Edit Trip' : 'New Trip'}">New Trip</th:block>
+</th:block>
+
+<th:block th:fragment="content">
+    <form th:action="@{'/trip'}" method="post">
+        <div th:replace="~{widget/trip-info-header :: tripInfoHeader}"></div>
+
+        <h1 th:if="${trip == null}" th:text="'Create a new trip'">Create a new trip</h1>
+
+        <div class="error-message" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
+
+        <input type="hidden" name="id" th:value="${draftTrip.id}">
+        <input th:if="${trip != null}" type="hidden" name="parentTrip" th:value="${trip.id}">
+
+        <div class="grid-row">
+            <div class="grid-col-50">
+                <div th:replace="~{widget/form/input :: input('name','Trip name',true,${draftTrip.name},'text')}"></div>
+            </div>
+            <div class="grid-col-50">
+                <div th:replace="~{widget/form/select :: selectCode('currency','Default currency',true,${currencies},${draftTrip.currency != null ? draftTrip.currency.id : null})}"></div>
+            </div>
+            <div class="grid-col-50">
+                <div th:replace="~{widget/form/input :: input('date','Start date',true,${#dates.format(draftTrip.date, 'yyyy-MM-dd')},'date')}"></div>
+            </div>
+            <div class="grid-col-50">
+                <div th:replace="~{widget/form/input :: input('endDate','End date',false,${draftTrip.endDate != null ? #dates.format(draftTrip.endDate, 'yyyy-MM-dd') : ''},'date')}"></div>
+            </div>
+        </div>
+
+        <div th:replace="~{widget/form/buttons :: formButtonsDefault(${trip != null ? '/trip/' + trip.id : '/trip'})}"></div>
+    </form>
+
+    <div th:replace="~{widget/bottom-nav :: tabNavForm(${trip != null ? '/trip/' + trip.id : '/trip'}, 'fa-arrow-left', '/', 'fa-house')}"></div>
+</th:block>
+</html>

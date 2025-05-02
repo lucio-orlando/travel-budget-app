@@ -1,0 +1,29 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+
+  &.table--striped tr:nth-child(odd) {
+    background-color: $grey-cloud;
+  }
+
+  tr {
+
+    &:hover {
+      background-color: $grey-snow !important;
+    }
+
+    td, th {
+      padding: .2rem .5rem;
+
+      a{
+        margin-left: .5rem;
+        display: inline-block;
+      }
+    }
+
+    th {
+      text-align: left;
+    }
+  }
+}

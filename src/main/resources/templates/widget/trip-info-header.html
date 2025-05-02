@@ -1,0 +1,41 @@
+<th:block th:fragment="tripInfoHeader">
+    <!--/*@thymesVar id="trip" type="ch.lucio_orlando.travel_budget_app.models.Trip"*/-->
+    <h1 th:if="${trip != null}">
+        <span th:text="${trip.name}">Trip Name</span>
+
+        <span>
+            <a tooltip="add subtrip"
+               th:if="${!trip.expenseMode}"
+               class="icon-button icon-button--blue icon-button--small"
+               th:href="@{'/trip/new/' + ${trip.id}}"
+            >
+                <i class="fa-solid fa-suitcase"></i>
+            </a>
+
+            <a tooltip="add expense"
+               th:if="${!trip.subTripMode}"
+               class="icon-button icon-button--green icon-button--small"
+               th:href="@{'/trip/' + ${trip.id} + '/expense'}"
+            >
+                <i class="fa-solid fa-coins"></i>
+            </a>
+        </span>
+    </h1>
+    <p th:if="${trip != null}" class="trip-info">
+        <span>
+            <i class="fa-solid fa-calendar-days"></i>
+            <span th:text="${trip.dateFormatted}">Start Date</span>
+            <span th:if="${trip.endDate != null}">
+                - <span th:text="${trip.endDateFormatted}">End Date</span>
+            </span>
+        </span>
+        <span>
+            <i class="fa-solid fa-money-bill-1-wave"></i>
+            <span th:text="${#numbers.formatDecimal(trip.amountCHF, 1, 2)} + ' CHF'"></span>
+        </span>
+        <span>
+            <i class="fa-solid fa-sack-dollar"></i>
+            <span th:text="${#numbers.formatDecimal(trip.dailyAverageCHF, 1, 2)} + ' CHF per Day'"></span>
+        </span>
+    </p>
+</th:block>

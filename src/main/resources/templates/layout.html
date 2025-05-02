@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<th:block th:fragment="layout(title, content)">
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta name="theme-color" content="#ffffff">
+            <meta name="description" content="Travel Budget App">
+            <meta name="author" content="Lucio Orlando">
+            <meta name="robots" content="noindex, nofollow">
+
+            <!-- Google Fonts -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+            <!-- Stylesheets -->
+            <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+            <link rel="stylesheet" th:href="@{/assets/css/fontawesome.css}">
+
+            <!-- Favicons -->
+            <link rel="apple-touch-icon" sizes="180x180" th:href="@{/assets/img/favicon/apple-touch-icon.png}">
+            <link rel="icon" type="image/png" sizes="96x96" th:href="@{/assets/img/favicon/favicon-96x96.png}">
+            <link rel="icon" type="image/png" sizes="32x32" th:href="@{/assets/img/favicon/favicon-32x32.png}">
+            <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/img/favicon/favicon-16x16.png}">
+            <link rel="icon" type="image/svg+xml" th:href="@{/assets/img/favicon/favicon.svg}">
+            <link rel="shortcut icon" th:href="@{/assets/img/favicon/favicon.ico}">
+            <link rel="manifest" th:href="@{/assets/img/favicon/site.webmanifest}">
+
+            <!-- Scripts -->
+            <script th:src="@{/assets/js/fontawesome.js}"></script>
+            <script th:src="@{/assets/js/main.js}"></script>
+
+            <!-- Title Slot -->
+            <title>
+                <th:block th:replace="${title}">Home</th:block> - Travel Budget
+            </title>
+        </head>
+        <body>
+        <header>
+            <a th:href="@{/}">
+                <img th:src="@{/assets/img/logo.png}" alt="Logo">
+            </a>
+
+            <nav>
+                <a tooltip="add main trip" class="icon-button icon-button--blue" th:href="@{/trip/new}">
+                    <i class="fa-solid fa-plus"></i>
+                </a>
+
+                <a tooltip="info" class="icon-button icon-button--green" th:href="@{/info}">
+                    <i class="fa-solid fa-circle-info"></i>
+                </a>
+
+                <a tooltip="categories" class="icon-button" th:href="@{/category}">
+                    <i class="fa-solid fa-gear"></i>
+                </a>
+            </nav>
+        </header>
+
+        <div class="container" id="content">
+            <th:block th:replace="${content}" />
+        </div>
+        </body>
+    </html>
+</th:block>

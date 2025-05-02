@@ -1,0 +1,67 @@
+.expense-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  .expense-card {
+    border: 1px solid $grey-light;
+    border-radius: .5rem;
+    background-color: $white;
+    padding: 1rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .expense-card__header {
+    font-size: 1rem;
+    font-weight: 500;
+    border-bottom: 1px solid $grey-light;
+    padding-bottom: 0.5rem;
+  }
+
+  .expense-card__items {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+
+  .expense {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    border-bottom: 1px solid $grey-light;
+    padding-bottom: .5rem;
+
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+  }
+
+  .expense__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .expense__name {
+      font-weight: 500;
+      font-size: 1.25rem;
+    }
+
+    .expense__actions {
+      display: flex;
+      gap: 0.5rem;
+      font-size: .9rem;
+    }
+  }
+
+  .expense__info {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+}

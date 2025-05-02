@@ -1,0 +1,51 @@
+<th:block th:fragment="tripCard">
+    <!--/*@thymesVar id="trip" type="ch.lucio_orlando.travel_budget_app.models.Trip"*/-->
+    <div class="trip-card">
+        <div class="trip-card__image" th:style="'background-image: url(' + ${trip.image} + ')'"></div>
+
+        <div class="trip-card__info">
+            <h2 th:text="${trip.name}">Trip Name</h2>
+
+            <p th:if="${trip.endDate == null}" th:text="${trip.dateFormatted}">Start Date</p>
+
+            <p th:if="${trip.endDate != null}">
+                <span th:text="${trip.dateFormatted}">Start</span>
+                -
+                <span th:text="${trip.endDateFormatted}">End</span>
+                <br th:if="${trip.isActive}" />
+                <span th:if="${trip.isActive}" th:text="${trip.remainingDays + ' days left'}">Remaining</span>
+            </p>
+
+            <p>
+                <span th:text="'Spent: ' + ${#numbers.formatDecimal(trip.amountCHF, 1, 2)} + ' CHF'"></span><br/>
+                <span th:text="'per Day: ' + ${#numbers.formatDecimal(trip.dailyAverageCHF, 1, 2)} + ' CHF'"></span>
+            </p>
+
+            <a tooltip="delete"
+               flow="left"
+               class="delete trip-card__delete"
+               th:href="${trip.parentTrip != null
+                         ? '/trip/delete/' + trip.id + '/' + trip.parentTrip.id
+                         : '/trip/delete/' + trip.id}">
+                <i class="fa-solid fa-trash"></i>
+            </a>
+
+            <div class="trip-card__actions">
+                <a tooltip="detail"
+                   flow="up"
+                   th:href="@{'/trip/' + ${trip.id}}">
+                    <i class="fa-solid fa-eye"></i>
+                </a>
+
+                <!-- Uncomment this when edit works -->
+                <!--
+                <a tooltip="edit"
+                   flow="up"
+                   th:href="@{'/trip/edit/' + ${trip.id}}">
+                    <i class="fa-solid fa-pencil"></i>
+                </a>
+                -->
+            </div>
+        </div>
+    </div>
+</th:block>

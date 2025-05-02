@@ -1,0 +1,29 @@
+header {
+  background: $white;
+  width: calc(100% - 4rem);
+  border-radius: 1rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  border: 1px solid $white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  top: 2rem;
+  z-index: 100;
+  
+  @media screen and (max-width: $navigation-breakpoint) {
+    display: none;
+  }
+
+  img {
+    height: 4rem;
+  }
+
+  nav {
+    font-size: 2rem;
+
+    a {
+      margin: .25rem .5rem 0;
+    }
+  }
+}

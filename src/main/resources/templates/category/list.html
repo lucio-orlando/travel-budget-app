@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::content})}">
+
+<th:block th:fragment="title">
+    Categories
+</th:block>
+
+<th:block th:fragment="content">
+    <h1>
+        <span>Categories</span>
+        <a th:href="@{/category/new}" tooltip="add category" class="icon-button icon-button--green icon-button--small">
+            <i class="fa-solid fa-plus"></i>
+        </a>
+    </h1>
+
+    <p th:if="${#lists.isEmpty(categories)}" style="text-align: center; margin-bottom: 0">
+        No categories
+    </p>
+
+    <table th:unless="${#lists.isEmpty(categories)}" class="table table--striped">
+        <tr>
+            <th>Name</th>
+            <th style="text-align: right">Actions</th>
+        </tr>
+
+        <tr th:each="category : ${categories}">
+            <td th:text="${category.name}">Category Name</td>
+            <td style="text-align: right">
+                <a tooltip="edit" th:href="@{/category/edit/{id}(id=${category.id})}">
+                    <i class="fa-solid fa-pencil"></i>
+                </a>
+                <a tooltip="delete" th:href="@{/category/delete/{id}(id=${category.id})}" class="delete">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+    </table>
+
+    <div th:replace="~{widget/back-button :: backButtonDefault('/')}"></div>
+
+    <div th:replace="~{widget/bottom-nav :: tabNavCustom('/', 'fa-arrow-left', '/category/new', '/', 'fa-house')}"></div>
+</th:block>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::content})}">
+
+<th:block th:fragment="title">
+    404 Error
+</th:block>
+
+<th:block th:fragment="content">
+    <div class="panel">
+        <div class="panel-heading">
+            <p>404 Error</p>
+        </div>
+        <div class="panel-body">
+            <p th:if="${!showException}">
+                <strong>The page you are looking for does not exist.</strong> <br>
+                Please check the URL or click the button below to return to the homepage.
+            </p>
+            <p th:if="${showException}">
+                <strong th:text="${exception.message}">Exception message</strong>
+            </p>
+            <p th:if="${showException}">
+                Stack trace:<br>
+                <code th:each="line : ${stacktrace}">
+                    <span th:text="${line}">stack trace line</span>
+                </code>
+            </p>
+        </div>
+    </div>
+    <div th:replace="~{widget/back-button :: backButtonDefault('/')}"></div>
+</th:block>
+</html>

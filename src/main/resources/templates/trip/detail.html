@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::content})}">
+<!--/*@thymesVar id="trip" type="ch.lucio_orlando.travel_budget_app.models.Trip"*/-->
+<th:block th:fragment="title">
+    Detail <th:block th:text="${trip.name}">Trip</th:block>
+</th:block>
+
+<th:block th:fragment="content">
+    <div th:replace="~{widget/trip-info-header :: tripInfoHeader}"></div>
+
+    <div th:if="${trip.expenseMode}" class="expense-list">
+        <div class="expense-card" th:each="entry : ${expensesByDate}">
+            <div class="expense-card__header">
+                <strong th:text="${entry.key}">Datum</strong>
+            </div>
+            <div class="expense-card__items">
+                <div class="expense" th:each="expense : ${entry.value}">
+                    <div class="expense__top">
+                        <span class="expense__name" th:text="${expense.name}">Hotel Mexiko</span>
+                        <div class="expense__actions">
+                            <a tooltip="edit" th:href="@{'/trip/' + ${expense.parentTrip.id} + '/expense/' + ${expense.id}}">
+                                <i class="fa-solid fa-pencil"></i>
+                            </a>
+                            <a tooltip="delete" class="delete" th:href="@{'/trip/' + ${expense.parentTrip.id} + '/expense/' + ${expense.id} + '/delete'}">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="expense__info">
+                        <span><i class="fa-solid fa-tag"></i> <span th:text="${expense.category.name}">Accommodation</span></span>
+                        <span th:text="${#numbers.formatDecimal(expense.amount, 1, 2) + ' ' + expense.currency.code}">400.00 THB</span>
+                        <span th:text="${#numbers.formatDecimal(expense.amountCHF, 1, 2) + ' CHF'}">400.00 CHF</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${trip.subTripMode}" class="trip-container">
+        <th:block th:each="trip : ${trip.components}">
+            <div th:replace="~{widget/trip-card :: tripCard}"></div>
+        </th:block>
+    </div>
+
+    <p th:if="${!trip.expenseMode and !trip.subTripMode}" style="text-align: center">
+        No sub-trips or expenses
+    </p>
+
+    <div th:replace="~{widget/back-button :: backButtonDefault(${trip.parentTrip != null ? '/trip/' + trip.parentTrip.id : '/trip'})}"></div>
+
+    <th:block th:if="${!trip.expenseMode and !trip.subTripMode}">
+        <div th:replace="~{widget/bottom-nav :: tabNavDoubleAdd(
+        ${trip.parentTrip != null ? '/trip/' + trip.parentTrip.id : '/trip'},
+        'fa-arrow-left',
+        @{'/trip/new/' + ${trip.id}},
+        'fa-suitcase',
+        @{'/trip/' + ${trip.id} + '/expense'},
+        'fa-coins',
+        '/',
+        'fa-house'
+    )}"></div>
+    </th:block>
+
+    <th:block th:if="${trip.expenseMode}">
+        <div th:replace="~{widget/bottom-nav :: tabNavDefault(
+            ${trip.parentTrip != null ? '/trip/' + trip.parentTrip.id : '/trip'},
+            @{'/trip/' + ${trip.id} + '/expense'}
+        )}"></div>
+    </th:block>
+
+    <th:block th:if="${trip.subTripMode}">
+        <div th:replace="~{widget/bottom-nav :: tabNavDefault(
+            ${trip.parentTrip != null ? '/trip/' + trip.parentTrip.id : '/trip'},
+            @{'/trip/new/' + ${trip.id}}
+        )}"></div>
+    </th:block>
+</th:block>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::content})}">
+
+<th:block th:fragment="title">
+    Trips
+</th:block>
+
+<th:block th:fragment="content">
+    <h2 style="text-align: center" th:if="${#lists.isEmpty(trips)}">
+        No trips
+    </h2>
+    <div th:unless="${#lists.isEmpty(trips)}" class="trip-container">
+        <th:block th:each="trip : ${trips}" >
+            <div th:replace="~{widget/trip-card :: tripCard}"></div>
+        </th:block>
+    </div>
+
+    <div th:replace="~{widget/bottom-nav :: tabNavCustom('/info', 'fa-circle-info', '/trip/new', '/category', 'fa-gear')}"></div>
+</th:block>
+</html>

@@ -1,0 +1,111 @@
+
+<th:block th:fragment="tabNavDefault(backUrl, addUrl)">
+    <svg width="0" height="6rem" viewBox="0 0 1000 1000">
+        <clipPath id="menu" clipPathUnits="objectBoundingBox" transform="scale(0.0049285362247413 0.021978021978022)">
+            <path  d="M6.7,45.5c5.7,0.1,14.1-0.4,23.3-4c5.7-2.3,9.9-5,18.1-10.5c10.7-7.1,11.8-9.2,20.6-14.3c5-2.9,9.2-5.2,15.2-7
+          c7.1-2.1,13.3-2.3,17.6-2.1c4.2-0.2,10.5,0.1,17.6,2.1c6.1,1.8,10.2,4.1,15.2,7c8.8,5,9.9,7.1,20.6,14.3c8.3,5.5,12.4,8.2,18.1,10.5
+          c9.2,3.6,17.6,4.2,23.3,4H6.7z"/>
+        </clipPath>
+    </svg>
+
+    <nav class="tab-nav">
+        <div class="tab-nav__border"></div>
+
+        <a th:href="${backUrl}" class="tab-nav__icon" title="Back">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+
+        <a th:href="${addUrl}" class="tab-nav__button" title="Add">
+            <i class="fa-solid fa-plus"></i>
+        </a>
+
+        <a th:href="@{/}" class="tab-nav__icon" title="Home">
+            <i class="fa-solid fa-house"></i>
+        </a>
+    </nav>
+</th:block>
+
+<th:block th:fragment="tabNavCustom(link1, icon1, addUrl, link2, icon2)">
+
+    <svg width="0" height="6rem" viewBox="0 0 1000 1000">
+        <clipPath id="menu" clipPathUnits="objectBoundingBox" transform="scale(0.0049285362247413 0.021978021978022)">
+            <path  d="M6.7,45.5c5.7,0.1,14.1-0.4,23.3-4c5.7-2.3,9.9-5,18.1-10.5c10.7-7.1,11.8-9.2,20.6-14.3c5-2.9,9.2-5.2,15.2-7
+          c7.1-2.1,13.3-2.3,17.6-2.1c4.2-0.2,10.5,0.1,17.6,2.1c6.1,1.8,10.2,4.1,15.2,7c8.8,5,9.9,7.1,20.6,14.3c8.3,5.5,12.4,8.2,18.1,10.5
+          c9.2,3.6,17.6,4.2,23.3,4H6.7z"/>
+        </clipPath>
+    </svg>
+
+    <nav class="tab-nav">
+        <div class="tab-nav__border"></div>
+
+        <a th:href="${link1}" class="tab-nav__icon">
+            <i th:class="'fa-solid ' + ${icon1}"></i>
+        </a>
+
+        <a th:href="${addUrl}" class="tab-nav__button" title="Add">
+            <i class="fa-solid fa-plus"></i>
+        </a>
+
+        <a th:href="${link2}" class="tab-nav__icon">
+            <i th:class="'fa-solid ' + ${icon2}"></i>
+        </a>
+    </nav>
+</th:block>
+
+<th:block th:fragment="tabNavForm(link1, icon1, link2, icon2)">
+
+    <svg width="0" height="6rem" viewBox="0 0 1000 1000">
+        <clipPath id="menu" clipPathUnits="objectBoundingBox" transform="scale(0.0049285362247413 0.021978021978022)">
+            <path  d="M6.7,45.5c5.7,0.1,14.1-0.4,23.3-4c5.7-2.3,9.9-5,18.1-10.5c10.7-7.1,11.8-9.2,20.6-14.3c5-2.9,9.2-5.2,15.2-7
+          c7.1-2.1,13.3-2.3,17.6-2.1c4.2-0.2,10.5,0.1,17.6,2.1c6.1,1.8,10.2,4.1,15.2,7c8.8,5,9.9,7.1,20.6,14.3c8.3,5.5,12.4,8.2,18.1,10.5
+          c9.2,3.6,17.6,4.2,23.3,4H6.7z"/>
+        </clipPath>
+    </svg>
+
+    <nav class="tab-nav">
+        <div class="tab-nav__border"></div>
+
+        <a th:href="${link1}" class="tab-nav__icon">
+            <i th:class="'fa-solid ' + ${icon1}"></i>
+        </a>
+
+        <div id="submit" class="tab-nav__button tab-nav__button--submit" title="Add">
+            <i class="fa-solid fa-check"></i>
+        </div>
+
+        <a th:href="${link2}" class="tab-nav__icon">
+            <i th:class="'fa-solid ' + ${icon2}"></i>
+        </a>
+    </nav>
+</th:block>
+
+<th:block th:fragment="tabNavDoubleAdd(link1, icon1, addUrl1, addIcon1, addUrl2, addIcon2, link2, icon2)">
+    <svg width="0" height="6rem" viewBox="0 0 1000 1000">
+        <clipPath id="menu" clipPathUnits="objectBoundingBox" transform="scale(0.0049285362247413 0.021978021978022)">
+            <path d="M6.7,45.5c5.7,0.1,14.1-0.4,23.3-4c5.7-2.3,9.9-5,18.1-10.5c10.7-7.1,11.8-9.2,20.6-14.3c5-2.9,9.2-5.2,15.2-7
+                c7.1-2.1,13.3-2.3,17.6-2.1c4.2-0.2,10.5,0.1,17.6,2.1c6.1,1.8,10.2,4.1,15.2,7c8.8,5,9.9,7.1,20.6,14.3c8.3,5.5,12.4,8.2,18.1,10.5
+                c9.2,3.6,17.6,4.2,23.3,4H6.7z"/>
+        </clipPath>
+    </svg>
+
+    <nav class="tab-nav">
+        <div class="tab-nav__border tab-nav__border--left"></div>
+        <div class="tab-nav__border tab-nav__border--right"></div>
+
+        <a th:href="${link1}" class="tab-nav__icon">
+            <i th:class="'fa-solid ' + ${icon1}"></i>
+        </a>
+
+        <a th:href="${addUrl1}" class="tab-nav__button tab-nav__button--left" title="Add">
+            <i th:class="'fa-solid ' + ${addIcon1}"></i>
+        </a>
+
+        <a th:href="${addUrl2}" class="tab-nav__button tab-nav__button--right" title="Add">
+            <i th:class="'fa-solid ' + ${addIcon2}"></i>
+        </a>
+
+        <a th:href="${link2}" class="tab-nav__icon">
+            <i th:class="'fa-solid ' + ${icon2}"></i>
+        </a>
+    </nav>
+</th:block>

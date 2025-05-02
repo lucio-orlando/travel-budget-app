@@ -1,0 +1,31 @@
+<div th:fragment="selectName(name, label, required, options, selectedValue)">
+    <div class="field">
+        <label th:for="${name}">
+            <span th:text="${label}"></span>
+            <span th:if="${required}">*</span>
+        </label>
+        <select th:name="${name}" th:id="${name}" th:attr="required=${required}">
+            <option th:each="option : ${options}"
+                    th:value="${option.id}"
+                    th:text="${option.name}"
+                    th:selected="${option.id == selectedValue}">
+            </option>
+        </select>
+    </div>
+</div>
+
+<div th:fragment="selectCode(name, label, required, options, selectedValue)">
+    <div class="field">
+        <label th:for="${name}">
+            <span th:text="${label}"></span>
+            <span th:if="${required}">*</span>
+        </label>
+        <select th:name="${name}" th:id="${name}" th:attr="required=${required}">
+            <option th:each="option : ${options}"
+                    th:value="${option.id}"
+                    th:text="${option.code}"
+                    th:selected="${option.id == selectedValue}">
+            </option>
+        </select>
+    </div>
+</div>
