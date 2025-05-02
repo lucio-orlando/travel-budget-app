@@ -90,5 +90,31 @@
 
     <div th:replace="~{widget/back-button :: backButtonDefault(${trip.parentTrip != null ? '/trip/' + trip.parentTrip.id : '/trip'})}"></div>
 
+    <th:block th:if="${!trip.expenseMode and !trip.subTripMode}">
+        <div th:replace="~{widget/bottom-nav :: tabNavDoubleAdd(
+        ${trip.parentTrip != null ? '/trip/' + trip.parentTrip.id : '/trip'},
+        'fa-arrow-left',
+        @{'/trip/new/' + ${trip.id}},
+        'fa-suitcase',
+        @{'/trip/' + ${trip.id} + '/expense'},
+        'fa-coins',
+        '/',
+        'fa-house'
+    )}"></div>
+    </th:block>
+
+    <th:block th:if="${trip.expenseMode}">
+        <div th:replace="~{widget/bottom-nav :: tabNavDefault(
+            ${trip.parentTrip != null ? '/trip/' + trip.parentTrip.id : '/trip'},
+            @{'/trip/' + ${trip.id} + '/expense'}
+        )}"></div>
+    </th:block>
+
+    <th:block th:if="${trip.subTripMode}">
+        <div th:replace="~{widget/bottom-nav :: tabNavDefault(
+            ${trip.parentTrip != null ? '/trip/' + trip.parentTrip.id : '/trip'},
+            @{'/trip/new/' + ${trip.id}}
+        )}"></div>
+    </th:block>
 </th:block>
 </html>

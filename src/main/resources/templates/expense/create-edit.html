@@ -40,5 +40,7 @@
         </div>
         <div th:replace="~{widget/form/buttons :: formButtonsDefault(${'/trip/' + expense.parentTrip.id})}"></div>
     </form>
+
+    <div th:replace="~{widget/bottom-nav :: tabNavForm(${'/trip/' + expense.parentTrip.id}, 'fa-arrow-left', '/', 'fa-house')}"></div>
 </th:block>
 </html>

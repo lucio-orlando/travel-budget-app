@@ -36,5 +36,7 @@
         </div>
         <div th:replace="~{widget/form/buttons :: formButtonsDefault(${trip.parentTrip != null ? '/trip/' + trip.parentTrip.id : '/trip'})}"></div>
     </form>
+
+    <div th:replace="~{widget/bottom-nav :: tabNavForm(${trip.parentTrip != null ? '/trip/' + trip.parentTrip.id : '/trip'}, 'fa-arrow-left', '/', 'fa-house')}"></div>
 </th:block>
 </html>

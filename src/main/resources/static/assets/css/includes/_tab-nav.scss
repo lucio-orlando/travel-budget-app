@@ -1,0 +1,98 @@
+$tab-nav-height: 4.25rem;
+$tab-nav-background: $blue-charcoal;
+$tab-nav-color: $white;
+$button-size: 4rem;
+$button-font-size: 2rem;
+$button-side-font-size: 1.5rem;
+$border-width: 13rem;
+$border-height: 2.5rem;
+$offset-double-add: 5rem;
+
+.tab-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: $tab-nav-height;
+  background-color: $tab-nav-background;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 .25rem 1.5rem rgba(0, 0, 0, 0.75);
+  z-index: 10;
+  display: none;
+
+  @media screen and (max-width: $navigation-breakpoint) {
+    display: flex;
+  }
+
+  .tab-nav__button {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: $blue-powder;
+    width: $button-size;
+    height: $button-size;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $button-font-size;
+    color: $tab-nav-color;
+    transition: .5s ease all;
+
+    &:hover {
+      background-color: $blue-steel;
+    }
+
+    &--submit, &--right {
+      background-color: $green-mint;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $green-fern;
+      }
+    }
+
+    &--left, &--right {
+      font-size: $button-side-font-size;
+    }
+
+    &--left {
+      left: calc(50% - $offset-double-add);
+      transform: translateX(-50%);
+    }
+
+    &--right {
+      left: calc(50% + $offset-double-add);
+      transform: translateX(-50%);
+    }
+  }
+
+  .tab-nav__border {
+    clip-path: url(#menu);
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 99%;
+    width: $border-width;
+    height: $border-height;
+    position: absolute;
+    will-change: transform;
+    background-color: $tab-nav-background;
+
+    &--left {
+      left: calc(50% - $offset-double-add);
+      transform: translateX(-50%);
+    }
+
+    &--right {
+      left: calc(50% + $offset-double-add);
+      transform: translateX(-50%);
+    }
+  }
+
+  .tab-nav__icon {
+    color: $tab-nav-color;
+    font-size: $button-side-font-size;
+  }
+}

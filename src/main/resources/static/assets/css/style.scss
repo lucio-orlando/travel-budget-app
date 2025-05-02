@@ -1,6 +1,7 @@
 @import "includes/reset";
 @import "includes/grid";
 @import "includes/colors";
+@import "includes/breakpoints";
 
 body {
   font-family: "Raleway", sans-serif;
@@ -11,7 +12,12 @@ body {
   color: $blue-charcoal;
   padding: 11rem 2rem 2rem;
 
+  @media screen and (max-width: $navigation-breakpoint) {
+    padding: 2rem;
+  }
+
   @import "includes/header";
+  @import "includes/tab-nav";
   @import "includes/font";
   @import "includes/button";
   @import "includes/tooltip";

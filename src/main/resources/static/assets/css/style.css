@@ -95,6 +95,11 @@ body {
   padding: 11rem 2rem 2rem;
   /* tooltip animations */
 }
+@media screen and (max-width: 768px) {
+  body {
+    padding: 2rem;
+  }
+}
 body header {
   background: #ffffff;
   width: calc(100% - 4rem);
@@ -108,6 +113,11 @@ body header {
   top: 2rem;
   z-index: 100;
 }
+@media screen and (max-width: 768px) {
+  body header {
+    display: none;
+  }
+}
 body header img {
   height: 4rem;
 }
@@ -116,6 +126,84 @@ body header nav {
 }
 body header nav a {
   margin: 0.25rem 0.5rem 0;
+}
+body .tab-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4.25rem;
+  background-color: #27303c;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 0.25rem 1.5rem rgba(0, 0, 0, 0.75);
+  z-index: 10;
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  body .tab-nav {
+    display: flex;
+  }
+}
+body .tab-nav .tab-nav__button {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #7EADCB;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #ffffff;
+  transition: 0.5s ease all;
+}
+body .tab-nav .tab-nav__button:hover {
+  background-color: #5e8ba3;
+}
+body .tab-nav .tab-nav__button--submit, body .tab-nav .tab-nav__button--right {
+  background-color: #90EE90;
+  cursor: pointer;
+}
+body .tab-nav .tab-nav__button--submit:hover, body .tab-nav .tab-nav__button--right:hover {
+  background-color: #6abf6b;
+}
+body .tab-nav .tab-nav__button--left, body .tab-nav .tab-nav__button--right {
+  font-size: 1.5rem;
+}
+body .tab-nav .tab-nav__button--left {
+  left: calc(50% - 5rem);
+  transform: translateX(-50%);
+}
+body .tab-nav .tab-nav__button--right {
+  left: calc(50% + 5rem);
+  transform: translateX(-50%);
+}
+body .tab-nav .tab-nav__border {
+  clip-path: url(#menu);
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 99%;
+  width: 13rem;
+  height: 2.5rem;
+  position: absolute;
+  will-change: transform;
+  background-color: #27303c;
+}
+body .tab-nav .tab-nav__border--left {
+  left: calc(50% - 5rem);
+  transform: translateX(-50%);
+}
+body .tab-nav .tab-nav__border--right {
+  left: calc(50% + 5rem);
+  transform: translateX(-50%);
+}
+body .tab-nav .tab-nav__icon {
+  color: #ffffff;
+  font-size: 1.5rem;
 }
 body h1 {
   font-size: 2.5rem;

@@ -10,6 +10,10 @@ header {
   position: fixed;
   top: 2rem;
   z-index: 100;
+  
+  @media screen and (max-width: $navigation-breakpoint) {
+    display: none;
+  }
 
   img {
     height: 4rem;
