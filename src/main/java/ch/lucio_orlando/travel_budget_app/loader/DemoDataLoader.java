@@ -7,7 +7,6 @@ import ch.lucio_orlando.travel_budget_app.services.CategoryService;
 import ch.lucio_orlando.travel_budget_app.services.CurrencyService;
 import ch.lucio_orlando.travel_budget_app.services.TripService;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -97,10 +96,10 @@ public class DemoDataLoader {
 
     private void loadDemoCategories() {
         if (categoryService.getCategories().isEmpty()) {
-            categoryService.saveCategory(new Category("Accommodation", "#FF0000"));
-            categoryService.saveCategory(new Category("Food", "#00FF00"));
-            categoryService.saveCategory(new Category("Transport", "#0000FF"));
-            categoryService.saveCategory(new Category("Activities", "#FFFF00"));
+            categoryService.saveCategory(new Category("Accommodation"));
+            categoryService.saveCategory(new Category("Food"));
+            categoryService.saveCategory(new Category("Transport"));
+            categoryService.saveCategory(new Category("Activities"));
         }
     }
 

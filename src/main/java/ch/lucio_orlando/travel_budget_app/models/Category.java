@@ -12,14 +12,11 @@ public class Category {
 
     private String name;
 
-    private String color;
-
     @OneToMany(mappedBy = "category", targetEntity = Expense.class)
     private List<Expense> expenses;
 
-    public Category(String name, String color) {
+    public Category(String name) {
         this.name = name;
-        this.color = color;
     }
 
     public Category() {}
@@ -47,14 +44,6 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
     //</editor-fold>
 }

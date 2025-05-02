@@ -51,9 +51,9 @@ public class CategoryController {
     public String save(@ModelAttribute Category category, Model model) {
         if (category == null) throw new InvalidDataException("Category ID is null");
 
-        if (category.getName() == null || category.getName().isEmpty() || category.getColor() == null) {
+        if (category.getName() == null || category.getName().isEmpty()) {
             model.addAttribute("category", category);
-            model.addAttribute("errorMessage", "Error: name and color are required.");
+            model.addAttribute("errorMessage", "Error: name is required.");
             return "category/create-edit";
         }
 

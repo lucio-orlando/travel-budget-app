@@ -21,15 +21,11 @@
 
             <table th:unless="${#lists.isEmpty(categories)}" class="table table--striped">
                 <tr>
-                    <th>Color</th>
                     <th>Name</th>
                     <th style="text-align: right">Actions</th>
                 </tr>
 
                 <tr th:each="category : ${categories}">
-                    <td>
-                        <div th:style="'width: 2rem; height: 1rem; background-color: ' + ${category.color}"></div>
-                    </td>
                     <td th:text="${category.name}">Category Name</td>
                     <td style="text-align: right">
                         <a tooltip="edit" th:href="@{/category/edit/{id}(id=${category.id})}">
