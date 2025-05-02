@@ -25,12 +25,22 @@ public class GlobalExceptionHandler {
         return "error/404";
     }
 
-    @ExceptionHandler({InvalidDataException.class, Exception.class})
+    @ExceptionHandler({InvalidDataException.class})
     public String handleInvalidData(InvalidDataException ex, Model model) {
+        addErrorAttributes(ex, model);
+        return "error/400";
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String handleGenericException(Exception ex, Model model) {
+        addErrorAttributes(ex, model);
+        return "error/400";
+    }
+
+    private void addErrorAttributes(Exception ex, Model model) {
         List<String> stacktrace = Arrays.stream(ex.getStackTrace()).map(StackTraceElement::toString).toList();
         model.addAttribute("exception", ex);
         model.addAttribute("stacktrace", stacktrace);
         model.addAttribute("showException", showException);
-        return "error/400";
     }
 }
