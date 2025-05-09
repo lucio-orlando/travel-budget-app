@@ -3,12 +3,12 @@ package ch.lucio_orlando.travel_budget_app.controllers;
 import ch.lucio_orlando.travel_budget_app.api.unsplash.services.UnsplashApiService;
 import ch.lucio_orlando.travel_budget_app.exceptions.InvalidDataException;
 import ch.lucio_orlando.travel_budget_app.exceptions.ResourceNotFoundException;
-import ch.lucio_orlando.travel_budget_app.models.Currency;
-import ch.lucio_orlando.travel_budget_app.models.Expense;
-import ch.lucio_orlando.travel_budget_app.models.Trip;
-import ch.lucio_orlando.travel_budget_app.models.TripComponent;
+import ch.lucio_orlando.travel_budget_app.models.*;
 import ch.lucio_orlando.travel_budget_app.services.CurrencyService;
+import ch.lucio_orlando.travel_budget_app.services.StatisticsService;
 import ch.lucio_orlando.travel_budget_app.services.TripService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +24,13 @@ import java.util.stream.Collectors;
 public class TripController {
 
     private final TripService tripService;
+    private final StatisticsService statisticsService;
     private final CurrencyService currencyService;
     private final UnsplashApiService unsplashApiService;
 
-    public TripController(TripService tripService, CurrencyService currencyService, UnsplashApiService unsplashApiService) {
+    public TripController(TripService tripService, StatisticsService statisticsService, CurrencyService currencyService, UnsplashApiService unsplashApiService) {
         this.tripService = tripService;
+        this.statisticsService = statisticsService;
         this.currencyService = currencyService;
         this.unsplashApiService = unsplashApiService;
     }
@@ -44,7 +46,7 @@ public class TripController {
     }
 
     @GetMapping("/trip/{id}")
-    public String detail(@PathVariable Long id, Model model) {
+    public String detail(@PathVariable Long id, Model model) throws JsonProcessingException {
         if (id == null) throw new InvalidDataException("Trip ID is null");
 
         Trip trip = tripService.getTripById(id).orElse(null);
@@ -60,9 +62,13 @@ public class TripController {
                 Collectors.toList()
             ));
 
+        //data for the chart
+        ObjectMapper mapper = new ObjectMapper();
+        DailyLineStatistic data = statisticsService.getCumulativeBudgetVsSpent(trip);
+        model.addAttribute("budgetLine", mapper.writeValueAsString(data.cumulativeBudget()));
+        model.addAttribute("spentLine", mapper.writeValueAsString(data.cumulativeSpent()));
+
         model.addAttribute("expensesByDate", expensesByDate);
-
-
         model.addAttribute("trip", trip);
         return "trip/detail";
     }

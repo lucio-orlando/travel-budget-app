@@ -52,14 +52,16 @@ public class DemoDataLoader {
                 "https://images.unsplash.com/photo-1469487885741-33b975dd5bbc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzgyNTV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzM3NTE2ODd8&ixlib=rb-4.0.3&q=80&w=1080",
                 0,
                 14,
-                null
+                null,
+                150
             );
             Trip vietnamTrip = createTrip(
                 "Thailand",
                 "https://images.unsplash.com/photo-1578039821447-e3884b8472a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzgyNTV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzQwMTY3ODJ8&ixlib=rb-4.0.3&q=80&w=1080",
                 0,
                 7,
-                "THB"
+                "THB",
+                50
             );
             asiaTrip.addComponent(vietnamTrip);
 
@@ -68,7 +70,8 @@ public class DemoDataLoader {
                 "https://images.unsplash.com/photo-1704694214588-24f4bae4757b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzgyNTV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MzM3NTIzNzR8&ixlib=rb-4.0.3&q=80&w=1080",
                 -14,
                 -7,
-                "CRC"
+                "CRC",
+                100
             );
 
             tripService.saveTrip(asiaTrip);
@@ -77,13 +80,14 @@ public class DemoDataLoader {
         }
     }
 
-    private Trip createTrip(String name, String image, int startDayOffset, int durationDays, String currencyCode) {
+    private Trip createTrip(String name, String image, int startDayOffset, int durationDays, String currencyCode, double dailyBudget) {
         Trip trip = new Trip();
         trip.setName(name);
         trip.setDate(randomDateFromNow(startDayOffset));
         trip.setEndDate(randomDateFromNow(startDayOffset + durationDays));
         trip.setImage(image);
         trip.setCurrency(currencyService.getCurrencyByCode(currencyCode));
+        trip.setDailyBudgetCHF(dailyBudget);
         return trip;
     }
 

@@ -30,12 +30,16 @@
             </span>
         </span>
         <span>
-            <i class="fa-solid fa-money-bill-1-wave"></i>
+            <i class="fa-solid fa-sack-dollar"></i>
             <span th:text="${#numbers.formatDecimal(trip.amountCHF, 1, 2)} + ' CHF'"></span>
         </span>
-        <span>
+        <span th:classappend="${trip.dailyAverageCHF > trip.dailyBudgetCHF} ? 'over-budget'">
             <i class="fa-solid fa-sack-dollar"></i>
             <span th:text="${#numbers.formatDecimal(trip.dailyAverageCHF, 1, 2)} + ' CHF per Day'"></span>
+        </span>
+        <span th:if="${trip.dailyBudgetCHF != null}">
+            <i class="fa-solid fa-money-bill-1-wave"></i>
+            <span th:text="${#numbers.formatDecimal(trip.dailyBudgetCHF, 1, 2)} + ' CHF daily budget'"></span>
         </span>
     </p>
 </th:block>

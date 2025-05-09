@@ -6,45 +6,64 @@
 </th:block>
 
 <th:block th:fragment="content">
+    <script th:src="@{/assets/js/chart.umd.js}"></script>
+
     <div th:replace="~{widget/trip-info-header :: tripInfoHeader}"></div>
 
-    <div th:if="${trip.expenseMode}" class="expense-list">
-        <div class="expense-card" th:each="entry : ${expensesByDate}">
-            <div class="expense-card__header">
-                <strong th:text="${entry.key}">Datum</strong>
-            </div>
-            <div class="expense-card__items">
-                <div class="expense" th:each="expense : ${entry.value}">
-                    <div class="expense__top">
-                        <span class="expense__name" th:text="${expense.name}">Hotel Mexiko</span>
-                        <div class="expense__actions">
-                            <a tooltip="edit" th:href="@{'/trip/' + ${expense.parentTrip.id} + '/expense/' + ${expense.id}}">
-                                <i class="fa-solid fa-pencil"></i>
-                            </a>
-                            <a tooltip="delete" class="delete" th:href="@{'/trip/' + ${expense.parentTrip.id} + '/expense/' + ${expense.id} + '/delete'}">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
+    <div class="grid-row grid-row--mobile-reversed">
+        <div class="grid-col-66">
+
+            <div th:if="${trip.expenseMode}" class="expense-list">
+                <div class="expense-card" th:each="entry : ${expensesByDate}">
+                    <div class="expense-card__header">
+                        <strong th:text="${entry.key}">Datum</strong>
                     </div>
-                    <div class="expense__info">
-                        <span><i class="fa-solid fa-tag"></i> <span th:text="${expense.category.name}">Accommodation</span></span>
-                        <span th:text="${#numbers.formatDecimal(expense.amount, 1, 2) + ' ' + expense.currency.code}">400.00 THB</span>
-                        <span th:text="${#numbers.formatDecimal(expense.amountCHF, 1, 2) + ' CHF'}">400.00 CHF</span>
+                    <div class="expense-card__items">
+                        <div class="expense" th:each="expense : ${entry.value}">
+                            <div class="expense__top">
+                                <span class="expense__name" th:text="${expense.name}">Hotel Mexiko</span>
+                                <div class="expense__actions">
+                                    <a tooltip="edit" th:href="@{'/trip/' + ${expense.parentTrip.id} + '/expense/' + ${expense.id}}">
+                                        <i class="fa-solid fa-pencil"></i>
+                                    </a>
+                                    <a tooltip="delete" class="delete" th:href="@{'/trip/' + ${expense.parentTrip.id} + '/expense/' + ${expense.id} + '/delete'}">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="expense__info">
+                                <span><i class="fa-solid fa-tag"></i> <span th:text="${expense.category.name}">Accommodation</span></span>
+                                <span th:text="${#numbers.formatDecimal(expense.amount, 1, 2) + ' ' + expense.currency.code}">400.00 THB</span>
+                                <span th:text="${#numbers.formatDecimal(expense.amountCHF, 1, 2) + ' CHF'}">400.00 CHF</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div th:if="${trip.subTripMode}" class="trip-container">
+                <th:block th:each="trip : ${trip.components}">
+                    <div th:replace="~{widget/trip-card :: tripCard}"></div>
+                </th:block>
+            </div>
+
+            <div class="expense-list" th:if="${!trip.expenseMode and !trip.subTripMode}">
+                <div class="expense-card">
+                    <div class="expense-card__items">
+                        <div class="expense__info">
+                            <strong>No sub-trips or expenses</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="grid-col-33">
+            <div class="chart">
+                <canvas id="budgetVsSpentChart"></canvas>
+            </div>
         </div>
     </div>
-
-    <div th:if="${trip.subTripMode}" class="trip-container">
-        <th:block th:each="trip : ${trip.components}">
-            <div th:replace="~{widget/trip-card :: tripCard}"></div>
-        </th:block>
-    </div>
-
-    <p th:if="${!trip.expenseMode and !trip.subTripMode}" style="text-align: center">
-        No sub-trips or expenses
-    </p>
 
     <div th:replace="~{widget/back-button :: backButtonDefault(${trip.parentTrip != null ? '/trip/' + trip.parentTrip.id : '/trip'})}"></div>
 
@@ -74,5 +93,59 @@
             @{'/trip/new/' + ${trip.id}}
         )}"></div>
     </th:block>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const budgetLine = JSON.parse(/*[[${budgetLine}]]*/ '[]');
+        const spentLine = JSON.parse(/*[[${spentLine}]]*/ '[]');
+
+        const labels = budgetLine.map(entry => entry.name); // date strings
+
+        const ctx = document.getElementById('budgetVsSpentChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Planned Budget',
+                        data: budgetLine.map(e => e.total),
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.2
+                    },
+                    {
+                        label: 'Actual Spending',
+                        data: spentLine.map(e => e.total),
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Cumulative Budget vs. Spending'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Date' }
+                    },
+                    y: {
+                        title: { display: true, text: 'CHF' },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        /*]]>*/
+    </script>
 </th:block>
 </html>
