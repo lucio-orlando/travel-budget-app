@@ -9,7 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class UnsplashApiService {
     private final WebClient webClient;
 
-    public UnsplashApiService(@Value("${app.unsplash-api-key}") String apiKey, @Value("${app.unsplash-api-url}") String apiUrl) {
+    public UnsplashApiService(@Value("${app.unsplash-api.key}") String apiKey, @Value("${app.unsplash-api.url}") String apiUrl) {
         this.webClient = WebClient
                 .builder()
                 .baseUrl(apiUrl)

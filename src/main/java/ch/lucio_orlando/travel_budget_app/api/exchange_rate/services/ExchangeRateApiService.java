@@ -21,8 +21,8 @@ public class ExchangeRateApiService {
 
     public ExchangeRateApiService(
             CurrencyService currencyService,
-            @Value("${app.exchange-rate-api-key}") String apiKey,
-            @Value("${app.exchange-rate-api-url}") String apiUrl
+            @Value("${app.exchange-rate-api.key}") String apiKey,
+            @Value("${app.exchange-rate-api.url}") String apiUrl
     ) {
         this.currencyService = currencyService;
         this.webClient = WebClient
