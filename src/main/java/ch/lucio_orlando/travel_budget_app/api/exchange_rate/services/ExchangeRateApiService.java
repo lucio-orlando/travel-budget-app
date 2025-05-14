@@ -41,7 +41,7 @@ public class ExchangeRateApiService {
         if (response != null && response.isSuccessful()) {
             return new ExchangeResult(
                 roundToNext05(response.conversion_result()),
-                response.exchangeRate()
+                response.conversion_rate()
             );
         }
 
@@ -50,7 +50,7 @@ public class ExchangeRateApiService {
 
     @PostConstruct
     public void loadSupportedCurrencies() {
-        if (!allowApiCalls) return;
+        if (!allowApiCalls || !currencyService.getCurrencies().isEmpty()) return;
 
         ExchangeCodesResponse response = webClient.get().uri("codes")
             .retrieve()
