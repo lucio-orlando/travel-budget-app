@@ -1,5 +1,6 @@
 package ch.lucio_orlando.travel_budget_app.controllers;
 
+import ch.lucio_orlando.travel_budget_app.api.exchange_rate.models.ExchangeResult;
 import ch.lucio_orlando.travel_budget_app.api.exchange_rate.services.ExchangeRateApiService;
 import ch.lucio_orlando.travel_budget_app.exceptions.InvalidDataException;
 import ch.lucio_orlando.travel_budget_app.exceptions.ResourceNotFoundException;
@@ -117,11 +118,19 @@ public class ExpenseController {
         expense.setDate(dateFormat.parse(date));
         expense.setCurrency(currency);
 
-        double amountCHF = exchangeRateApiService.getExchangeAmount(
-            currency,
-            currencyService.getCurrencyByCode("CHF"),
-            expense.getAmount()
-        );
+        double amountCHF;
+        if (expense.getConversionRate() == 0) {
+            ExchangeResult exchangeResult =  exchangeRateApiService.getExchangeAmount(
+                currency,
+                currencyService.getCurrencyByCode("CHF"),
+                expense.getAmount()
+            );
+            amountCHF = exchangeResult.amount();
+            expense.setConversionRate(exchangeResult.conversionRate());
+        } else {
+            amountCHF = expense.getAmount() * expense.getConversionRate();
+        }
+
         expense.setAmountCHF(amountCHF);
 
         parentTrip.addComponent(expense); // links both ways

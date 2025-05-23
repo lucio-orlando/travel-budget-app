@@ -11,6 +11,8 @@ public class Expense extends TripComponent {
 
     private double amountCHF;
 
+    private double conversionRate;
+
     @ManyToOne(targetEntity = Category.class)
     @JoinColumn
     private Category category;
@@ -39,6 +41,14 @@ public class Expense extends TripComponent {
 
     public void setAmountCHF(double amountCHF) {
         this.amountCHF = amountCHF;
+    }
+
+    public double getConversionRate() {
+        return conversionRate;
+    }
+
+    public void setConversionRate(double conversionRate) {
+        this.conversionRate = conversionRate;
     }
 
     public Category getCategory() {

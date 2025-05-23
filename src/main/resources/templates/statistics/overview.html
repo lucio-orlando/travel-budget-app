@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::content})}">
+
+<th:block th:fragment="title">
+    Stats
+</th:block>
+
+<th:block th:fragment="content">
+    <script th:src="@{/assets/js/chart.umd.js}"></script>
+
+    <div class="grid-row">
+        <div class="grid-col-50">
+            <h2>Categories</h2>
+            <div class="chart">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+        <div class="grid-col-50">
+            <h2>Weekly spending's</h2>
+            <div class="chart">
+                <canvas id="weeklyChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const categoryStats = JSON.parse(/*[[${categoryStats}]]*/ "[]");
+
+        const categoryLabels = categoryStats.map(stat => `${stat.name} (${stat.total.toFixed(2)})`);
+        const categoryData = categoryStats.map(stat => stat.total);
+
+        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+        new Chart(categoryCtx, {
+            type: 'bar',
+            data: {
+                labels: categoryLabels,
+                datasets: [{
+                    label: 'Expenses',
+                    data: categoryData,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Total Expenses by Category'
+                    }
+                }
+            }
+        });
+
+        const weeklyStats = JSON.parse(/*[[${weeklyStats}]]*/ "[]");
+
+        const weeklyLabels = weeklyStats.map(entry => entry.name);
+        const weeklyData = weeklyStats.map(entry => entry.total);
+
+        const dailyCtx = document.getElementById('weeklyChart').getContext('2d');
+        new Chart(dailyCtx, {
+            type: 'line',
+            data: {
+                labels: weeklyLabels,
+                datasets: [{
+                    label: 'CHF Spent',
+                    data: weeklyData,
+                    fill: false,
+                    tension: 0,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'CHF'
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Total Spending per Week'
+                    }
+                }
+            }
+        });
+        /*]]>*/
+    </script>
+
+    <div th:replace="~{widget/back-button :: backButtonDefault('/')}"></div>
+
+    <div th:replace="~{widget/bottom-nav :: tabNavDefault('/', '/trip/new')}"></div>
+</th:block>
+</html>

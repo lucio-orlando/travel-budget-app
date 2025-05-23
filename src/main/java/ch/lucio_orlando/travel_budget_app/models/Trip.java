@@ -23,6 +23,8 @@ public class Trip extends TripComponent {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
+    private double dailyBudgetCHF;
+
     public Trip(String name, Date date, Date endDate) {
         super(name, date);
         this.endDate = endDate;
@@ -45,11 +47,25 @@ public class Trip extends TripComponent {
         this.endDate = endDate;
     }
 
+    public double getDailyBudgetCHF() {
+        return dailyBudgetCHF;
+    }
+
+    public void setDailyBudgetCHF(double dailyBudgetCHF) {
+        this.dailyBudgetCHF = dailyBudgetCHF;
+    }
+
     public List<TripComponent> getComponents() {
         return components;
     }
 
     public void addComponent(TripComponent component) {
+        checkAndSetComponentType(component);
+
+        components.add(component);
+    }
+
+    public void checkAndSetComponentType(TripComponent component) {
         if (component == null) {
             throw new IllegalArgumentException("Component cannot be null");
         }
@@ -61,9 +77,6 @@ public class Trip extends TripComponent {
         if (componentType == null) {
             componentType = component.getClass();
         }
-
-        components.add(component);
-        component.setParentTrip(this);
     }
 
     public void removeComponent(TripComponent component) {
@@ -91,6 +104,60 @@ public class Trip extends TripComponent {
 
     public double getAmountCHF() {
         return components.stream().mapToDouble(TripComponent::getAmountCHF).sum();
+    }
+
+    public double getDailyAverageCHF() {
+        List<Expense> expenses = new ArrayList<>();
+
+        if (isSubTripMode()) {
+            expenses = getRecursiveExpenses(this);
+        }
+        if (isExpenseMode()) {
+            expenses = components.stream()
+                .filter(component -> component instanceof Expense)
+                .map(component -> (Expense) component)
+                .toList();
+        }
+
+        if (expenses.isEmpty()) {
+            return 0.0;
+        }
+
+        double total = expenses.stream()
+            .mapToDouble(TripComponent::getAmountCHF)
+            .sum();
+
+        // Calculate the full duration of the trip
+        LocalDate startDate = ((java.sql.Date) date).toLocalDate();
+        LocalDate today = LocalDate.now();
+        LocalDate end = endDate != null ? ((java.sql.Date) endDate).toLocalDate() : today;
+
+        // If the trip is ongoing, limit the end date to today
+        if (end.isAfter(today)) {
+            end = today;
+        }
+
+        long totalDays = java.time.temporal.ChronoUnit.DAYS.between(startDate, end) + 1;
+
+        if (totalDays <= 0) {
+            return 0.0;
+        }
+
+        return total / totalDays;
+    }
+
+    public List<Expense> getRecursiveExpenses(Trip trip) {
+        List<Expense> result = new ArrayList<>();
+
+        for (TripComponent component : trip.getComponents()) {
+            if (component instanceof Expense expense) {
+                result.add(expense);
+            } else if (component instanceof Trip subTrip) {
+                result.addAll(getRecursiveExpenses(subTrip));
+            }
+        }
+
+        return result;
     }
 
     public boolean isExpenseMode() {

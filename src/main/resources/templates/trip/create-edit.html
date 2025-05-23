@@ -9,7 +9,7 @@
     <form th:action="@{'/trip'}" method="post">
         <div th:replace="~{widget/trip-info-header :: tripInfoHeader}"></div>
 
-        <h1 th:if="${trip == null}" th:text="'Create a new trip'">Create a new trip</h1>
+        <h1 th:if="${trip == null}" th:text="${draftTrip.id != null ? 'Edit Trip' : 'Create a new Trip'}">Create a new trip</h1>
 
         <div class="error-message" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
 
@@ -20,8 +20,11 @@
             <div class="grid-col-50">
                 <div th:replace="~{widget/form/input :: input('name','Trip name',true,${draftTrip.name},'text')}"></div>
             </div>
-            <div class="grid-col-50">
+            <div class="grid-col-25">
                 <div th:replace="~{widget/form/select :: selectCode('currency','Default currency',true,${currencies},${draftTrip.currency != null ? draftTrip.currency.id : null})}"></div>
+            </div>
+            <div class="grid-col-25">
+                <div th:replace="~{widget/form/input :: input('dailyBudgetCHF','Daily budget',false,${draftTrip.dailyBudgetCHF},'text')}"></div>
             </div>
             <div class="grid-col-50">
                 <div th:replace="~{widget/form/input :: input('date','Start date',true,${#dates.format(draftTrip.date, 'yyyy-MM-dd')},'date')}"></div>

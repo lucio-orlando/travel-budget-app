@@ -1,5 +1,6 @@
 package ch.lucio_orlando.travel_budget_app.api.exchange_rate.services;
 
+import ch.lucio_orlando.travel_budget_app.api.exchange_rate.models.ExchangeResult;
 import ch.lucio_orlando.travel_budget_app.models.Currency;
 import ch.lucio_orlando.travel_budget_app.api.exchange_rate.models.ExchangeCodesResponse;
 import ch.lucio_orlando.travel_budget_app.api.exchange_rate.models.ExchangeRateResponse;
@@ -20,8 +21,8 @@ public class ExchangeRateApiService {
 
     public ExchangeRateApiService(
             CurrencyService currencyService,
-            @Value("${app.exchange-rate-api-key}") String apiKey,
-            @Value("${app.exchange-rate-api-url}") String apiUrl
+            @Value("${app.exchange-rate-api.key}") String apiKey,
+            @Value("${app.exchange-rate-api.url}") String apiUrl
     ) {
         this.currencyService = currencyService;
         this.webClient = WebClient
@@ -30,19 +31,18 @@ public class ExchangeRateApiService {
                 .build();
     }
 
-    public double getExchangeAmount(Currency base, Currency target, double amount) {
-        if (!allowApiCalls) return amount;
+    public ExchangeResult getExchangeAmount(Currency base, Currency target, double amount) {
+        if (!allowApiCalls) return new ExchangeResult(amount, 0);
 
         ExchangeRateResponse response = webClient.get().uri("pair/{base}/{target}/{amount}", base.getCode(), target.getCode(), amount)
                 .retrieve()
                 .bodyToMono(ExchangeRateResponse.class).block();
 
         if (response != null && response.isSuccessful()) {
-            if (response.conversion_result() != 0) {
-                return roundToNext05(response.conversion_result());
-            } else if (response.exchangeRate() != 0) {
-                return roundToNext05(response.exchangeRate() * amount);
-            }
+            return new ExchangeResult(
+                roundToNext05(response.conversion_result()),
+                response.conversion_rate()
+            );
         }
 
         throw new RuntimeException("Failed to get exchange rate");
@@ -50,17 +50,17 @@ public class ExchangeRateApiService {
 
     @PostConstruct
     public void loadSupportedCurrencies() {
-        if (!allowApiCalls) return;
+        if (!allowApiCalls || !currencyService.getCurrencies().isEmpty()) return;
 
         ExchangeCodesResponse response = webClient.get().uri("codes")
-                .retrieve()
-                .bodyToMono(ExchangeCodesResponse.class).block();
+            .retrieve()
+            .bodyToMono(ExchangeCodesResponse.class).block();
 
         if (response != null && response.isSuccessful()) {
             response.supported_codes().forEach(
-                    supportedCode -> currencyService.saveCurrency(
-                            new Currency(supportedCode.code(), supportedCode.name())
-                    )
+                supportedCode -> currencyService.saveCurrency(
+                    new Currency(supportedCode.code(), supportedCode.name())
+                )
             );
         } else {
             throw new RuntimeException("Failed to load supported currencies");

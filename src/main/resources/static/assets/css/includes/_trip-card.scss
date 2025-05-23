@@ -52,6 +52,10 @@
         position: absolute;
         bottom: 1rem;
         right: 1rem;
+
+        a {
+          margin-left: .5rem;
+        }
       }
 
       .trip-card__delete {
