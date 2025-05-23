@@ -9,7 +9,7 @@
     <form th:action="@{'/trip'}" method="post">
         <div th:replace="~{widget/trip-info-header :: tripInfoHeader}"></div>
 
-        <h1 th:if="${trip == null}" th:text="'Create a new trip'">Create a new trip</h1>
+        <h1 th:if="${trip == null}" th:text="${draftTrip.id != null ? 'Edit Trip' : 'Create a new Trip'}">Create a new trip</h1>
 
         <div class="error-message" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
 

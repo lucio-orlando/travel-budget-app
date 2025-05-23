@@ -81,17 +81,12 @@ public class TripController {
 
         if (trip == null) throw new ResourceNotFoundException("Trip with ID " + id + " not found");
 
-        List<Currency> currencies = currencyService.getCurrencies();
-        model.addAttribute("trip", trip);
-        model.addAttribute("currencies", currencies);
-        model.addAttribute("errorMessage", null);
+        prepareForm(model, trip.getParentTrip(), trip, null);
         return "trip/create-edit";
     }
 
     @GetMapping({"/trip/new/{id}", "/trip/new"})
     public String newForm(@PathVariable(required = false) Long id, Model model) {
-        // TODO: edit needs to be fixed -> detached entity error
-
         Trip trip = new Trip();
         Trip parentTrip = null;
         if (id != null) {
@@ -99,48 +94,58 @@ public class TripController {
             trip.setParentTrip(parentTrip);
         }
 
-        List<Currency> currencies = currencyService.getCurrencies();
-        model.addAttribute("trip", parentTrip);
-        model.addAttribute("draftTrip", trip);
-        model.addAttribute("currencies", currencies);
-        model.addAttribute("errorMessage", null);
+        prepareForm(model, parentTrip, trip, null);
         return "trip/create-edit";
     }
 
     @PostMapping("/trip")
     public String save(
-        @ModelAttribute Trip trip,
+        @RequestParam(required = false) Long id,
+        @RequestParam(required = false) Long parentTrip,
+        @RequestParam(required = false) Long currency,
+        @RequestParam(required = false) Double dailyBudgetCHF,
+        @RequestParam String name,
         @RequestParam String date,
         @RequestParam(required = false) String endDate,
-        @RequestParam(required = false) Long currencyId,
         Model model
     ) {
-        if (trip == null) throw new InvalidDataException("Trip is null");
+        Trip trip;
 
-        if (trip.getName() == null || trip.getName().isEmpty() || date == null || date.isEmpty()) {
-            List<Currency> currencies = currencyService.getCurrencies();
-            model.addAttribute("trip", trip);
-            model.addAttribute("currencies", currencies);
-            model.addAttribute("errorMessage", "Error: name and date are required.");
+        if (id != null) {
+            trip = tripService.getTripById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Trip with ID " + id + " not found"));
+        } else {
+            trip = new Trip();
+        }
+
+        if (name == null || name.isEmpty() || date == null || date.isEmpty()) {
+            prepareForm(model, trip.getParentTrip(), trip, "Error: name and date are required.");
             return "trip/create-edit";
         }
 
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             trip.setDate(dateFormat.parse(date));
+            trip.setName(name);
 
             if (endDate != null && !endDate.isEmpty()) {
                 trip.setEndDate(dateFormat.parse(endDate));
             }
 
-            if (currencyId != null) {
-                trip.setCurrency(currencyService.getCurrencyById(currencyId));
+            if (currency != null) {
+                trip.setCurrency(currencyService.getCurrencyById(currency));
             }
 
             trip.setImage(unsplashApiService.getPhotoUrl(trip.getName()));
 
-            if (trip.getParentTrip() != null) {
-                trip.getParentTrip().addComponent(trip);
+            trip.setDailyBudgetCHF(dailyBudgetCHF != null ? dailyBudgetCHF : 0.0);
+            if (parentTrip != null) {
+                Trip parentTripObj = tripService.getTripById(parentTrip)
+                    .orElseThrow(() -> new ResourceNotFoundException("Parent trip with ID " + parentTrip + " not found"));
+                trip.setParentTrip(tripService.getTripById(parentTrip).orElse(null));
+                parentTripObj.addComponent(trip);
+            } else {
+                trip.setParentTrip(null);
             }
 
             tripService.saveTrip(trip);
@@ -162,5 +167,13 @@ public class TripController {
 
     private String redirect(String url) {
         return "redirect:" + url;
+    }
+
+    private void prepareForm(Model model, Trip parentTrip, Trip trip, String errorMessage) {
+        List<Currency> currencies = currencyService.getCurrencies();
+        model.addAttribute("trip", parentTrip);
+        model.addAttribute("draftTrip", trip);
+        model.addAttribute("currencies", currencies);
+        model.addAttribute("errorMessage", errorMessage);
     }
 }

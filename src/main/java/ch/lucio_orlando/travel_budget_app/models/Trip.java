@@ -60,6 +60,12 @@ public class Trip extends TripComponent {
     }
 
     public void addComponent(TripComponent component) {
+        checkAndSetComponentType(component);
+
+        components.add(component);
+    }
+
+    public void checkAndSetComponentType(TripComponent component) {
         if (component == null) {
             throw new IllegalArgumentException("Component cannot be null");
         }
@@ -71,9 +77,6 @@ public class Trip extends TripComponent {
         if (componentType == null) {
             componentType = component.getClass();
         }
-
-        components.add(component);
-        component.setParentTrip(this);
     }
 
     public void removeComponent(TripComponent component) {

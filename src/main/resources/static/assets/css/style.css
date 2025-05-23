@@ -521,6 +521,9 @@ body #content .trip-container .trip-card .trip-card__info .trip-card__actions {
   bottom: 1rem;
   right: 1rem;
 }
+body #content .trip-container .trip-card .trip-card__info .trip-card__actions a {
+  margin-left: 0.5rem;
+}
 body #content .trip-container .trip-card .trip-card__info .trip-card__delete {
   position: absolute;
   top: 1rem;
