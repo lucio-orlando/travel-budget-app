@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ch.lucio-orlando</groupId>
 	<artifactId>travel-budget-app</artifactId>
-	<version>0.1</version>
+	<version>0.2</version>
 	<name>Travel-Budget App</name>
 	<description>A budget-app specific for traveling expenses</description>
 	<url>https://github.com/lucio-orlando/travel-budget-app</url>
