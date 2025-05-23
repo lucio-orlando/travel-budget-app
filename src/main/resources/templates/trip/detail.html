@@ -10,8 +10,8 @@
 
     <div th:replace="~{widget/trip-info-header :: tripInfoHeader}"></div>
 
-    <div class="grid-row grid-row--mobile-reversed">
-        <div class="grid-col-66">
+    <div class="row">
+        <div class="col-12 col-lg-8">
 
             <div th:if="${trip.expenseMode}" class="expense-list">
                 <div class="expense-card" th:each="entry : ${expensesByDate}">
@@ -58,7 +58,7 @@
             </div>
 
         </div>
-        <div class="grid-col-33">
+        <div class="col-12 col-lg-4">
             <div class="chart">
                 <canvas id="budgetVsSpentChart"></canvas>
             </div>

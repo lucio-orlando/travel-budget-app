@@ -16,20 +16,20 @@
         <input type="hidden" name="id" th:value="${draftTrip.id}">
         <input th:if="${trip != null}" type="hidden" name="parentTrip" th:value="${trip.id}">
 
-        <div class="grid-row">
-            <div class="grid-col-50">
+        <div class="row">
+            <div class="col-12 col-lg-4">
                 <div th:replace="~{widget/form/input :: input('name','Trip name',true,${draftTrip.name},'text')}"></div>
             </div>
-            <div class="grid-col-25">
+            <div class="col-6 col-lg-4">
                 <div th:replace="~{widget/form/select :: selectCode('currency','Default currency',true,${currencies},${draftTrip.currency != null ? draftTrip.currency.id : null})}"></div>
             </div>
-            <div class="grid-col-25">
+            <div class="col-6 col-lg-4">
                 <div th:replace="~{widget/form/input :: input('dailyBudgetCHF','Daily budget',false,${draftTrip.dailyBudgetCHF},'text')}"></div>
             </div>
-            <div class="grid-col-50">
+            <div class="col-6">
                 <div th:replace="~{widget/form/input :: input('date','Start date',true,${#dates.format(draftTrip.date, 'yyyy-MM-dd')},'date')}"></div>
             </div>
-            <div class="grid-col-50">
+            <div class="col-6">
                 <div th:replace="~{widget/form/input :: input('endDate','End date',false,${draftTrip.endDate != null ? #dates.format(draftTrip.endDate, 'yyyy-MM-dd') : ''},'date')}"></div>
             </div>
         </div>
