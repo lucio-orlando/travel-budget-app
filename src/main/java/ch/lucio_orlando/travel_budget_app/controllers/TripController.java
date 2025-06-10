@@ -81,7 +81,7 @@ public class TripController {
 
         if (trip == null) throw new ResourceNotFoundException("Trip with ID " + id + " not found");
 
-        prepareForm(model, trip.getParentTrip(), trip, null);
+        prepareForm(model, trip.getParentTrip(), trip, null, "/trip/" + id);
         return "trip/create-edit";
     }
 
@@ -94,7 +94,7 @@ public class TripController {
             trip.setParentTrip(parentTrip);
         }
 
-        prepareForm(model, parentTrip, trip, null);
+        prepareForm(model, parentTrip, trip, null, id != null ? "/trip/" + id : "/trip");
         return "trip/create-edit";
     }
 
@@ -119,7 +119,7 @@ public class TripController {
         }
 
         if (name == null || name.isEmpty() || date == null || date.isEmpty()) {
-            prepareForm(model, trip.getParentTrip(), trip, "Error: name and date are required.");
+            prepareForm(model, trip.getParentTrip(), trip, "Error: name and date are required.", "/trip" + (trip.getParentTrip() != null ? "/" + trip.getParentTrip().getId() : ""));
             return "trip/create-edit";
         }
 
@@ -169,11 +169,12 @@ public class TripController {
         return "redirect:" + url;
     }
 
-    private void prepareForm(Model model, Trip parentTrip, Trip trip, String errorMessage) {
+    private void prepareForm(Model model, Trip parentTrip, Trip trip, String errorMessage, String backRoute) {
         List<Currency> currencies = currencyService.getCurrencies();
         model.addAttribute("trip", parentTrip);
         model.addAttribute("draftTrip", trip);
         model.addAttribute("currencies", currencies);
         model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute("backRoute", backRoute);
     }
 }

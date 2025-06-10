@@ -1,22 +1,60 @@
-// Primary theme colors
-$blue-charcoal: #27303c;
-$blue-charcoal-dark: #1a2025;
+// Brand
+$color-primary:        #3B82F6;
+$color-secondary:      #10B981;
+$color-accent:         #EF4444;
+$color-warning:        #F59E0B;
+$color-info:           #60A5FA;
 
-// Secondary theme colors
-$blue-powder: #7EADCB;
-$blue-steel: #5e8ba3;
+// Grayscale
+$color-light:          #F3F4F6;
+$color-white:          #FFFFFF;
+$color-grey:           #D1D5DB;
+$color-dark:           #1E293B;
+$color-black:          #111827;
 
-// Functional greens
-$green-mint: #90EE90;
-$green-fern: #6abf6b;
+// Text
+$text-primary:         #1F2937;
+$text-secondary:       #6B7280;
 
-// Functional reds
-$red-tomato: #FF6347;
-$red-rose: #f8d7da;
+// Charts
+$chart-planned:        $color-primary;
+$chart-actual:         #F43F5E;
 
-// Neutrals
-$white: #ffffff;
-$grey-cloud: #fafafa;
-$grey-snow: #f2f2f2;
-$grey-light: #dddddd;
-$grey-slate: #9a9a9a;
+// Borders & Radius
+$border-radius:        0.25rem;
+
+// Typography
+$font-base:            'Inter', sans-serif;
+
+
+:root {
+  --bs-primary:    #1E293B;
+  --bs-secondary:  #10B981;
+  --bs-success:    #10B981;
+  --bs-danger:     #EF4444;
+  --bs-warning:    #F59E0B;
+  --bs-info:       #60A5FA;
+  --bs-light:      #F3F4F6;
+  --bs-dark:       #1E293B;
+
+  --bs-body-bg:    #FFFFFF;
+  --bs-body-color: #1F2937;
+
+  --bs-border-radius: 0.5rem;
+  --bs-font-sans-serif: 'Inter', sans-serif;
+}
+
+.btn-primary {
+  --bs-btn-bg: #1E293B;
+  --bs-btn-border-color: #1E293B;
+  --bs-btn-hover-bg: #111827;
+  --bs-btn-hover-border-color: #111827;
+  --bs-btn-active-bg: #1E293B;
+  --bs-btn-active-border-color: #1E293B;
+  --bs-btn-disabled-bg: #1E293B;
+  --bs-btn-disabled-border-color: #1E293B;
+}
+.btn-outline-secondary {
+  --bs-btn-color: #1F2937;
+  --bs-btn-border-color: #D1D5DB;
+}

@@ -31,8 +31,8 @@
     padding: 1ch 1.5ch;
     border-radius: .3ch;
     box-shadow: 0 1em 2em -.5em rgba(0, 0, 0, 0.35);
-    background: $blue-charcoal;
-    color: $white;
+    background: $color-dark;
+    color: $color-white;
     z-index: 1000;
   }
 
@@ -54,7 +54,7 @@
     &::before {
       bottom: 100%;
       border-bottom-width: 0;
-      border-top-color: $blue-charcoal;
+      border-top-color: $color-dark;
     }
     &::after {
       bottom: calc(100% + 5px);
@@ -73,7 +73,7 @@
     &::before {
       top: 100%;
       border-top-width: 0;
-      border-bottom-color: $blue-charcoal;
+      border-bottom-color: $color-dark;
     }
 
     &::after {
@@ -91,7 +91,7 @@
 
     &::before {
       border-right-width: 0;
-      border-left-color: $blue-charcoal;
+      border-left-color: $color-dark;
       left: calc(0em - 5px);
     }
 
@@ -110,7 +110,7 @@
 
     &::before {
       border-left-width: 0;
-      border-right-color: $blue-charcoal;
+      border-right-color: $color-dark;
       right: calc(0em - 5px);
     }
 

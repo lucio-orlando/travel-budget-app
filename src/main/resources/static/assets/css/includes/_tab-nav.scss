@@ -1,9 +1,9 @@
 $tab-nav-height: 4.25rem;
-$tab-nav-background: $blue-charcoal;
-$tab-nav-color: $white;
+$tab-nav-background: $color-dark;
+$tab-nav-color: $color-white;
 $button-size: 4rem;
-$button-font-size: 2rem;
-$button-side-font-size: 1.5rem;
+$button-font-size: 1.75rem;
+$button-side-font-size: 1.25rem;
 $border-width: 13rem;
 $border-height: 2.5rem;
 $offset-double-add: 2.5rem;
@@ -17,7 +17,7 @@ $offset-double-add: 2.5rem;
   background-color: $tab-nav-background;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 .25rem 1.5rem rgba(0, 0, 0, 0.75);
+  box-shadow: 0 .25rem 1.5rem rgba(0, 0, 0, .5);
   z-index: 10;
   display: none;
   padding: 0 3rem;
@@ -31,32 +31,28 @@ $offset-double-add: 2.5rem;
     bottom: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
-    background-color: $blue-powder;
+    background-color: $color-primary;
     width: $button-size;
     height: $button-size;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: $button-font-size;
     color: $tab-nav-color;
     transition: .5s ease all;
 
     &:hover {
-      background-color: $blue-steel;
+      background-color: $color-info;
     }
 
     &--submit, &--right {
-      background-color: $green-mint;
+      background-color: $color-secondary;
       cursor: pointer;
-
-      &:hover {
-        background-color: $green-fern;
-      }
     }
 
-    &--left, &--right {
-      font-size: $button-side-font-size;
+    &--left svg, &--right svg{
+      width: $button-side-font-size;
+      height: $button-side-font-size;
     }
 
     &--left {
@@ -67,6 +63,11 @@ $offset-double-add: 2.5rem;
     &--right {
       left: calc(50% + $offset-double-add);
       transform: translateX(-50%);
+    }
+
+    svg {
+      width: $button-font-size;
+      height: $button-font-size;
     }
   }
 
@@ -94,6 +95,10 @@ $offset-double-add: 2.5rem;
 
   .tab-nav__icon {
     color: $tab-nav-color;
-    font-size: $button-side-font-size;
+
+    svg {
+      width: $button-side-font-size;
+      height: $button-side-font-size;
+    }
   }
 }

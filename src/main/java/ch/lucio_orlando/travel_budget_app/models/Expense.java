@@ -1,5 +1,6 @@
 package ch.lucio_orlando.travel_budget_app.models;
 
+import ch.lucio_orlando.travel_budget_app.services.AmountFormatter;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -35,12 +36,20 @@ public class Expense extends TripComponent {
         this.amount = amount;
     }
 
+    public String getAmountFormatted() {
+        return AmountFormatter.formatAmount(amount);
+    }
+
     public double getAmountCHF() {
         return amountCHF;
     }
 
     public void setAmountCHF(double amountCHF) {
         this.amountCHF = amountCHF;
+    }
+
+    public String getAmountCHFFormatted() {
+        return AmountFormatter.formatAmount(amountCHF);
     }
 
     public double getConversionRate() {

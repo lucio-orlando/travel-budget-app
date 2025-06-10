@@ -19,29 +19,34 @@ h2 {
 h1, h2 {
   font-weight: 400;
   margin-bottom: .5rem;
-  border-bottom: 1px solid $blue-charcoal;
 }
 
 p {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 400;
   margin-bottom: 1rem;
 
-  @media screen and (max-width: $font-breakpoint) {
-    font-size: 1rem;
+  svg {
+    margin-top: -.2rem;
   }
 }
 
 a {
+  font-size: 1rem;
   text-decoration: none;
-  color: $blue-charcoal;
+  color: $color-primary;
   transition: color ease .5s;
 
   &:hover {
-    color: $blue-powder;
+    color: $color-info;
   }
 
   &.delete {
-    color: $red-tomato;
+    color: $color-accent;
   }
+}
+
+svg {
+  width: 1rem;
+  height: 1rem;
 }

@@ -1,36 +1,18 @@
 .btn {
-  border: 1px solid $blue-charcoal;
-  color: $white;
-  background-color: $blue-charcoal;
-  border-radius: 1rem;
-  padding: .5rem 1.5rem;
-  display: inline-block;
-  text-decoration: none;
-  transition: all ease .5s;
-  cursor: pointer;
+  font-weight: 600;
+  padding: .5rem 1rem;
 
-  &:hover {
-    background: $white;
-    color: $blue-charcoal;
-    text-decoration: none;
-  }
-
-  &.btn--secondary {
-    border: 1px solid $blue-charcoal;
-    color: $blue-charcoal;
-    background-color: $white;
-
-    &:hover {
-      background: $blue-charcoal;
-      color: $white;
-      text-decoration: none;
-    }
+  svg {
+    width: 1rem;
+    height: 1rem;
+    margin-right: .5rem;
+    margin-top: -.2rem;
   }
 }
 
 .icon-button {
-  background: $blue-charcoal;
-  color: $white;
+  background: $color-primary;
+  color: $color-white;
   border-radius: 1rem;
   font-size: 1.5rem;
   position: relative;
@@ -41,8 +23,8 @@
   display: inline-block;
 
   &:hover {
-    background: $blue-charcoal-dark;
-    color: $white;
+    background: $color-info;
+    color: $color-white;
   }
 
   &.icon-button--small {
@@ -53,19 +35,15 @@
   }
 
   &.icon-button--blue {
-    background: $blue-powder;
+    background: $color-dark;
 
     &:hover {
-      background: $blue-steel;
+      background: $color-black;
     }
   }
 
   &.icon-button--green {
-    background: $green-mint;
-
-    &:hover {
-      background: $green-fern;
-    }
+    background: $color-secondary;
   }
 
   svg {
@@ -77,7 +55,12 @@
 }
 
 @media screen and (max-width: $navigation-breakpoint) {
-  .btn, .icon-button {
+  .btn:not(.mobile-needed), .icon-button {
     display: none;
   }
+
+    .btn.mobile-needed {
+      display: inline-block;
+      width: 100%;
+    }
 }

@@ -7,7 +7,6 @@
 
 <th:block th:fragment="content">
     <form th:action="@{'/category'}" method="post">
-        <h2 th:text="${category.id != null ? 'Edit Category' : 'Create a New Category'}">Create a New Category</h2>
 
         <div class="error-message" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
 
@@ -22,6 +21,6 @@
         <div th:replace="~{widget/form/buttons :: formButtonsDefault(${'/category'})}"></div>
     </form>
 
-    <div th:replace="~{widget/bottom-nav :: tabNavForm('/', 'fa-arrow-left', '/', 'fa-house')}"></div>
+    <div th:replace="~{widget/bottom-nav :: tabNavForm('/', 'arrow-left', '/', 'house')}"></div>
 </th:block>
 </html>

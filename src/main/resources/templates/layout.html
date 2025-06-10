@@ -12,12 +12,12 @@
             <!-- Google Fonts -->
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 
             <!-- Stylesheets -->
             <link rel="stylesheet" th:href="@{/assets/css/plugins/bootstrap.min.css}">
             <link rel="stylesheet" th:href="@{/assets/css/style.css}">
-            <link rel="stylesheet" th:href="@{/assets/css/fontawesome.css}">
 
             <!-- Favicons -->
             <link rel="apple-touch-icon" sizes="180x180" th:href="@{/assets/img/favicon/apple-touch-icon.png}">
@@ -29,7 +29,7 @@
             <link rel="manifest" th:href="@{/assets/img/favicon/site.webmanifest}">
 
             <!-- Scripts -->
-            <script th:src="@{/assets/js/fontawesome.js}"></script>
+            <script th:src="@{/assets/js/plugins/lucide.js}"></script>
             <script th:src="@{/assets/js/plugins/bootstrap.min.js}"></script>
             <script th:src="@{/assets/js/main.js}"></script>
 
@@ -46,15 +46,16 @@
 
             <nav>
                 <a tooltip="add main trip" class="icon-button icon-button--blue" th:href="@{/trip/new}">
-                    <i class="fa-solid fa-plus"></i>
+                    <i data-lucide="plus"></i>
                 </a>
 
                 <a tooltip="info" class="icon-button icon-button--green" th:href="@{/statistics}">
-                    <i class="fa-solid fa-chart-pie"></i>
+                    <i data-lucide="chart-pie"></i>
                 </a>
 
                 <a tooltip="categories" class="icon-button" th:href="@{/category}">
-                    <i class="fa-solid fa-gear"></i>
+
+                    <i data-lucide="settings"></i>
                 </a>
             </nav>
         </header>
