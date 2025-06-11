@@ -294,6 +294,7 @@ body .icon-button svg {
   body .btn.mobile-needed {
     display: inline-block;
     width: 100%;
+    white-space: nowrap;
   }
 }
 body [tooltip] {
@@ -574,8 +575,11 @@ body #content form .field select:focus ~ label,
 body #content form .field textarea:focus ~ label {
   color: #1F2937;
 }
-body #content form .field input[type=color] {
-  height: 58px;
+body #content form .field input[type=color],
+body #content form .field input[type=date],
+body #content form .field select {
+  height: 57px;
+  min-height: 57px;
 }
 body #content form .field label {
   top: -0.75rem;

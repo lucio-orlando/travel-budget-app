@@ -29,8 +29,11 @@ form .field {
     }
   }
 
-  input[type="color"] {
-    height: 58px;
+  input[type="color"],
+  input[type="date"],
+  select, {
+    height: 57px;
+    min-height: 57px; // Fix for IOS Safari date input & select
   }
 
   label {
