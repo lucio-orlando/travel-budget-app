@@ -1,19 +1,18 @@
 @import "includes/reset";
-@import "includes/grid";
 @import "includes/colors";
 @import "includes/breakpoints";
 
 body {
-  font-family: "Raleway", sans-serif;
+  font-family: $font-base;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   font-size: 18px;
-  color: $blue-charcoal;
+  color: $text-primary;
   padding: 11rem 2rem 2rem;
 
   @media screen and (max-width: $navigation-breakpoint) {
-    padding: 2rem;
+    padding: 2rem 1rem 4rem;
   }
 
   @import "includes/header";
@@ -30,25 +29,31 @@ body {
 
   #content {
     @import "includes/trip-card";
+    @import "includes/trip-summary";
     @import "includes/form";
     @import "includes/table";
     @import "includes/expense";
+
+    .trip-info__name {
+      margin-bottom: 0;
+
+      @media screen and (max-width: $font-breakpoint) {
+        flex-direction: column;
+        row-gap: 1rem;
+        margin-bottom: 1rem;
+      }
+    }
 
     .trip-info {
       display: flex;
       flex-direction: column;
       gap: .25rem;
-      border-bottom: 1px solid $blue-charcoal;
-      padding-bottom: .5rem;
+    }
 
-      svg {
-        width: 1.5rem;
-      }
-
-      .over-budget {
-        color: $red-tomato;
-        font-weight: 500;
-      }
+    .chart-link {
+      margin-bottom: 2rem;
+      display: block;
+      cursor: pointer;
     }
 
     .chart {
@@ -72,10 +77,10 @@ body {
     }
 
     .error-message {
-      color: $red-tomato;
+      color: $color-accent;
       font-weight: 700;
       padding: .5rem 1.5rem;
-      background-color: $red-rose;
+      background-color: $color-white;
       margin-bottom: 1rem;
     }
   }

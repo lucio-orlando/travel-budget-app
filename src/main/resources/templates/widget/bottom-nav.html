@@ -12,15 +12,15 @@
         <div class="tab-nav__border"></div>
 
         <a th:href="${backUrl}" class="tab-nav__icon" title="Back">
-            <i class="fa-solid fa-arrow-left"></i>
+            <i data-lucide="arrow-left"></i>
         </a>
 
         <a th:href="${addUrl}" class="tab-nav__button" title="Add">
-            <i class="fa-solid fa-plus"></i>
+            <i data-lucide="plus"></i>
         </a>
 
         <a th:href="@{/}" class="tab-nav__icon" title="Home">
-            <i class="fa-solid fa-house"></i>
+            <i data-lucide="house"></i>
         </a>
     </nav>
 </th:block>
@@ -39,15 +39,15 @@
         <div class="tab-nav__border"></div>
 
         <a th:href="${link1}" class="tab-nav__icon">
-            <i th:class="'fa-solid ' + ${icon1}"></i>
+            <i th:data-lucide="${icon1}"></i>
         </a>
 
         <a th:href="${addUrl}" class="tab-nav__button" title="Add">
-            <i class="fa-solid fa-plus"></i>
+            <i data-lucide="plus"></i>
         </a>
 
         <a th:href="${link2}" class="tab-nav__icon">
-            <i th:class="'fa-solid ' + ${icon2}"></i>
+            <i th:data-lucide="${icon2}"></i>
         </a>
     </nav>
 </th:block>
@@ -66,15 +66,15 @@
         <div class="tab-nav__border"></div>
 
         <a th:href="${link1}" class="tab-nav__icon">
-            <i th:class="'fa-solid ' + ${icon1}"></i>
+            <i th:data-lucide="${icon1}"></i>
         </a>
 
         <div id="submit" class="tab-nav__button tab-nav__button--submit" title="Add">
-            <i class="fa-solid fa-check"></i>
+            <i th:data-lucide="check"></i>
         </div>
 
         <a th:href="${link2}" class="tab-nav__icon">
-            <i th:class="'fa-solid ' + ${icon2}"></i>
+            <i th:data-lucide="${icon2}"></i>
         </a>
     </nav>
 </th:block>
@@ -93,19 +93,19 @@
         <div class="tab-nav__border tab-nav__border--right"></div>
 
         <a th:href="${link1}" class="tab-nav__icon">
-            <i th:class="'fa-solid ' + ${icon1}"></i>
+            <i th:data-lucide="${icon1}"></i>
         </a>
 
         <a th:href="${addUrl1}" class="tab-nav__button tab-nav__button--left" title="Add">
-            <i th:class="'fa-solid ' + ${addIcon1}"></i>
+            <i th:data-lucide="${addIcon1}"></i>
         </a>
 
         <a th:href="${addUrl2}" class="tab-nav__button tab-nav__button--right" title="Add">
-            <i th:class="'fa-solid ' + ${addIcon2}"></i>
+            <i th:data-lucide="${addIcon2}"></i>
         </a>
 
         <a th:href="${link2}" class="tab-nav__icon">
-            <i th:class="'fa-solid ' + ${icon2}"></i>
+            <i th:data-lucide="${icon2}"></i>
         </a>
     </nav>
 </th:block>

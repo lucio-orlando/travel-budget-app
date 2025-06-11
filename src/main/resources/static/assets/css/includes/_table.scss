@@ -4,13 +4,13 @@
   margin-bottom: 1rem;
 
   &.table--striped tr:nth-child(odd) {
-    background-color: $grey-cloud;
+    background-color: $color-light;
   }
 
   tr {
 
     &:hover {
-      background-color: $grey-snow !important;
+      background-color: $color-white !important;
     }
 
     td, th {

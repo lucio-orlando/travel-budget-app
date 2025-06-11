@@ -1,0 +1,42 @@
+<th:block th:fragment="tripSummary">
+    <!--/*@thymesVar id="trip" type="ch.lucio_orlando.travel_budget_app.models.Trip"*/-->
+    <div class="trip-summary" th:if="${trip != null}">
+        <h2 class="trip-summary__title">Trip Summary</h2>
+
+        <p class="trip-summary__date" th:if="${trip.endDate == null}">
+            <i data-lucide="calendar"></i>
+            <span th:text="${trip.dateFormatted}">Start Date</span>
+        </p>
+
+        <p class="trip-summary__date" th:if="${trip.endDate != null}">
+            <i data-lucide="calendar"></i>
+            <span th:text="${trip.dateFormatted}">Start</span>
+            -
+            <span th:text="${trip.endDateFormatted}">End</span>
+            <br>
+            <i data-lucide="calendar-1"></i>
+            <span th:text="${trip.totalDays + ' days'}">Duration</span>
+
+            <span th:if="${trip.active}">
+                <br>
+                <i data-lucide="clock"></i>
+                <span th:text="${trip.remainingDays + ' days left'}">Remaining Days</span>
+            </span>
+        </p>
+
+        <p class="trip-summary__total-expense">
+            Total Expenses<br>
+            <span class="trip-summary__total-amount">
+                <i data-lucide="swiss-franc"></i><span th:text="${trip.amountCHFFormatted}"></span>
+            </span>
+        </p>
+
+        <p class="trip-summary__daily-expense">
+            Total Expenses<br>
+            <span class="trip-summary__daily-amount" th:classappend="${trip.dailyAverageCHF > trip.dailyBudgetCHF} ? 'over-budget'">
+                <i data-lucide="swiss-franc"></i><span th:text="${trip.dailyAverageCHFFormatted}"></span>
+            </span> / day
+        </p>
+    </div>
+
+</th:block>

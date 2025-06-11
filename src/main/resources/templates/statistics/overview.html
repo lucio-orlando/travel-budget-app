@@ -8,14 +8,14 @@
 <th:block th:fragment="content">
     <script th:src="@{/assets/js/chart.umd.js}"></script>
 
-    <div class="grid-row">
-        <div class="grid-col-50">
+    <div class="row">
+        <div class="col-12 col-lg-6">
             <h2>Categories</h2>
             <div class="chart">
                 <canvas id="categoryChart"></canvas>
             </div>
         </div>
-        <div class="grid-col-50">
+        <div class="col-12 col-lg-6">
             <h2>Weekly spending's</h2>
             <div class="chart">
                 <canvas id="weeklyChart"></canvas>
@@ -102,7 +102,7 @@
         /*]]>*/
     </script>
 
-    <div th:replace="~{widget/back-button :: backButtonDefault('/')}"></div>
+    <div th:replace="~{widget/back-button :: backButton('/')}"></div>
 
     <div th:replace="~{widget/bottom-nav :: tabNavDefault('/', '/trip/new')}"></div>
 </th:block>

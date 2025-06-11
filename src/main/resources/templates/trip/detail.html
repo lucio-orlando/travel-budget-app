@@ -10,8 +10,12 @@
 
     <div th:replace="~{widget/trip-info-header :: tripInfoHeader}"></div>
 
-    <div class="grid-row grid-row--mobile-reversed">
-        <div class="grid-col-66">
+    <a class="chart-link" data-bs-toggle="modal" data-bs-target="#chartModal">
+        <i data-lucide="chart-line"></i> Budget chart
+    </a>
+
+    <div class="row">
+        <div class="col-12 col-lg-8 order-2 order-lg-1">
 
             <div th:if="${trip.expenseMode}" class="expense-list">
                 <div class="expense-card" th:each="entry : ${expensesByDate}">
@@ -20,28 +24,29 @@
                     </div>
                     <div class="expense-card__items">
                         <div class="expense" th:each="expense : ${entry.value}">
-                            <div class="expense__top">
-                                <span class="expense__name" th:text="${expense.name}">Hotel Mexiko</span>
+                            <div class="expense__left">
+                                <h3 class="expense__name" th:text="${expense.name}">Hotel Mexiko</h3>
+                                <span class="badge badge-light"><i data-lucide="tag"></i> <span th:text="${expense.category.name}">Accommodation</span></span>
+                            </div>
+                            <div class="expense__right">
+
+                                <span class="expense__amount" th:text="${expense.amountFormatted + ' ' + expense.currency.code}">400.00 THB</span>
+                                <span th:text="${expense.amountCHFFormatted + ' CHF'}">400.00 CHF</span>
                                 <div class="expense__actions">
                                     <a tooltip="edit" th:href="@{'/trip/' + ${expense.parentTrip.id} + '/expense/' + ${expense.id}}">
-                                        <i class="fa-solid fa-pencil"></i>
+                                        <i data-lucide="pencil"></i>
                                     </a>
                                     <a tooltip="delete" class="delete" th:href="@{'/trip/' + ${expense.parentTrip.id} + '/expense/' + ${expense.id} + '/delete'}">
-                                        <i class="fa-solid fa-trash"></i>
+                                        <i data-lucide="trash"></i>
                                     </a>
                                 </div>
-                            </div>
-                            <div class="expense__info">
-                                <span><i class="fa-solid fa-tag"></i> <span th:text="${expense.category.name}">Accommodation</span></span>
-                                <span th:text="${#numbers.formatDecimal(expense.amount, 1, 2) + ' ' + expense.currency.code}">400.00 THB</span>
-                                <span th:text="${#numbers.formatDecimal(expense.amountCHF, 1, 2) + ' CHF'}">400.00 CHF</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div th:if="${trip.subTripMode}" class="trip-container">
+            <div th:if="${trip.subTripMode}" class="trip-container trip-container--small">
                 <th:block th:each="trip : ${trip.components}">
                     <div th:replace="~{widget/trip-card :: tripCard}"></div>
                 </th:block>
@@ -56,27 +61,43 @@
                     </div>
                 </div>
             </div>
-
         </div>
-        <div class="grid-col-33">
-            <div class="chart">
-                <canvas id="budgetVsSpentChart"></canvas>
+        <div class="col-12 col-lg-4 order-1 order-lg-2">
+            <div th:replace="~{widget/trip-summary :: tripSummary}"></div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="chartModal" tabindex="-1" aria-labelledby="chartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="chartModalLabel">Budget vs Spent chart</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="chart">
+                        <canvas id="budgetVsSpentChart"></canvas>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div th:replace="~{widget/back-button :: backButtonDefault(${trip.parentTrip != null ? '/trip/' + trip.parentTrip.id : '/trip'})}"></div>
+    <div th:replace="~{widget/back-button :: backButton(${trip.parentTrip != null ? '/trip/' + trip.parentTrip.id : '/trip'})}"></div>
 
     <th:block th:if="${!trip.expenseMode and !trip.subTripMode}">
         <div th:replace="~{widget/bottom-nav :: tabNavDoubleAdd(
         ${trip.parentTrip != null ? '/trip/' + trip.parentTrip.id : '/trip'},
-        'fa-arrow-left',
+        'arrow-left',
         @{'/trip/new/' + ${trip.id}},
-        'fa-suitcase',
+        'luggage',
         @{'/trip/' + ${trip.id} + '/expense'},
-        'fa-coins',
+        'coins',
         '/',
-        'fa-house'
+        'house'
     )}"></div>
     </th:block>
 

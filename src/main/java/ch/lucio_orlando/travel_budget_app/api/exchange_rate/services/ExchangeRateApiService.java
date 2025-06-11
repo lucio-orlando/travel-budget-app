@@ -34,7 +34,7 @@ public class ExchangeRateApiService {
     public ExchangeResult getExchangeAmount(Currency base, Currency target, double amount) {
         if (!allowApiCalls) return new ExchangeResult(amount, 0);
 
-        ExchangeRateResponse response = webClient.get().uri("pair/{base}/{target}/{amount}", base.getCode(), target.getCode(), amount)
+        ExchangeRateResponse response = webClient.get().uri("pair/{base}/{target}/{amount}", base.getCode(), target.getCode(), String.format("%.0f", amount))
                 .retrieve()
                 .bodyToMono(ExchangeRateResponse.class).block();
 

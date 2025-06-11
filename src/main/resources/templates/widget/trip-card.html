@@ -6,20 +6,40 @@
         <div class="trip-card__info">
             <h2 th:text="${trip.name}">Trip Name</h2>
 
-            <p th:if="${trip.endDate == null}" th:text="${trip.dateFormatted}">Start Date</p>
+            <p th:if="${trip.endDate == null}">
+                <i data-lucide="calendar"></i>
+                <span th:text="${trip.dateFormatted}">Start Date</span>
+            </p>
 
             <p th:if="${trip.endDate != null}">
+                <i data-lucide="calendar"></i>
                 <span th:text="${trip.dateFormatted}">Start</span>
                 -
                 <span th:text="${trip.endDateFormatted}">End</span>
-                <br th:if="${trip.isActive}" />
-                <span th:if="${trip.isActive}" th:text="${trip.remainingDays + ' days left'}">Remaining</span>
-            </p>
 
-            <p>
-                <span th:text="'Spent: ' + ${#numbers.formatDecimal(trip.amountCHF, 1, 2)} + ' CHF'"></span><br/>
-                <span th:text="'per Day: ' + ${#numbers.formatDecimal(trip.dailyAverageCHF, 1, 2)} + ' CHF'"></span>
+                <span th:if="${trip.active}">
+                    <br>
+                    <i data-lucide="clock"></i>
+                    <span th:text="${trip.remainingDays + ' days left'}">Remaining Days</span>
+                </span>
             </p>
+            <span class="badge badge-light" th:text="${trip.currency.code}">currency</span>
+
+            <hr>
+
+            <div class="trip_card__info--details">
+                <p class="mb-0">
+                    Total spent<br>
+                    <span class="trip-card__info-total"><i data-lucide="swiss-franc"></i><span th:text="${trip.amountCHFFormatted}"></span></span><br>
+                    <i data-lucide="swiss-franc"></i><span class="trip-card__info-daily" th:text="${trip.dailyAverageCHFFormatted} + ' / day'"></span>
+                </p>
+
+                <div class="trip-card__actions">
+                    <a class="btn btn-outline-secondary mobile-needed" th:href="@{'/trip/' + ${trip.id}}">
+                        View details
+                    </a>
+                </div>
+            </div>
 
             <a tooltip="delete"
                flow="left"
@@ -27,22 +47,8 @@
                th:href="${trip.parentTrip != null
                          ? '/trip/delete/' + trip.id + '/' + trip.parentTrip.id
                          : '/trip/delete/' + trip.id}">
-                <i class="fa-solid fa-trash"></i>
+                <i th:data-lucide="trash"></i>
             </a>
-
-            <div class="trip-card__actions">
-                <a tooltip="detail"
-                   flow="up"
-                   th:href="@{'/trip/' + ${trip.id}}">
-                    <i class="fa-solid fa-eye"></i>
-                </a>
-
-                <a tooltip="edit"
-                   flow="up"
-                   th:href="@{'/trip/edit/' + ${trip.id}}">
-                    <i class="fa-solid fa-pencil"></i>
-                </a>
-            </div>
         </div>
     </div>
 </th:block>

@@ -1,5 +1,6 @@
 package ch.lucio_orlando.travel_budget_app.models;
 
+import ch.lucio_orlando.travel_budget_app.services.AmountFormatter;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -102,8 +103,16 @@ public class Trip extends TripComponent {
         return components.stream().mapToDouble(TripComponent::getAmount).sum();
     }
 
+    public String getAmountFormatted() {
+        return AmountFormatter.formatAmount(getAmount());
+    }
+
     public double getAmountCHF() {
         return components.stream().mapToDouble(TripComponent::getAmountCHF).sum();
+    }
+
+    public String getAmountCHFFormatted() {
+        return AmountFormatter.formatAmount(getAmountCHF());
     }
 
     public double getDailyAverageCHF() {
@@ -146,6 +155,10 @@ public class Trip extends TripComponent {
         return total / totalDays;
     }
 
+    public String getDailyAverageCHFFormatted() {
+        return AmountFormatter.formatAmount(getDailyAverageCHF());
+    }
+
     public List<Expense> getRecursiveExpenses(Trip trip) {
         List<Expense> result = new ArrayList<>();
 
@@ -170,6 +183,10 @@ public class Trip extends TripComponent {
 
     public int getRemainingDays() {
         return (int) ((endDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+    }
+
+    public int getTotalDays() {
+        return (int) ((endDate.getTime() - date.getTime()) / (1000 * 60 * 60 * 24)) + 1;
     }
 
     public boolean isActive() {
