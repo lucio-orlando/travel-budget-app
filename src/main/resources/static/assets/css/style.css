@@ -294,6 +294,7 @@ body .icon-button svg {
   body .btn.mobile-needed {
     display: inline-block;
     width: 100%;
+    white-space: nowrap;
   }
 }
 body [tooltip] {

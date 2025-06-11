@@ -59,8 +59,9 @@
     display: none;
   }
 
-    .btn.mobile-needed {
-      display: inline-block;
-      width: 100%;
-    }
+  .btn.mobile-needed {
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap; // IOS fix
+  }
 }
