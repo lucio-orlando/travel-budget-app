@@ -29,6 +29,7 @@ public class SecurityConfig {
                 .requestMatchers("/assets/**").permitAll()
                 .anyRequest().authenticated()
             )
+            .rememberMe(Customizer.withDefaults())
             .formLogin(Customizer.withDefaults())
             .logout(Customizer.withDefaults());
 
