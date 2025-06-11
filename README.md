@@ -43,6 +43,8 @@ Follow these detailed instructions to run the application in a local environment
   - `MYSQL_DATABASE`: Name of the database to be created.
   - `MYSQL_USER`: MySQL user.
   - `MYSQL_PASSWORD`: MySQL user password.
+  - `APP_AUTH_USERNAME`: Username for the application.
+  - `APP_AUTH_PASSWORD`: Password for the application.
 
 ### Production Deployment
 
@@ -85,6 +87,8 @@ The development environment uses a **different** `.env` file for configuration.
   - `MYSQL_DATABASE`: Name of the database to be created.
   - `MYSQL_USER`: MySQL user.
   - `MYSQL_PASSWORD`: MySQL user password.
+  - `APP_AUTH_USERNAME`: Username for the application.
+  - `APP_AUTH_PASSWORD`: Password for the application.
 
 #### 1. Start the Application
 
