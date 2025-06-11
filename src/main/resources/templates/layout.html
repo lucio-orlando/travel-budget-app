@@ -63,6 +63,15 @@
         <div class="container" id="content">
             <th:block th:replace="${content}" />
         </div>
+
+        <script>
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => console.log('SW registered:', reg))
+                    .catch(err => console.error('SW registration failed:', err));
+            }
+        </script>
+
         </body>
     </html>
 </th:block>
