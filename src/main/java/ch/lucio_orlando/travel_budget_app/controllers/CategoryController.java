@@ -22,7 +22,10 @@ public class CategoryController {
 
     @GetMapping
     public String overview(Model model) {
-        List<Category> categories = categoryService.getCategories();
+        List<Category> categories = categoryService.getCategories()
+            .stream()
+            .sorted((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()))
+            .toList();
         model.addAttribute("categories", categories);
         return "category/list";
     }
