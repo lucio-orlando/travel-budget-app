@@ -83,6 +83,10 @@ body {
     padding: 2rem 1rem 4rem;
   }
 }
+body *::selection {
+  background-color: #EF4444;
+  color: #FFFFFF;
+}
 body header {
   background: #FFFFFF;
   width: 100%;
