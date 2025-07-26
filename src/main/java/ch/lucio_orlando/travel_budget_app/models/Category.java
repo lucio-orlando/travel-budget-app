@@ -16,6 +16,9 @@ public class Category {
     @JoinColumn(name = "parent_category_id")
     private Category parentCategory;
 
+    @OneToMany(mappedBy = "parentCategory", fetch = FetchType.LAZY)
+    private List<Category> children;
+
     @OneToMany(mappedBy = "category", targetEntity = Expense.class)
     private List<Expense> expenses;
 
@@ -60,6 +63,10 @@ public class Category {
 
     public void setParentCategory(Category parentCategory) {
         this.parentCategory = parentCategory;
+    }
+
+    public List<Category> getChildren() {
+        return children;
     }
 
     //</editor-fold>

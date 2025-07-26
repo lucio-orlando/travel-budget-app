@@ -27,34 +27,72 @@
         /*<![CDATA[*/
         const categoryStats = JSON.parse(/*[[${categoryStats}]]*/ "[]");
 
-        const categoryLabels = categoryStats.map(stat => `${stat.name} (${stat.total.toFixed(2)})`);
-        const categoryData = categoryStats.map(stat => stat.total);
+        const parentLabels = categoryStats.map(group => group.parent);
 
-        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-        new Chart(categoryCtx, {
+        // Get all unique child names to create datasets
+        const childNames = [...new Set(categoryStats.flatMap(group => group.children.map(child => child.name)))];
+
+        const datasets = childNames.map(childName => ({
+            label: childName,
+            data: categoryStats.map(group => {
+                const match = group.children.find(child => child.name === childName);
+                return match ? match.total : 0;
+            }),
+            stack: 'stack1'
+        }));
+
+        const ctx = document.getElementById('categoryChart').getContext('2d');
+        new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: categoryLabels,
-                datasets: [{
-                    label: 'Expenses',
-                    data: categoryData,
-                    borderWidth: 1
-                }]
+                labels: parentLabels,
+                datasets: datasets
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: {
-                        position: 'top'
-                    },
                     title: {
                         display: true,
-                        text: 'Total Expenses by Category'
+                        text: 'Stacked Expenses per Parent Category'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.raw;
+                                if (value === 0) {
+                                    return null;
+                                }
+                                const label = context.dataset.label || '';
+                                const formatted = new Intl.NumberFormat('de-CH', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                }).format(value);
+                                return `${label}: ${formatted} CHF`;
+                            }
+                        }
+                    }
+                },
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+                scales: {
+                    x: {
+                        stacked: true
+                    },
+                    y: {
+                        stacked: true,
+                        title: {
+                            display: true,
+                            text: 'CHF'
+                        }
                     }
                 }
             }
         });
+
+
 
         const weeklyStats = JSON.parse(/*[[${weeklyStats}]]*/ "[]");
 
