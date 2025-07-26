@@ -50,6 +50,10 @@ public class Category {
         this.name = name;
     }
 
+    public String getFullName() {
+        return (parentCategory != null ? parentCategory.getName() + " > " : "") + name;
+    }
+
     public Category getParentCategory() {
         return parentCategory;
     }

@@ -80,7 +80,7 @@ body {
 }
 @media screen and (max-width: 768px) {
   body {
-    padding: 2rem 1rem 4rem;
+    padding: 2rem 0.5rem 4rem;
   }
 }
 body *::selection {
@@ -662,14 +662,40 @@ body #content .expense-list .expense svg {
   height: 1rem;
 }
 body #content .expense-list .expense__left .expense__name {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.25rem;
   color: #1F2937;
   margin-bottom: 0;
 }
+@media screen and (max-width: 768px) {
+  body #content .expense-list .expense__left .expense__name {
+    font-size: 1rem;
+  }
+}
+body #content .expense-list .expense__left .expense__category {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 0.3rem;
+}
+@media screen and (max-width: 768px) {
+  body #content .expense-list .expense__left .expense__category {
+    max-width: 190px;
+  }
+}
+@media screen and (max-width: 768px) {
+  body #content .expense-list .expense__left .expense__icon {
+    display: none;
+  }
+}
 body #content .expense-list .expense__left .badge {
   background-color: #F3F4F6;
   color: #1F2937;
+}
+@media screen and (max-width: 768px) {
+  body #content .expense-list .expense__left .badge {
+    font-size: 0.75rem;
+  }
 }
 body #content .expense-list .expense__right {
   font-size: 1rem;
@@ -680,6 +706,7 @@ body #content .expense-list .expense__right {
 body #content .expense-list .expense__right .expense__amount {
   color: #1F2937;
   font-weight: 600;
+  margin-top: -0.1rem;
 }
 body #content .expense-list .expense__right .expense__actions a {
   margin-left: 0.5rem;
