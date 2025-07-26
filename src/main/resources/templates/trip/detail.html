@@ -30,7 +30,7 @@
                             </div>
                             <div class="expense__right">
 
-                                <span class="expense__amount" th:text="${expense.amountFormatted + ' ' + expense.currency.code}">400.00 THB</span>
+                                <span class="expense__amount" th:text="${expense.amountShortFormatted + ' ' + expense.currency.code}">400.00 THB</span>
                                 <span th:text="${expense.amountCHFFormatted + ' CHF'}">400.00 CHF</span>
                                 <div class="expense__actions">
                                     <a tooltip="edit" th:href="@{'/trip/' + ${expense.parentTrip.id} + '/expense/' + ${expense.id}}">
