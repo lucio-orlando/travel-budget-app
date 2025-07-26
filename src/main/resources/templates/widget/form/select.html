@@ -5,6 +5,7 @@
             <span th:if="${required}">*</span>
         </label>
         <select th:name="${name}" th:id="${name}" th:attr="required=${required}">
+            <option value="" th:if="${required} == false">Nothing selected</option>
             <option th:each="option : ${options}"
                     th:value="${option.id}"
                     th:text="${option.name}"

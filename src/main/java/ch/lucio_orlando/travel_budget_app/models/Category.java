@@ -12,6 +12,10 @@ public class Category {
 
     private String name;
 
+    @ManyToOne(targetEntity = Category.class)
+    @JoinColumn(name = "parent_category_id")
+    private Category parentCategory;
+
     @OneToMany(mappedBy = "category", targetEntity = Expense.class)
     private List<Expense> expenses;
 
@@ -45,5 +49,14 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Category getParentCategory() {
+        return parentCategory;
+    }
+
+    public void setParentCategory(Category parentCategory) {
+        this.parentCategory = parentCategory;
+    }
+
     //</editor-fold>
 }
