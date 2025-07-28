@@ -1,5 +1,6 @@
 package ch.lucio_orlando.travel_budget_app.controllers;
 
+import ch.lucio_orlando.travel_budget_app.models.StackedCategoryStat;
 import ch.lucio_orlando.travel_budget_app.models.Statistic;
 import ch.lucio_orlando.travel_budget_app.services.StatisticsService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,7 +29,7 @@ public class StatisticsController {
     }
 
     private void addCategoryStats(Model model) throws JsonProcessingException {
-        List<Statistic> categoryStats = statisticsService.getCategoryStats();
+        List<StackedCategoryStat> categoryStats = statisticsService.getStackedCategoryStats();
 
         ObjectMapper mapper = new ObjectMapper();
         model.addAttribute("categoryStats", mapper.writeValueAsString(categoryStats));

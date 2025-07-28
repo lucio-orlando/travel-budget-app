@@ -4,6 +4,7 @@ import ch.lucio_orlando.travel_budget_app.api.exchange_rate.models.ExchangeResul
 import ch.lucio_orlando.travel_budget_app.api.exchange_rate.services.ExchangeRateApiService;
 import ch.lucio_orlando.travel_budget_app.exceptions.InvalidDataException;
 import ch.lucio_orlando.travel_budget_app.exceptions.ResourceNotFoundException;
+import ch.lucio_orlando.travel_budget_app.models.Category;
 import ch.lucio_orlando.travel_budget_app.models.Currency;
 import ch.lucio_orlando.travel_budget_app.models.Expense;
 import ch.lucio_orlando.travel_budget_app.models.Trip;
@@ -17,9 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/trip")
@@ -169,8 +168,26 @@ public class ExpenseController {
      * @param errorMessage The error message to set in the model.
      */
     private void prepareFormModel(Model model, Expense expense, Trip parentTrip, String errorMessage) {
+        List<Category> allCategories = categoryService.getCategories();
+
+        Comparator<Category> byName = Comparator.comparing(Category::getName, String.CASE_INSENSITIVE_ORDER);
+
+        List<Category> sortedParents = allCategories.stream()
+            .filter(c -> c.getParentCategory() == null)
+            .sorted(byName)
+            .toList();
+
+        Map<Category, List<Category>> grouped = new LinkedHashMap<>();
+        for (Category parent : sortedParents) {
+            List<Category> children = allCategories.stream()
+                .filter(c -> parent.equals(c.getParentCategory()))
+                .sorted(byName)
+                .toList();
+            grouped.put(parent, children);
+        }
+
         model.addAttribute("errorMessage", errorMessage);
-        model.addAttribute("categories", categoryService.getCategories());
+        model.addAttribute("groupedCategories", grouped);
         model.addAttribute("currencies", currencyService.getCurrencies());
         model.addAttribute("expense", expense);
         model.addAttribute("trip", parentTrip);

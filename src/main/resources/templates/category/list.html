@@ -13,27 +13,41 @@
         </a>
     </h1>
 
-    <p th:if="${#lists.isEmpty(categories)}" style="text-align: center; margin-bottom: 0">
+    <p th:if="${#lists.isEmpty(groupedCategories)}" style="text-align: center; margin-bottom: 0">
         No categories
     </p>
 
-    <table th:unless="${#lists.isEmpty(categories)}" class="table table--striped">
-        <tr>
-            <th>Name</th>
-            <th style="text-align: right">Actions</th>
-        </tr>
+    <table th:unless="${#lists.isEmpty(groupedCategories)}" class="table table--striped">
 
-        <tr th:each="category : ${categories}">
-            <td th:text="${category.name}">Category Name</td>
-            <td style="text-align: right">
-                <a tooltip="edit" th:href="@{/category/edit/{id}(id=${category.id})}">
-                    <i data-lucide="pencil"></i>
-                </a>
-                <a tooltip="delete" th:href="@{/category/delete/{id}(id=${category.id})}" class="delete">
-                    <i data-lucide="trash"></i>
-                </a>
-            </td>
-        </tr>
+        <tbody>
+            <th:block th:each="entry : ${groupedCategories}">
+                <tr>
+                    <td>
+                        <strong th:text="${entry.key.name}"></strong>
+                    </td>
+                    <td style="text-align: right">
+                        <a tooltip="edit" th:href="@{/category/edit/{id}(id=${entry.key.id})}">
+                            <i data-lucide="pencil"></i>
+                        </a>
+                        <a tooltip="delete" th:href="@{/category/delete/{id}(id=${entry.key.id})}" class="delete">
+                            <i data-lucide="trash"></i>
+                        </a>
+                    </td>
+                </tr>
+
+                <tr th:each="child : ${entry.value}">
+                    <td style="padding-left: 2rem;" th:text="${child.name}"></td>
+                    <td style="text-align: right">
+                        <a tooltip="edit" th:href="@{/category/edit/{id}(id=${child.id})}">
+                            <i data-lucide="pencil"></i>
+                        </a>
+                        <a tooltip="delete" th:href="@{/category/delete/{id}(id=${child.id})}" class="delete">
+                            <i data-lucide="trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            </th:block>
+        </tbody>
     </table>
 
     <div th:replace="~{widget/back-button :: backButton('/')}"></div>

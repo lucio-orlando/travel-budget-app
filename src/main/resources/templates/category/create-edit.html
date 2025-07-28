@@ -16,6 +16,9 @@
             <div class="col-12 col-lg-6">
                 <div th:replace="~{widget/form/input :: input('name','Name',true,${category.name},'text')}"></div>
             </div>
+            <div class="col-12 col-lg-6">
+                <div th:replace="~{widget/form/select :: selectName('parentCategory', 'Parent Category', false, ${parentCategories}, ${category.parentCategory?.id})}"></div>
+            </div>
         </div>
 
         <div th:replace="~{widget/form/buttons :: formButtonsDefault(${'/category'})}"></div>

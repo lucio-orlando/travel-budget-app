@@ -20,10 +20,33 @@
                 <div th:replace="~{widget/form/input :: input('date','Date',true,${#dates.format(expense.date, 'yyyy-MM-dd')},'date')}"></div>
             </div>
             <div class="col-6 col-lg-4">
-                <div th:replace="~{widget/form/input :: input('amount','Amount',true,${#strings.replace(#numbers.formatDecimal(expense.amount, 1, 2), ',', '.')},'text')}"></div>
+                <div th:replace="~{widget/form/input :: input('amount','Amount',true,${#strings.replace(#numbers.formatDecimal(expense.amount, 1, 2), ',', '.')},'number')}"></div>
             </div>
             <div class="col-12 col-lg-6">
-                <div th:replace="~{widget/form/select :: selectName('category','Category',true,${categories},${expense.category != null ? expense.category.id : null})}"></div>
+                <div class="field">
+                    <label for="category">Category</label>
+                    <select name="category" id="category" class="form-select" required>
+                        <option value="">Select category</option>
+                        <th:block th:each="entry : ${groupedCategories}">
+                            <optgroup th:label="${entry.key.name}">
+                                <th:block th:if="${#lists.isEmpty(entry.value)}">
+                                    <!-- parent has no children -> make it selectable -->
+                                    <option th:value="${entry.key.id}"
+                                            th:selected="${expense.category != null and expense.category.id == entry.key.id}"
+                                            th:text="${entry.key.name}">
+                                    </option>
+                                </th:block>
+                                <th:block th:each="child : ${entry.value}">
+                                    <option th:value="${child.id}"
+                                            th:selected="${expense.category != null and expense.category.id == child.id}"
+                                            th:text="${child.name}">
+                                    </option>
+                                </th:block>
+                            </optgroup>
+                        </th:block>
+                    </select>
+                </div>
+
             </div>
             <div class="col-12 col-lg-6">
                 <div th:replace="~{widget/form/select :: selectCode('currency','Currency',true,${currencies},${expense.currency != null ? expense.currency.id : null})}"></div>

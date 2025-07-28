@@ -8,7 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/category")
@@ -23,7 +26,25 @@ public class CategoryController {
     @GetMapping
     public String overview(Model model) {
         List<Category> categories = categoryService.getCategories();
-        model.addAttribute("categories", categories);
+
+        List<Category> parentCategories = categories
+            .stream()
+            .filter(c -> c.getParentCategory() == null) // Only top-level categories
+            .sorted((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()))
+            .toList();
+
+        Map<Category, List<Category>> groupedCategories = parentCategories.stream()
+            .collect(Collectors.toMap(
+                parent -> parent,
+                parent -> categories.stream()
+                    .filter(c -> parent.equals(c.getParentCategory()))
+                    .sorted((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()))
+                    .toList(),
+                (a, b) -> a,  // merge function, not needed here
+                LinkedHashMap::new // preserve order
+            ));
+
+        model.addAttribute("groupedCategories", groupedCategories);
         return "category/list";
     }
 
@@ -34,17 +55,12 @@ public class CategoryController {
         Category category = categoryService.getCategoryById(id).orElse(null);
         if (category == null) throw new ResourceNotFoundException("Category with ID " + id + " not found");
 
-        model.addAttribute("category", category);
-        model.addAttribute("errorMessage", null);
-        return "category/create-edit";
+        return prepareCreateEditView(category, null, model);
     }
 
     @GetMapping("/new")
     public String newForm(Model model) {
-        Category category = new Category();
-        model.addAttribute("category", category);
-        model.addAttribute("errorMessage", null);
-        return "category/create-edit";
+        return prepareCreateEditView(new Category(), null, model);
     }
 
     @PostMapping
@@ -52,9 +68,7 @@ public class CategoryController {
         if (category == null) throw new InvalidDataException("Category ID is null");
 
         if (category.getName() == null || category.getName().isEmpty()) {
-            model.addAttribute("category", category);
-            model.addAttribute("errorMessage", "Error: name is required.");
-            return "category/create-edit";
+            return prepareCreateEditView(category, "Error: name is required.", model);
         }
 
         try {
@@ -73,5 +87,19 @@ public class CategoryController {
 
     private String redirect(String url) {
         return "redirect:" + url;
+    }
+
+    private String prepareCreateEditView(Category category, String errorMessage, Model model) {
+        List<Category> categories = categoryService.getCategories()
+            .stream()
+            .filter(c -> c.getParentCategory() == null)
+            .filter(c -> !c.getId().equals(category.getId())) // Exclude the current category if editing
+            .sorted((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()))
+            .toList();
+
+        model.addAttribute("category", category);
+        model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute("parentCategories", categories);
+        return "category/create-edit";
     }
 }

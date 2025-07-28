@@ -12,6 +12,13 @@ public class Category {
 
     private String name;
 
+    @ManyToOne(targetEntity = Category.class)
+    @JoinColumn(name = "parent_category_id")
+    private Category parentCategory;
+
+    @OneToMany(mappedBy = "parentCategory", fetch = FetchType.LAZY)
+    private List<Category> children;
+
     @OneToMany(mappedBy = "category", targetEntity = Expense.class)
     private List<Expense> expenses;
 
@@ -45,5 +52,22 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getFullName() {
+        return (parentCategory != null ? parentCategory.getName() + " > " : "") + name;
+    }
+
+    public Category getParentCategory() {
+        return parentCategory;
+    }
+
+    public void setParentCategory(Category parentCategory) {
+        this.parentCategory = parentCategory;
+    }
+
+    public List<Category> getChildren() {
+        return children;
+    }
+
     //</editor-fold>
 }

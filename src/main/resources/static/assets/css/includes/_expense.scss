@@ -49,15 +49,40 @@
   .expense__left {
 
     .expense__name {
-      font-weight: 500;
+      font-weight: 600;
       font-size: 1.25rem;
       color: $text-primary;
       margin-bottom: 0;
+
+      @media screen and (max-width: $font-breakpoint) {
+        font-size: 1rem;
+      }
+    }
+
+    .expense__category {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-top: .3rem;
+
+      @media screen and (max-width: $font-breakpoint) {
+        max-width: 190px; //optimized for iphone 12
+      }
+    }
+
+    .expense__icon {
+      @media screen and (max-width: $font-breakpoint) {
+        display: none;
+      }
     }
 
     .badge {
       background-color: $color-light;
       color: $text-primary;
+
+      @media screen and (max-width: $font-breakpoint) {
+        font-size: .75rem;
+      }
     }
   }
 
@@ -70,6 +95,7 @@
     .expense__amount {
       color: $text-primary;
       font-weight: 600;
+      margin-top: -.1rem;
     }
 
     .expense__actions a{

@@ -1,9 +1,7 @@
 package ch.lucio_orlando.travel_budget_app.services;
 
-import ch.lucio_orlando.travel_budget_app.models.DailyLineStatistic;
-import ch.lucio_orlando.travel_budget_app.models.Expense;
-import ch.lucio_orlando.travel_budget_app.models.Statistic;
-import ch.lucio_orlando.travel_budget_app.models.Trip;
+import ch.lucio_orlando.travel_budget_app.models.*;
+import ch.lucio_orlando.travel_budget_app.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,18 +20,31 @@ public class StatisticsService {
         this.expenseService = expenseService;
     }
 
-    public List<Statistic> getCategoryStats() {
+    public List<StackedCategoryStat> getStackedCategoryStats() {
         return categoryService.getCategories().stream()
-            .filter(category -> category.getExpenses() != null && !category.getExpenses().isEmpty())
-            .map(category -> new Statistic(
-                category.getName(),
-                category.getExpenses().stream()
-                        .mapToDouble(Expense::getAmountCHF)
-                        .sum()
-            ))
-            .sorted(Comparator.comparingDouble(Statistic::total).reversed())
+            .filter(category -> category.getParentCategory() == null)
+            .map(parent -> {
+                List<Statistic> children = parent.getChildren().stream()
+                    .filter(child -> child.getExpenses() != null && !child.getExpenses().isEmpty())
+                    .map(child -> new Statistic(
+                        child.getName(),
+                        child.getExpenses().stream().mapToDouble(Expense::getAmountCHF).sum()
+                    ))
+                    .toList();
+
+                // If no children but parent has expenses, treat it as a "flat" bar
+                if (children.isEmpty() && parent.getExpenses() != null && !parent.getExpenses().isEmpty()) {
+                    double total = parent.getExpenses().stream().mapToDouble(Expense::getAmountCHF).sum();
+                    children = List.of(new Statistic(parent.getName(), total));
+                }
+
+                return new StackedCategoryStat(parent.getName(), children);
+            })
+            .filter(stat -> !stat.children().isEmpty()) // only keep those that will produce a bar
             .toList();
+
     }
+
 
     public List<Statistic> getWeeklyTotals() {
         return expenseService.getExpenses().stream()

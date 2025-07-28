@@ -26,11 +26,11 @@
                         <div class="expense" th:each="expense : ${entry.value}">
                             <div class="expense__left">
                                 <h3 class="expense__name" th:text="${expense.name}">Hotel Mexiko</h3>
-                                <span class="badge badge-light"><i data-lucide="tag"></i> <span th:text="${expense.category.name}">Accommodation</span></span>
+                                <span class="expense__category badge badge-light"><i data-lucide="tag" class="expense__icon"></i> <span th:text="${expense.category.fullName}">Accommodation</span></span>
                             </div>
                             <div class="expense__right">
 
-                                <span class="expense__amount" th:text="${expense.amountFormatted + ' ' + expense.currency.code}">400.00 THB</span>
+                                <span class="expense__amount" th:text="${expense.amountShortFormatted + ' ' + expense.currency.code}">400.00 THB</span>
                                 <span th:text="${expense.amountCHFFormatted + ' CHF'}">400.00 CHF</span>
                                 <div class="expense__actions">
                                     <a tooltip="edit" th:href="@{'/trip/' + ${expense.parentTrip.id} + '/expense/' + ${expense.id}}">

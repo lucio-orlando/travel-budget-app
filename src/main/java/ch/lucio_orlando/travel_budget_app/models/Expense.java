@@ -40,6 +40,10 @@ public class Expense extends TripComponent {
         return AmountFormatter.formatAmount(amount);
     }
 
+    public String getAmountShortFormatted() {
+        return AmountFormatter.formatShort(amount);
+    }
+
     public double getAmountCHF() {
         return amountCHF;
     }
