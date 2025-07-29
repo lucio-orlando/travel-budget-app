@@ -18,6 +18,8 @@ public class Expense extends TripComponent {
     @JoinColumn
     private Category category;
 
+    private Integer counter;
+
     public Expense(String name, double amount, Category category, Date date, Currency currency) {
         super(name, date, currency);
 
@@ -71,5 +73,14 @@ public class Expense extends TripComponent {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public Integer getCounter() {
+        return counter;
+    }
+
+    public void setCounter(Integer counter) {
+        this.counter = counter;
+    }
+
     //</editor-fold>
 }

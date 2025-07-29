@@ -1,9 +1,10 @@
 package ch.lucio_orlando.travel_budget_app.services;
 
 import ch.lucio_orlando.travel_budget_app.models.*;
-import ch.lucio_orlando.travel_budget_app.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.*;
@@ -98,6 +99,36 @@ public class StatisticsService {
 
         return new DailyLineStatistic(budget, spent);
     }
+
+    public BigDecimal averagePerUnit(List<Expense> expenses, String keyword, boolean ignoreCounter) {
+        BigDecimal totalAmount = BigDecimal.ZERO;
+        int totalCounter = 0;
+
+        for (Expense e : expenses) {
+            String fullName = e.getCategory().getFullName();
+
+            if (fullName != null && fullName.toLowerCase().contains(keyword.toLowerCase())) {
+                Integer counter = e.getCounter();
+                boolean hasValidCounter = counter != null && counter > 0;
+
+                if (ignoreCounter || hasValidCounter) {
+                    totalAmount = totalAmount.add(BigDecimal.valueOf(e.getAmountCHF()));
+
+                    if (ignoreCounter) {
+                        totalCounter += hasValidCounter ? counter : 1;
+                    } else {
+                        totalCounter += counter;
+                    }
+                }
+            }
+        }
+
+
+        return totalCounter > 0
+            ? totalAmount.divide(BigDecimal.valueOf(totalCounter), 2, RoundingMode.HALF_UP)
+            : BigDecimal.ZERO;
+    }
+
 
     private LocalDate convertDateToLocalDate(Date date) {
         return new java.sql.Date(date.getTime()).toLocalDate();

@@ -16,13 +16,13 @@
             <div class="col-12 col-lg-4">
                 <div th:replace="~{widget/form/input :: input('name','Expense name',true,${expense.name},'text')}"></div>
             </div>
-            <div class="col-6 col-lg-4">
+            <div class="col-12 col-lg-4">
                 <div th:replace="~{widget/form/input :: input('date','Date',true,${#dates.format(expense.date, 'yyyy-MM-dd')},'date')}"></div>
             </div>
-            <div class="col-6 col-lg-4">
+            <div class="col-12 col-lg-4">
                 <div th:replace="~{widget/form/input :: input('amount','Amount',true,${#strings.replace(#numbers.formatDecimal(expense.amount, 1, 2), ',', '.')},'number')}"></div>
             </div>
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-lg-4">
                 <div class="field">
                     <label for="category">Category</label>
                     <select name="category" id="category" class="form-select" required>
@@ -46,11 +46,15 @@
                         </th:block>
                     </select>
                 </div>
-
             </div>
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-lg-4">
                 <div th:replace="~{widget/form/select :: selectCode('currency','Currency',true,${currencies},${expense.currency != null ? expense.currency.id : null})}"></div>
             </div>
+
+            <div class="col-12 col-lg-4">
+                <div th:replace="~{widget/form/input :: input('counter','Help counter',false,${expense.counter},'number')}"></div>
+            </div>
+
 
         </div>
 

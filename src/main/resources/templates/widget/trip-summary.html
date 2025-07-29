@@ -31,11 +31,31 @@
             </span>
         </p>
 
-        <p class="trip-summary__daily-expense">
-            Total Expenses<br>
-            <span class="trip-summary__daily-amount" th:classappend="${trip.dailyAverageCHF > trip.dailyBudgetCHF} ? 'over-budget'">
+        <p class="trip-summary__stats">
+            Average Stats<br>
+            <span class="trip-summary__stat-amount" th:classappend="${trip.dailyAverageCHF > trip.dailyBudgetCHF} ? 'over-budget'">
                 <i data-lucide="swiss-franc"></i><span th:text="${trip.dailyAverageCHFFormatted}"></span>
-            </span> / day
+            </span> / day<br>
+
+            <span class="trip-summary__stat-amount">
+                <i data-lucide="bed"></i> <span th:text="${avgNight}">Average Night</span>
+            </span> / night<br>
+
+            <span class="trip-summary__stat-amount">
+                <i data-lucide="chef-hat"></i> <span th:text="${avgBreakfast}">Average Breakfast</span>
+            </span> / breakfast<br>
+
+            <span class="trip-summary__stat-amount">
+                <i data-lucide="chef-hat"></i> <span th:text="${avgLunch}">Average Lunch</span>
+            </span> / lunch<br>
+
+            <span class="trip-summary__stat-amount">
+                <i data-lucide="chef-hat"></i> <span th:text="${avgDinner}">Average Dinner</span>
+            </span> / dinner<br>
+
+            <span class="trip-summary__stat-amount">
+                <i data-lucide="chef-hat"></i> <span th:text="${avgSnack}">Average Snack</span>
+            </span> / snack
         </p>
     </div>
 
