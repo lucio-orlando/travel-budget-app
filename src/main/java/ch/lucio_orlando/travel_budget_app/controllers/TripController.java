@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.List;
@@ -67,6 +68,20 @@ public class TripController {
         DailyLineStatistic data = statisticsService.getCumulativeBudgetVsSpent(trip);
         model.addAttribute("budgetLine", mapper.writeValueAsString(data.cumulativeBudget()));
         model.addAttribute("spentLine", mapper.writeValueAsString(data.cumulativeSpent()));
+
+        //average stat data
+        List<Expense> expenses = trip.getRecursiveExpenses(trip);
+        BigDecimal avgNight = statisticsService.averagePerUnit(expenses, "accommodation", false);
+        model.addAttribute("avgNight", avgNight);
+
+        BigDecimal avgBreakfast = statisticsService.averagePerUnit(expenses, "breakfast", true);
+        model.addAttribute("avgBreakfast", avgBreakfast);
+        BigDecimal avgLunch = statisticsService.averagePerUnit(expenses, "lunch", true);
+        model.addAttribute("avgLunch", avgLunch);
+        BigDecimal avgDinner = statisticsService.averagePerUnit(expenses, "dinner", true);
+        model.addAttribute("avgDinner", avgDinner);
+        BigDecimal avgSnack = statisticsService.averagePerUnit(expenses, "snack", false);
+        model.addAttribute("avgSnack", avgSnack);
 
         model.addAttribute("expensesByDate", expensesByDate);
         model.addAttribute("trip", trip);

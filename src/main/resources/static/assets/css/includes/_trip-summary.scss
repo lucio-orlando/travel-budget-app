@@ -7,7 +7,7 @@
   margin-bottom: 2rem;
 
   .trip-summary__title,
-  .trip-summary__daily-amount,
+  .trip-summary__stat-amount,
   .trip-summary__total-amount {
     color: $text-primary;
     font-weight: 600;
@@ -22,7 +22,7 @@
     }
   }
 
-  .trip-summary__daily-amount {
+  .trip-summary__stat-amount {
     font-size: 1.25rem;
 
     svg {
